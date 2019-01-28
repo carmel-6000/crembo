@@ -1,0 +1,122 @@
+{
+    "name": "ChildrenRides",
+    "crud": {
+        "fields": {
+            "id": {},
+            "childId": {
+                "width": 80,
+                "editable": "true"
+
+            },
+            "rideId": {
+                "width": 80,
+                "editable": "true"
+
+            },
+            "hasJoined": {
+                "type": "boolean",
+                "editable": "true"
+            },
+            "hasLeft": {
+                "type": "boolean",
+                "editable": "true"
+            }
+        }
+    },
+    "options": {
+        "idInjection": false,
+        "mysql": {
+            "schema": "crembo",
+            "table": "children_rides"
+        },
+        "relations": {
+            "rides": {
+                "model": "Rides",
+                "type": "belongsTo",
+                "foreignKey": "rideId"
+            },
+            "children": {
+                "model": "Children",
+                "type": "belongsTo",
+                "foreignKey": "childId"
+            }
+        }
+    },
+    "properties": {
+        "id": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "childId": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "child_id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "rideId": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "ride_id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "hasJoined": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "has_joined",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "hasLeft": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "has_left",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        }
+    }
+}

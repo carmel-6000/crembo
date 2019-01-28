@@ -1,0 +1,189 @@
+{
+    "name": "Children",
+    "crud": {
+        "fields": {
+            "index": {},
+            "id": {},
+            "thumbnail": {
+                "type": "image",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "firstName": {
+                "type": "text",
+                "editable": "true"
+            },
+            "lastName": {
+                "type": "text",
+                "editable": "true"
+            },
+            "gender": {
+                "type": "enum",
+                "options": [
+                    "male",
+                    "female",
+                    "other"
+                ],
+                "editable": "true",
+                "width": "100"
+            },
+            "branch": {
+                "type": "enum",
+                "options": [
+                    "jerusalem",
+                    "beer-sheva",
+                    "ashdod"
+                ],
+                "editable": "true",
+                "width": "100"
+            },
+            "address": {
+                "isHidden": "false"
+            },
+            "assistants": {
+                "isHidden": "false",
+                "type": "tag-list"
+            },
+            "requests": {
+                "isHidden": "false"
+            }
+        }
+    },
+    "options": {
+        "idInjection": false,
+        "mysql": {
+            "schema": "crembo",
+            "table": "children"
+        },
+        "relations": {
+            "rides": {
+                "type": "belongsTo",
+                "model": "Rides",
+                "foreignKey": "childId",
+                "through": "childrenRides",
+                "keyThrough": "rideId"
+            }
+        }
+    },
+    "properties": {
+        "id": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "thumbnail": {
+            "type": "String",
+            "required": true,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "thumbnail",
+                "dataType": "varchar",
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "firstName": {
+            "type": "String",
+            "required": false,
+            "length": 50,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "first_name",
+                "dataType": "varchar",
+                "dataLength": 50,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "lastName": {
+            "type": "String",
+            "required": false,
+            "length": 50,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "last_name",
+                "dataType": "varchar",
+                "dataLength": 50,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "gender": {
+            "type": "string",
+            "required": false,
+            "length": 7,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "gender",
+                "dataType": "enum",
+                "dataLength": null,
+                "dataPrecision": 7,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "branch": {
+            "type": "string",
+            "required": false,
+            "length": 7,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "branch",
+                "dataType": "enum",
+                "dataLength": null,
+                "dataPrecision": 7,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "address": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "address",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "requests": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "requests",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        }
+    }
+}

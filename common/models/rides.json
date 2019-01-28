@@ -1,0 +1,229 @@
+{
+    "name": "Rides",
+    "crud": {
+        "fields": {
+            "id": {},
+            "plannedTime": {
+                "type": "date",
+                "editable": "true",
+                "width": "100"
+            },
+            "departureTime": {
+                "type": "date",
+                "editable": "true",
+                "width": "100"
+            },
+            "path": {
+                "type": "tag-list",
+                "tags": [
+                    "jerudfgsalem",
+                    "-sheva",
+                    "dfgdgg"
+                ]
+            },
+            "children": {
+                "type": "list-view",
+                "listView": ["firstName", "lastName"]
+            },
+            "assistants": {
+                "type": "tag-list",
+                "tags": [
+                    "shlomo",
+                    "shir",
+                    "rowni"
+                ]
+            },
+            "branch": {
+                "type": "enum",
+                "options": [
+                    "jerusalem",
+                    "beer-sheva",
+                    "ashdod"
+                ],
+                "editable": "true",
+                "width": "100"
+            },
+            "isAbstract": {
+                "type": "boolean",
+                "editable": "true"
+            },
+            "isLive": {
+                "type": "boolean",
+                "editable": "true"
+            },
+            "progress": {
+                "type": "progress",
+                "editable": "true"
+                
+            },
+            "isDanger": {
+                "type": "boolean",
+                "editable": "true"
+            }
+        }
+    },
+    "options": {
+        "idInjection": false,
+        "mysql": {
+            "schema": "crembo",
+            "table": "rides"
+        },
+        "relations": {
+            "children": { 
+                "type": "hasMany",
+                "model": "Children",
+                "foreignKey": "rideId",
+                "through": "ChildrenRides",
+                "keyThrough": "childId"
+            }
+        }
+    },
+    "properties": {
+        "id": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "plannedTime": {
+            "type": "Date",
+            "required": false,
+            "length": null,
+            "precision": null,
+            "scale": null,
+            "default": "$now",
+            "mysql": {
+                "columnName": "planned_time",
+                "dataType": "datetime",
+                "dataLength": null,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "departureTime": {
+            "type": "Date",
+            "required": false,
+            "length": null,
+            "precision": null,
+            "scale": null,
+            "default": "$now",
+            "mysql": {
+                "columnName": "departure_time",
+                "dataType": "datetime",
+                "dataLength": null,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "arrivesAt": {
+            "type": "Date",
+            "required": false,
+            "length": null,
+            "precision": null,
+            "scale": null,
+            "default": "$now",
+            "mysql": {
+                "columnName": "arrives_at",
+                "dataType": "datetime",
+                "dataLength": null,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "branch": {
+            "type": "string",
+            "required": false,
+            "length": 7,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "branch",
+                "dataType": "enum",
+                "dataLength": null,
+                "dataPrecision": 7,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "isAbstract": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_abstract",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "isLive": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_live",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "progress": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "progress",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "isDanger": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_danger",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        }
+    },
+    "acls":[
+    {
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$unauthenticated",
+        "permission": "DENY"
+    }
+    ]
+}

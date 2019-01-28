@@ -1,0 +1,64 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "msql"
+  },
+  "AccessToken": {
+    "dataSource": "msql",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "msql",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "msql",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": false
+  },
+  "Rides": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
+  "Children": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
+  "ChildrenRides": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
+  "Branches": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
+  "UsersRoles": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  }
+}
