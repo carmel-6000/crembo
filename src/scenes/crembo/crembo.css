@@ -1,0 +1,35 @@
+.crembo-font {
+    font-family: 'Alef', sans-serif;
+}
+
+.primary {
+    background-color: #00acc1;
+}
+
+.secondary{
+    background-color: #ffb300;
+    color: white;
+    border-color:#e6a40d;
+}
+
+.nav-linker {
+    text-align: right;
+    font-family: 'Amatic SC', cursive;
+    font-size: 36px;
+}
+
+.navbar-brand {
+    font-family: 'Amatic SC', cursive;
+    font-size: 44px;
+}
+
+body {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+    color: #5a5a5a;
+  }
+  
+
+.center{
+    text-align: center;
+}
