@@ -2,21 +2,14 @@
     "name": "Branches",
     "crud": {
         "fields": {
-            "index": {},
             "id": {},
-            "town": {
+            "city": {
                 "type": "text",
                 "editable": "true"
             },
-            "childrenTotal": {
-                "type": "number",
-                "isHidden": "false" 
-            },
-            "branchManager": {
-                "isHidden": "false" 
-            },
-            "rides": {
-                "isHidden": "false" 
+            "address": {
+                "type": "text",
+                "editable": "true"
             }
         }
     },
@@ -26,7 +19,9 @@
             "schema": "crembo",
             "table": "branches"
         },
-        "relations": {}
+        "relations": {
+            
+        }
     },
     "properties": {
         "id": {
@@ -44,61 +39,31 @@
                 "nullable": "N"
             }
         },
-        "town": {
+        "city": {
             "type": "String",
             "required": false,
-            "length": 200,
+            "length": 255,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "town",
+                "columnName": "city",
                 "dataType": "varchar",
-                "dataLength": 200,
+                "dataLength": 255,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
             }
         },
-        "childrenTotal": {
+        "address": {
             "type": "String",
             "required": false,
-            "length": 200,
+            "length": 255,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "children_total",
+                "columnName": "address",
                 "dataType": "varchar",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "branchManager": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "branch_manager",
-                "dataType": "varchar",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "rides": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "rides",
-                "dataType": "varchar",
-                "dataLength": 200,
+                "dataLength": 255,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"

@@ -36,17 +36,12 @@
     "public": true,
     "expose": false
   },
-  "Rides": {
-    "dataSource": "msql",
-    "public": true,
-    "expose": true
-  },
   "Children": {
     "dataSource": "msql",
     "public": true,
     "expose": true
   },
-  "ChildrenRides": {
+  "Assistants": {
     "dataSource": "msql",
     "public": true,
     "expose": true
@@ -56,7 +51,7 @@
     "public": true,
     "expose": true
   },
-  "UsersRoles": {
+  "LiveRides": {
     "dataSource": "msql",
     "public": true,
     "expose": true

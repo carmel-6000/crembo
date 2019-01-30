@@ -1,76 +1,72 @@
 {
-    "name": "Children",
+    "name": "LiveRides",
     "crud": {
         "fields": {
             "id": {},
-           
-            "firstName": {
+            "rideName": {
                 "type": "text",
                 "editable": "true"
             },
-            "lastName": {
+            "rideDate": {
                 "type": "text",
                 "editable": "true"
             },
-            "thumbnail": {
-                "type": "image",
-                "editable": "true",
-                "isHidden": "false"
-            },
-            "adressForth": {
+            "departureTime": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "adressBack": {
+            "arrivalTime": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "gender": {
+            "backOrForth": {
                 "type": "enum",
                 "options": [
-                    "male",
-                    "female",
-                    "other"
+                    "back",
+                    "forth"
                 ],
                 "editable": "true",
                 "width": "100"
             },
-            "age": {
-                "type": "number",
-                "editable": "true",
-                "isHidden": "false"
-            },
-            "contactName": {
+            "driver": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "contactPhone": {
+            "children": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "alertTime": {
+            "asisstants": {
                 "type": "number",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "requests": {
+            "children_boarded": {
+                "type": "text",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "isDanger": {
+                "type": "boolean",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "summary": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             }
-            
-            
         }
     },
     "options": {
         "idInjection": false,
         "mysql": {
             "schema": "crembo",
-            "table": "children"
+            "table": "live_rides"
         },
         "relations": {
             
@@ -92,14 +88,14 @@
                 "nullable": "N"
             }
         },
-        "firstName": {
+        "rideName": {
             "type": "String",
             "required": false,
             "length": 255,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "first_name",
+                "columnName": "ride_name",
                 "dataType": "varchar",
                 "dataLength": 255,
                 "dataPrecision": null,
@@ -107,43 +103,14 @@
                 "nullable": "Y"
             }
         },
-        "lastName": {
-            "type": "String",
-            "required": false,
-            "length": 255,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "last_name",
-                "dataType": "varchar",
-                "dataLength": 255,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "thumbnail": {
-            "type": "String",
-            "required": true,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "thumbnail",
-                "dataType": "varchar",
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "adressForth": {
+        "rideDate": {
             "type": "String",
             "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_forth",
+                "columnName": "ride_date",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
@@ -151,14 +118,14 @@
                 "nullable": "Y"
             }
         },
-        "adressBack": {
+        "departureTime": {
             "type": "String",
             "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_back",
+                "columnName": "departure_time",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
@@ -166,14 +133,29 @@
                 "nullable": "Y"
             }
         },
-        "gender": {
+        "arrivalTime": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "arrival_time",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "backOrForth": {
             "type": "string",
             "required": false,
             "length": 7,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "gender",
+                "columnName": "back_or_forth",
                 "dataType": "enum",
                 "dataLength": null,
                 "dataPrecision": 7,
@@ -181,72 +163,90 @@
                 "nullable": "Y"
             }
         },
-        "age": {
-            "type": "number",
-            "length": null,
-            "precision": 2,
-            "scale": 0,
-            "mysql": {
-                "columnName": "age",
-                "dataType": "int",
-                "dataLength": null,
-                "dataPrecision": 2,
-                "dataScale": 0,
-                "nullable": "N"
-            }
-        },
-        "contactName": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "contact_name",
-                "dataType": "varchar",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "contactPhone": {
-            "type": "String",
-            "required": false,
-            "length": 10,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-              "columnName": "contact_phone",
-              "dataType": "varchar",
-              "dataLength": 10,
-              "dataPrecision": null,
-              "dataScale": null,
-              "nullable": "Y"
-            }
-          },
-        "alertTime": {
-            "type": "number",
-            "length": null,
-            "precision": 3,
-            "scale": 0,
-            "mysql": {
-                "columnName": "alert_time",
-                "dataType": "int",
-                "dataLength": null,
-                "dataPrecision": 3,
-                "dataScale": 0,
-                "nullable": "N"
-            }
-        },
-        "requests": {
+       
+        "driver": {
             "type": "String",
             "required": false,
             "length": 65535,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "requests",
+                "columnName": "driver",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "children": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "children",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "asisstants": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "asisstants",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "childrenBoarded": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "children_boarded",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "isDanger": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_danger",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "summary": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "summary",
                 "dataType": "text",
                 "dataLength": 65535,
                 "dataPrecision": null,
@@ -254,5 +254,6 @@
                 "nullable": "Y"
             }
         }
+        
     }
 }

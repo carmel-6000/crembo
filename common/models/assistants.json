@@ -1,5 +1,5 @@
 {
-    "name": "Children",
+    "name": "Assistants",
     "crud": {
         "fields": {
             "id": {},
@@ -37,40 +37,30 @@
                 "editable": "true",
                 "width": "100"
             },
-            "age": {
-                "type": "number",
-                "editable": "true",
-                "isHidden": "false"
-            },
-            "contactName": {
+           
+           "phone": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "contactPhone": {
+            
+            "notes": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "alertTime": {
-                "type": "number",
-                "editable": "true",
-                "isHidden": "false"
-            },
-            "requests": {
+            "branch": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             }
-            
-            
         }
     },
     "options": {
         "idInjection": false,
         "mysql": {
             "schema": "crembo",
-            "table": "children"
+            "table": "assistants"
         },
         "relations": {
             
@@ -181,43 +171,15 @@
                 "nullable": "Y"
             }
         },
-        "age": {
-            "type": "number",
-            "length": null,
-            "precision": 2,
-            "scale": 0,
-            "mysql": {
-                "columnName": "age",
-                "dataType": "int",
-                "dataLength": null,
-                "dataPrecision": 2,
-                "dataScale": 0,
-                "nullable": "N"
-            }
-        },
-        "contactName": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "contact_name",
-                "dataType": "varchar",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "contactPhone": {
+        
+        "phone": {
             "type": "String",
             "required": false,
             "length": 10,
             "precision": null,
             "scale": null,
             "mysql": {
-              "columnName": "contact_phone",
+              "columnName": "phone",
               "dataType": "varchar",
               "dataLength": 10,
               "dataPrecision": null,
@@ -225,28 +187,29 @@
               "nullable": "Y"
             }
           },
-        "alertTime": {
-            "type": "number",
-            "length": null,
-            "precision": 3,
-            "scale": 0,
-            "mysql": {
-                "columnName": "alert_time",
-                "dataType": "int",
-                "dataLength": null,
-                "dataPrecision": 3,
-                "dataScale": 0,
-                "nullable": "N"
-            }
-        },
-        "requests": {
+        "notes": {
             "type": "String",
             "required": false,
             "length": 65535,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "requests",
+                "columnName": "notes",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "branch": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "branch",
                 "dataType": "text",
                 "dataLength": 65535,
                 "dataPrecision": null,
