@@ -3,7 +3,6 @@
     "crud": {
         "fields": {
             "id": {},
-           
             "firstName": {
                 "type": "text",
                 "editable": "true"
