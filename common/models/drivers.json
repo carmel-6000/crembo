@@ -1,0 +1,192 @@
+{
+    "name": "Drivers",
+    "crud": {
+        "fields": {
+            "id": {},
+            "thumbnail": {
+                "type": "image",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "firstName": {
+                "type": "text",
+                "editable": "true"
+            },
+            "lastName": {
+                "type": "text",
+                "editable": "true"
+            },
+            "gender": {
+                "type": "enum",
+                "options": [
+                    "male",
+                    "female",
+                    "other"
+                ],
+                "editable": "true",
+                "width": "100"
+            },
+            "phone": {
+                "type": "number",
+                "width": 10,
+                "editable": "true"
+            },
+            "sits": {
+                "type": "number",
+                "width": 10,
+                "editable": "true"
+            },
+            "notes": {
+                "type": "text",
+                "editable": "true"
+            },
+            "branch": {
+                "type": "text",
+                "editable": "true"
+            }
+        }
+    },
+    "options": {
+        "idInjection": false,
+        "mysql": {
+            "schema": "crembo",
+            "table": "drivers"
+        },
+        "relations": {}
+    },
+    "properties": {
+        "id": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 10,
+            "scale": 0,
+            "mysql": {
+                "columnName": "id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 10,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "thumbnail": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "thumbnail",
+                "dataType": "text",
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "firstName": {
+            "type": "String",
+            "required": true,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "first_name",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "N"
+            }
+        },
+        "lastName": {
+            "type": "String",
+            "required": true,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "last_name",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "N"
+            }
+        },
+        "gender": {
+            "type": "String",
+            "required": false,
+            "length": 7,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "gender",
+                "dataType": "enum",
+                "dataLength": null,
+                "dataPrecision": 7,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "phone": {
+            "type": "Number",
+            "required": false,
+            "length": 10,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "phone",
+                "dataType": "int",
+                "dataLength": 10,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "sits": {
+            "type": "Number",
+            "required": false,
+            "length": 10,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "sits",
+                "dataType": "int",
+                "dataLength": 10,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "notes": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "notes",
+                "dataType": "text",
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "branch": {
+            "type": "string",
+            "required": true,
+            "length": 7,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "branch",
+                "dataType": "varchar",
+                "dataLength": null,
+                "dataPrecision": 7,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        }
+    }
+}
