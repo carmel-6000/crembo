@@ -6,24 +6,25 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './dashboard.css';
-import PrivateRoute from '../../App'
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
+    )} />
+)
 
 class NavHeaderComponent extends Component {
     constructor(props) {
         super(props);
-
     }
-
     render() {
         return (
             <ul className="nav d-flex flex-row-reverse">
                 <a className="nav-linker" onClick={this.props.logout} href="#"> <i className="fas fa-sign-in-alt" /> Log out</a>
                 <Link to="/dashboard/user" style={{ textDecoration: 'none' }}>
-                    <a className="nav-linker" href="#"><i className="fas fa-user-tie" /> Admin</a>
+                <a className="nav-linker" href="#"><i className="fas fa-user-tie" /> Admin</a>
                 </Link>
             </ul>
-
-
         );
     }
 }
