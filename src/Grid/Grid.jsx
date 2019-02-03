@@ -67,77 +67,77 @@ class EnumEditor extends DropDownEditor {
 
 
 
-// class RowRenderer extends React.Component {
-//   static propTypes = {
-//     idx: PropTypes.number
-//   };
+class RowRenderer extends React.Component {
+  static propTypes = {
+    idx: PropTypes.number
+  };
 
-//   constructor(props) {
-//     super(props);
-//     //    console.log("this.parentState",this.props.parentState);
-//   }
+  constructor(props) {
+    super(props);
+    //    console.log("this.parentState",this.props.parentState);
+  }
 
-//   setScrollLeft = (scrollBy) => {
-//     // if you want freeze columns to work, you need to make sure you implement this as apass through
-//     this.row.setScrollLeft(scrollBy);
-//   };
+  setScrollLeft = (scrollBy) => {
+    // if you want freeze columns to work, you need to make sure you implement this as apass through
+    this.row.setScrollLeft(scrollBy);
+  };
 
-//   getClassName = () => {
+  getClassName = () => {
 
-//     let bgColor = '';
-//     // console.log("this.row",this.row); // זה מאוד חשוב והכל 
-//     if (this.props.parentState.crud && this.props.parentState.crud.metaFunctions &&
-//       this.props.parentState.crud.metaFunctions.heightLightRows && Array.isArray(this.props.parentState.crud.metaFunctions.heightLightRows) && typeof this.row === 'object') {
+    let bgColor = '';
+    // console.log("this.row",this.row); // זה מאוד חשוב והכל 
+    if (this.props.parentState.crud && this.props.parentState.crud.metaFunctions &&
+      this.props.parentState.crud.metaFunctions.heightLightRows && Array.isArray(this.props.parentState.crud.metaFunctions.heightLightRows) && typeof this.row === 'object') {
 
-//       this.props.parentState.crud.metaFunctions.heightLightRows.forEach((hlRow) => {
-//         //hlRow.field
-//         if (this.row.props.row[hlRow.field] !== null) {
+      this.props.parentState.crud.metaFunctions.heightLightRows.forEach((hlRow) => {
+        //hlRow.field
+        if (this.row.props.row[hlRow.field] !== null) {
 
-//           //console.log ("val for field ("+hlRow.field+"):",this.row.props.row[hlRow.field]);
-//           //console.log("DIFF IN HOURS",moment().diff(moment(this.row.props.row[hlRow.field]),'hours'));
-//           if (hlRow.rule == 'morethenhours' && hlRow.hours) {
+          //console.log ("val for field ("+hlRow.field+"):",this.row.props.row[hlRow.field]);
+          //console.log("DIFF IN HOURS",moment().diff(moment(this.row.props.row[hlRow.field]),'hours'));
+          if (hlRow.rule == 'morethenhours' && hlRow.hours) {
 
-//             //console.log("hlRow.rule is 'morethenhours'");
-//             let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
-//             if (diff > hlRow.hours) {
-//               bgColor = hlRow.backgroundColor;
-//             }
-
-
-//           }
-//           if (hlRow.rule == 'lasthours' && hlRow.hours) {
+            //console.log("hlRow.rule is 'morethenhours'");
+            let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
+            if (diff > hlRow.hours) {
+              bgColor = hlRow.backgroundColor;
+            }
 
 
-//             let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
-//             console.log("hlRow.rule is 'lasthours' for user:" + this.row.props.row.userName + " with diff:" + diff);
-//             //console.log("DIFF?!",diff);
-//             //console.log("hlRow.hours",hlRow.hours);
-
-//             if (diff > 0 && diff < hlRow.hours) {
-//               bgColor = hlRow.backgroundColor;
-//             }
-
-//           }
-
-//           //moment(rawDate).format('DD/MM/YY HH:mm');
-//         }
-//       });
+          }
+          if (hlRow.rule == 'lasthours' && hlRow.hours) {
 
 
+            let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
+            console.log("hlRow.rule is 'lasthours' for user:" + this.row.props.row.userName + " with diff:" + diff);
+            //console.log("DIFF?!",diff);
+            //console.log("hlRow.hours",hlRow.hours);
 
-//     }
-//     return bgColor;
-//   }
+            if (diff > 0 && diff < hlRow.hours) {
+              bgColor = hlRow.backgroundColor;
+            }
+
+          }
+
+          //moment(rawDate).format('DD/MM/YY HH:mm');
+        }
+      });
 
 
 
-//   render() {
-//     // here we are just changing the style
-//     // but we could replace this with anything we liked, cards, images, etc
-//     // usually though it will just be a matter of wrapping a div, and then calling back through to the grid
-//     return (<div className={this.getClassName()} ><Row ref={node => this.row = node} {...this.props} /></div>);
-//   }
-// }
+    }
+    return bgColor;
+  }
+
+
+
+  render() {
+    // here we are just changing the style
+    // but we could replace this with anything we liked, cards, images, etc
+    // usually though it will just be a matter of wrapping a div, and then calling back through to the grid
+    return (<div className={this.getClassName()} ><Row ref={node => this.row = node} {...this.props} /></div>);
+  }
+}
 
 class BooleanFormatter extends React.Component {
 
@@ -1088,6 +1088,7 @@ class Grid extends Component {
       delete uRow.id;
       delete uRow.created;
       console.log("new row?", updatedRow.id);
+      console.log("lalala", uRow)
       let whereUrlEncoded = '{"id":' + (updatedRow.id == null ? '"a"' : updatedRow.id) + '}';
       Auth.authPost(this.props.modelApi + '/upsertWithWhere?where=' + whereUrlEncoded, { method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body: JSON.stringify(uRow) }).then(response => { return response.json() }).then(res => {
         console.log("Update res", res);
@@ -1162,34 +1163,34 @@ class Grid extends Component {
             rowsCount={this.getSize()}
             minHeight={800}
             onAddFilter={this.handleFilterChange}
-            // onRowExpandToggle={this.onRowExpandToggle}
+            onRowExpandToggle={this.onRowExpandToggle}
             contextMenu={
               <MyContextMenu id="customizedContextMenu" onRowDelete={this.deleteRow}
               />
             }
-            // toolbar={
-            //   <CustomToolbar
-            //     handleCustomButtonClick={this.handleCustomButtonClick}
-            //     customButtons={this.customButtons}
-            //     groupBy={this.state.groupBy}
-            //     onColumnGroupAdded={this.onColumnGroupAdded}
-            //     onColumnGroupDeleted={this.onColumnGroupDeleted}
-            //     enableFilter={true}
-            //     onAddRow={this.addNewRow}
-            //     filterRowsButtonText="Filter"
-            //     addCol={this.addCol}
-            //     removeCol={this.removeCol}
-            //     allCols={this.state.allCols}
-            //   />
-            // }
+            toolbar={
+              <CustomToolbar
+                handleCustomButtonClick={this.handleCustomButtonClick}
+                customButtons={this.customButtons}
+                groupBy={this.state.groupBy}
+                onColumnGroupAdded={this.onColumnGroupAdded}
+                onColumnGroupDeleted={this.onColumnGroupDeleted}
+                enableFilter={true}
+                onAddRow={this.addNewRow}
+                filterRowsButtonText="Filter"
+                addCol={this.addCol}
+                removeCol={this.removeCol}
+                allCols={this.state.allCols}
+              />
+            }
             onClearFilters={this.onClearFilters}
             onGridRowsUpdated={this.handleGridRowsUpdated}
-            // rowRenderer={
-            //   <RowRenderer parentState={this.state} />
-            // }
+            rowRenderer={
+              <RowRenderer parentState={this.state} />
+            }
           />
         </DraggableContainer>
-        {/* <ModalPopup /> */}
+        <ModalPopup />
       </React.Fragment>
 
     );

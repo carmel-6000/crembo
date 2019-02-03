@@ -92,7 +92,7 @@
             }
         },
         "plannedTime": {
-            "type": "Time",
+            "type": "String",
             "required": false,
             "length": null,
             "precision": null,

@@ -9,8 +9,14 @@ import logoImage from '../../img/carmel.png';
 import './crembo.css';
 import PrivateRoute from '../../App';
 import Home from './home';
+import Neta from './neta'
+import NewActivity from './newActivity'
 
-
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
+    )} />
+)
 class Crembo extends Component {
     constructor(props) {
         super(props);
@@ -20,15 +26,14 @@ class Crembo extends Component {
             <div className="crembo-font">
 
                 <NavBar />
-                <Home/>
-                {/* <PrivateRoute exact path="/" component={DefaultTables} /> */}
-            </div>
+                <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute exact path="/neta" component={Neta} />
+                <PrivateRoute exact path="/new-activity" component={NewActivity} />
 
+            </div>
         );
     }
 }
-
-
 
 class NavHeaderComponent extends Component {
     constructor(props) {
