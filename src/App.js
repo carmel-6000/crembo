@@ -30,7 +30,7 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute exact path="/" component={Crembo} />
+                    <PrivateRoute path="/" component={Crembo} />
                     <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}
                     />
                 </div>
