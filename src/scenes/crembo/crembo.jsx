@@ -9,6 +9,7 @@ import logoImage from '../../img/carmel.png';
 import './crembo.css';
 import Home from './home'
 import Neta from './neta'
+import NewActivity from './newActivity'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -25,6 +26,8 @@ class Crembo extends Component {
                 <NavBar />
                 <PrivateRoute exact path="/" component={Home} />
                 <PrivateRoute exact path="/neta" component={Neta} />
+                <PrivateRoute exact path="/new-activity" component={NewActivity} />
+
             </div>
         );
     }
