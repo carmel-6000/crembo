@@ -38,4 +38,7 @@ body {
     font-size: 2vh;
 }
 
- 
+.sidebarbutton {
+    margin-top: 7%;
+    margin-left: 7%;
+}

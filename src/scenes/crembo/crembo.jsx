@@ -7,8 +7,9 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './crembo.css';
-import PrivateRoute from '../../App'
-import Home from './home'
+import PrivateRoute from '../../App';
+import Home from './home';
+
 
 class Crembo extends Component {
     constructor(props) {
@@ -17,8 +18,10 @@ class Crembo extends Component {
     render() {
         return (
             <div className="crembo-font">
+
                 <NavBar />
-                <Home />
+                <Home/>
+                {/* <PrivateRoute exact path="/" component={DefaultTables} /> */}
             </div>
 
         );
@@ -30,11 +33,19 @@ class Crembo extends Component {
 class NavHeaderComponent extends Component {
     constructor(props) {
         super(props);
+        this.state={
+            showMenu: false
+        }
 
     }
+    menuBtnClicked=(val)=>{
+        this.setState({showMenu: val})
+    }
+
 
     render() {
         return (
+            <div>
             <ul class="navbar-nav mr-auto ">
                 <li class="nav-item active">
                     <a class="nav-link nav-linker" onClick={this.props.logout} href="#">
@@ -43,12 +54,21 @@ class NavHeaderComponent extends Component {
                 <li class="nav-item active" >
                     <a class="nav-link nav-linker" href="/user">
                         <i className="fas fa-user-tie" /> משתמש
-                </a>
+                    </a>
+                </li>
+                <li class="nav-item active" >
+                    <a class="nav-link nav-linker" >
+                       <i className="fas fa-star" onClick={()=>this.menuBtnClicked(true)}  />  תפריט
+                    </a>
                 </li>
             </ul>
+            {this.state.showMenu && <div>this is the menu</div>}
+            </div>
         );
     }
 }
+
+
 
 //THIS IS WHERE THE CARMEL6000LOGO, ADMIN AND LOGIN IS. 
 class NavBar extends Component {
