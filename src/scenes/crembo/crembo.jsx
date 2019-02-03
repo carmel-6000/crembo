@@ -7,9 +7,14 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './crembo.css';
-import PrivateRoute from '../../App'
 import Home from './home'
+import NewActivity from './newActivity'
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+        Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
+    )} />
+)
 class Crembo extends Component {
     constructor(props) {
         super(props);
@@ -18,9 +23,10 @@ class Crembo extends Component {
         return (
             <div className="crembo-font">
                 <NavBar />
-                <Home />
-            </div>
+                <PrivateRoute exact path="/" component={Home} />
+                <PrivateRoute exact path="/new-activity" component={NewActivity} />
 
+            </div>
         );
     }
 }

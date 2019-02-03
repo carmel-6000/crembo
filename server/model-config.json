@@ -65,5 +65,10 @@
     "dataSource": "msql",
     "public": true,
     "expose": true
+  },
+  "Activities": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
   }
 }
