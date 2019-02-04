@@ -8,9 +8,9 @@
                 "width": 10,
                 "editable": "true"
             },
-            "branchId": {
+            "branch": {
                 "type": "number",
-                "width": 10,
+                "width": 11,
                 "editable": "true"
             },
             "activityDate": {
@@ -19,6 +19,10 @@
             },
             "activityTime": {
                 "type": "text",
+                "editable": "true"
+            },
+            "isLive": {
+                "type": "boolean",
                 "editable": "true"
             }
         }
@@ -64,17 +68,17 @@
               "nullable": "Y"
             }
           },
-          "branchId": {
+          "branch": {
             "type": "number",
             "required": false,
-            "length": 10,
-            "precision": 10,
+            "length": 11,
+            "precision": 11,
             "scale": 0,
             "mysql": {
-              "columnName": "branch_id",
+              "columnName": "branch",
               "dataType": "int",
               "dataLength": null,
-              "dataPrecision": 10,
+              "dataPrecision": 11,
               "dataScale": 0,
               "nullable": "Y"
             }
@@ -106,6 +110,21 @@
                 "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "isLive":{
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_danger",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         }

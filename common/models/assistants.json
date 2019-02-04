@@ -3,7 +3,6 @@
     "crud": {
         "fields": {
             "id": {},
-           
             "firstName": {
                 "type": "text",
                 "editable": "true"
@@ -37,22 +36,20 @@
                 "editable": "true",
                 "width": "100"
             },
-           
-           "phone": {
+            "phone": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            
             "notes": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
             "branch": {
-                "type": "text",
-                "editable": "true",
-                "isHidden": "false"
+                "type": "number",
+                "width": 10,
+                "editable": "true"
             }
         }
     },
@@ -62,9 +59,7 @@
             "schema": "crembo",
             "table": "assistants"
         },
-        "relations": {
-            
-        }
+        "relations": {}
     },
     "properties": {
         "id": {
@@ -171,7 +166,6 @@
                 "nullable": "Y"
             }
         },
-        
         "phone": {
             "type": "String",
             "required": false,
@@ -179,14 +173,14 @@
             "precision": null,
             "scale": null,
             "mysql": {
-              "columnName": "phone",
-              "dataType": "varchar",
-              "dataLength": 10,
-              "dataPrecision": null,
-              "dataScale": null,
-              "nullable": "Y"
+                "columnName": "phone",
+                "dataType": "varchar",
+                "dataLength": 10,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
             }
-          },
+        },
         "notes": {
             "type": "String",
             "required": false,
@@ -203,17 +197,17 @@
             }
         },
         "branch": {
-            "type": "String",
+            "type": "number",
             "required": false,
-            "length": 65535,
-            "precision": null,
-            "scale": null,
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
             "mysql": {
                 "columnName": "branch",
-                "dataType": "text",
-                "dataLength": 65535,
-                "dataPrecision": null,
-                "dataScale": null,
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         }

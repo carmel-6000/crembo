@@ -41,7 +41,8 @@
                 "editable": "true"
             },
             "branch": {
-                "type": "text",
+                "type": "number",
+                "width": 11,
                 "editable": "true"
             }
         }
@@ -174,18 +175,18 @@
             }
         },
         "branch": {
-            "type": "string",
-            "required": true,
-            "length": 7,
-            "precision": null,
-            "scale": null,
+            "type": "number",
+            "required": false,
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
             "mysql": {
                 "columnName": "branch",
-                "dataType": "varchar",
+                "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 7,
+                "dataPrecision": 11,
                 "dataScale": 0,
-                "nullable": "N"
+                "nullable": "Y"
             }
         }
     }
