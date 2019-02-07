@@ -61,7 +61,7 @@ class NewActivity extends Component {
                 <div className="row">שעת הפעילות</div>
                 <input className="row" type="time" name="time" id="time" onChange={this.setActivity}></input>
                <Link to={{ pathname: "/rides", state: this.state}}>
-                <button className="row" onClick={this.addActivity} >הוסף</button>
+                <button disabled={this.state.activityDate && this.state.activityTime? false : true}className="row" onClick={this.addActivity} >הוסף</button>
                 </Link>
             </div>
         );
