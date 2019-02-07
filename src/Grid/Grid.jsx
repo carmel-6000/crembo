@@ -2,8 +2,8 @@ import ReactDataGrid from 'react-data-grid';
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import update from 'immutability-helper';
-// import './Grid.css';
-// import './ContextMenu.css'
+import './Grid.css';
+import './ContextMenu.css'
 import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
