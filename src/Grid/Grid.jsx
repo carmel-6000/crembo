@@ -162,8 +162,8 @@ class ProgressBarFormatter extends React.Component {
   render() {
     const val = this.props.value;
     return (
-      <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+      <div className="progress">
+        <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
           aria-valuenow={val} aria-valuemin="0" aria-valuemax="100" style={{ width: val + '%' }}> {val}% </div>
       </div>
     );
@@ -234,7 +234,7 @@ class ListFormatter extends React.Component {
       return (
         <div className="btn-group">
           {this.listed.map((item) => (
-            <h4> <span class="badge badge-info">{item}</span></h4>
+            <h4> <span className="badge badge-info">{item}</span></h4>
           ))}
         </div>
       );

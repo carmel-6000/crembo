@@ -23,12 +23,17 @@
 }
 
 .rideCard{
-    /* background-color: rgb(158, 171, 179); */
     color: black;
     -webkit-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
     -moz-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
-    box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
-            border-radius: 3vh;
-margin: 1% 4%
+    box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.3);
+    border-radius: 3vh;
+    margin: 3% 4%;
+    padding: 1%
 
+}
+
+.numOfChildren {
+    margin-right:8%;
+    font-size: 3.5vw;
 }

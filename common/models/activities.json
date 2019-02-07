@@ -3,12 +3,7 @@
     "crud": {
         "fields": {
             "id": {},
-            "userId": {
-                "type": "number",
-                "width": 10,
-                "editable": "true"
-            },
-            "branchId": {
+            "managerId": {
                 "type": "number",
                 "width": 10,
                 "editable": "true"
@@ -20,6 +15,10 @@
             "activityTime": {
                 "type": "text",
                 "editable": "true"
+            },
+            "isLive": {
+                "type": "boolean",
+                "editable": "true"
             }
         }
     },
@@ -29,8 +28,8 @@
             "schema": "crembo",
             "table": "activities"
         },
-        "relations": {
-           
+        "relations": {  
+          
         }
     },
     "properties": {
@@ -49,14 +48,14 @@
                 "nullable": "N"
             }
         },
-        "userId": {
+        "managerId": {
             "type": "number",
             "required": false,
             "length": 10,
             "precision": 10,
             "scale": 0,
             "mysql": {
-              "columnName": "user_id",
+              "columnName": "manager_id",
               "dataType": "int",
               "dataLength": null,
               "dataPrecision": 10,
@@ -64,17 +63,17 @@
               "nullable": "Y"
             }
           },
-          "branchId": {
+          "branch": {
             "type": "number",
             "required": false,
-            "length": 10,
-            "precision": 10,
+            "length": 11,
+            "precision": 11,
             "scale": 0,
             "mysql": {
-              "columnName": "branch_id",
+              "columnName": "branch",
               "dataType": "int",
               "dataLength": null,
-              "dataPrecision": 10,
+              "dataPrecision": 11,
               "dataScale": 0,
               "nullable": "Y"
             }
@@ -106,6 +105,21 @@
                 "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "isLive":{
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_live",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         }

@@ -8,7 +8,7 @@ const Auth = {
   isAuthenticated() {
 
     let at = localStorage.getItem('accessToken');
-    console.log("access token?", at);
+    // console.log("access token?", at);
     this._isAuthenticated = at !== null;
     return this._isAuthenticated;
 

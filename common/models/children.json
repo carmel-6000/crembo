@@ -61,8 +61,6 @@
                 "editable": "true",
                 "isHidden": "false"
             }
-            
-            
         }
     },
     "options": {
@@ -72,7 +70,13 @@
             "table": "children"
         },
         "relations": {
-            
+            "rides": {
+                "type": "belongsTo",
+                "model": "Rides",
+                "foreignKey": "childId",
+                "through": "childrenRides",
+                "keyThrough": "rideId"
+            }
         }
     },
     "properties": {
@@ -216,14 +220,14 @@
             "precision": null,
             "scale": null,
             "mysql": {
-              "columnName": "contact_phone",
-              "dataType": "varchar",
-              "dataLength": 10,
-              "dataPrecision": null,
-              "dataScale": null,
-              "nullable": "Y"
+                "columnName": "contact_phone",
+                "dataType": "varchar",
+                "dataLength": 10,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
             }
-          },
+        },
         "alertTime": {
             "type": "number",
             "length": null,
@@ -250,6 +254,21 @@
                 "dataLength": 65535,
                 "dataPrecision": null,
                 "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "branch": {
+            "type": "number",
+            "required": false,
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "branch",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         }

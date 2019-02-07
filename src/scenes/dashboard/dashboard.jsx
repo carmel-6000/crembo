@@ -43,8 +43,8 @@ class Dashboard extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <SideBar />
-                        <div class="theme-option">
-                            <button tavindex="0" className="theme-button" type="button"> <i class="fas fa-cog fa-2x"></i> </button>
+                        <div className="theme-option">
+                            <button tavindex="0" className="theme-button" type="button"> <i className="fas fa-cog fa-2x"></i> </button>
                         </div>
 
                         {/* THIS IS WHERE THE MAIN CONTACT IS  */}
