@@ -27,10 +27,9 @@ class Crembo extends Component {
             <div className="crembo-font">
                 <NavBar />
                 <PrivateRoute exact path="/" component={Home} />
-                <PrivateRoute exact path="/rides" component={Neta} />
+                <PrivateRoute exact path="/rides" component={Rides} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
                 <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
-            
             </div>
         );
     }

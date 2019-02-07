@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './neta.css';
+import './rides.css';
 import Auth from '../../Auth/Auth';
 class RideDetails extends Component {
     constructor(props) {

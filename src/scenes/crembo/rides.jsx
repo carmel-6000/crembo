@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './neta.css';
+import './rides.css';
 import Auth from '../../Auth/Auth';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
