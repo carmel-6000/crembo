@@ -51,11 +51,6 @@
     "public": true,
     "expose": true
   },
-  "LiveRides": {
-    "dataSource": "msql",
-    "public": true,
-    "expose": true
-  },
   "Drivers": {
     "dataSource": "msql",
     "public": true,
@@ -67,6 +62,11 @@
     "expose": true
   },
   "Activities": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
+  "ChildrenRides": {
     "dataSource": "msql",
     "public": true,
     "expose": true

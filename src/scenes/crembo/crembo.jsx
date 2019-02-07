@@ -8,8 +8,10 @@ import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './crembo.css';
 import Home from './home'
-import Neta from './neta'
+import Rides from './rides'
 import NewActivity from './newActivity'
+import Test from './rideDetails'
+import RideDetails from './rideDetails';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -25,9 +27,10 @@ class Crembo extends Component {
             <div className="crembo-font">
                 <NavBar />
                 <PrivateRoute exact path="/" component={Home} />
-                <PrivateRoute exact path="/neta" component={Neta} />
+                <PrivateRoute exact path="/rides" component={Neta} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
-
+                <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
+            
             </div>
         );
     }
@@ -41,13 +44,13 @@ class NavHeaderComponent extends Component {
 
     render() {
         return (
-            <ul class="navbar-nav mr-auto ">
-                <li class="nav-item active">
-                    <a class="nav-link nav-linker" onClick={this.props.logout} href="#">
+            <ul className="navbar-nav mr-auto ">
+                <li className="nav-item active">
+                    <a className="nav-link nav-linker" onClick={this.props.logout} href="#">
                         <i className="fas fa-sign-in-alt" /> התנתק </a>
                 </li>
-                <li class="nav-item active" >
-                    <a class="nav-link nav-linker" href="/user">
+                <li className="nav-item active" >
+                    <a className="nav-link nav-linker" href="/user">
                         <i className="fas fa-user-tie" /> משתמש
                 </a>
                 </li>
@@ -82,11 +85,11 @@ class NavBar extends Component {
 
             <header>
                 <nav className="navbar navbar-expand-sm navbar-dark fixed-top shadow primary ">
-                    <a class="navbar-brand" href="#">כנפיים של קרמבו</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <a className="navbar-brand" href="#">כנפיים של קרמבו</a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div className="collapse navbar-collapse" id="navbarCollapse">
                         {navHeader}
                     </div>
                 </nav>

@@ -45,11 +45,6 @@
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
-            },
-            "branch": {
-                "type": "number",
-                "width": 10,
-                "editable": "true"
             }
         }
     },
@@ -59,7 +54,8 @@
             "schema": "crembo",
             "table": "assistants"
         },
-        "relations": {}
+        "relations": {         
+        }
     },
     "properties": {
         "id": {

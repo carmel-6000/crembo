@@ -39,11 +39,6 @@
             "notes": {
                 "type": "text",
                 "editable": "true"
-            },
-            "branch": {
-                "type": "number",
-                "width": 11,
-                "editable": "true"
             }
         }
     },
@@ -53,7 +48,8 @@
             "schema": "crembo",
             "table": "drivers"
         },
-        "relations": {}
+        "relations": {       
+        }
     },
     "properties": {
         "id": {

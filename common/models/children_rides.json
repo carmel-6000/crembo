@@ -5,10 +5,11 @@
             "id": {},
             "childId": {
                 "width": 80,
-                "editable": "true"
-
+                "editable": "true",
+                "type": "Number"
             },
             "rideId": {
+                "type": "Number",
                 "width": 80,
                 "editable": "true"
 
@@ -21,10 +22,11 @@
                 "type": "boolean",
                 "editable": "true"
             },
-            "branch": {
-                "type": "number",
-                "width": 10,
+            "activity": {
+                "type": "Number",
+                "width": 80,
                 "editable": "true"
+
             }
         }
     },
@@ -52,13 +54,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -67,13 +69,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "child_id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -82,13 +84,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "ride_id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -121,6 +123,21 @@
                 "dataPrecision": 3,
                 "dataScale": 0,
                 "nullable": "Y"
+            }
+        },
+        "activity": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "activity",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
+                "nullable": "N"
             }
         }
     }

@@ -20,7 +20,32 @@
             "table": "branches"
         },
         "relations": {
-            
+            "rides": {
+                "type": "hasMany",
+                "model": "Rides",
+                "foreignKey": "branch"
+              },
+            "children": {
+                "type": "hasMany",
+                "model": "Children",
+                "foreignKey": "branch"
+              },
+            "assistants": {
+                "type": "hasMany",
+                "model": "Assistants",
+                "foreignKey": "branch"
+              },
+            "activities": {
+                "type": "hasMany",
+                "model": "Activities",
+                "foreignKey": "branch"
+              },
+            "drivers": {
+                "type": "hasMany",
+                "model": "Drivers",
+                "foreignKey": "branch"
+
+              }      
         }
     },
     "properties": {

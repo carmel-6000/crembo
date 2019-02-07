@@ -1,4 +1,4 @@
-{ 
+{
     "name": "Rides",
     "crud": {
         "fields": {
@@ -7,17 +7,13 @@
                 "type": "text",
                 "editable": "true"
             },
-            "activityDate": {
-                "type": "text",
-                "editable": "true"
-            },
-            "plannedTime":{
-                "type": "text",
-                "editable": "true"
-            },
-            "branch": {
+            "activity": {
                 "type": "number",
-                "width": 11,
+                "width": 10,
+                "editable": "true"
+            },
+            "plannedTime": {
+                "type": "text",
                 "editable": "true"
             },
             "direction": {
@@ -85,7 +81,13 @@
             "table": "rides"
         },
         "relations": {
-            
+            "children": {
+                "type": "hasMany",
+                "model": "Children",
+                "foreignKey": "rideId",
+                "through": "ChildrenRides",
+                "keyThrough": "childId"
+              }
         }
     },
     "properties": {
@@ -93,13 +95,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -119,21 +121,21 @@
                 "nullable": "Y"
             }
         },
-        "activityDate": {
+        "activity": {
             "type": "String",
             "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "activity_date",
+                "columnName": "activity",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
             }
-        }, 
+        },
         "plannedTime": {
             "type": "String",
             "required": false,
@@ -239,21 +241,6 @@
                 "nullable": "Y"
             }
         },
-        "children": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "children",
-                "dataType": "text",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
         "asisstants": {
             "type": "String",
             "required": false,
@@ -276,7 +263,7 @@
             "precision": 11,
             "scale": 0,
             "mysql": {
-                "columnName": "branch",
+                "columnName": "children_boarded",
                 "dataType": "int",
                 "dataLength": null,
                 "dataPrecision": 11,
@@ -314,6 +301,5 @@
                 "nullable": "Y"
             }
         }
-        
     }
 }

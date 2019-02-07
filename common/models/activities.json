@@ -3,14 +3,9 @@
     "crud": {
         "fields": {
             "id": {},
-            "userId": {
+            "managerId": {
                 "type": "number",
                 "width": 10,
-                "editable": "true"
-            },
-            "branch": {
-                "type": "number",
-                "width": 11,
                 "editable": "true"
             },
             "activityDate": {
@@ -33,8 +28,8 @@
             "schema": "crembo",
             "table": "activities"
         },
-        "relations": {
-           
+        "relations": {  
+          
         }
     },
     "properties": {
@@ -53,14 +48,14 @@
                 "nullable": "N"
             }
         },
-        "userId": {
+        "managerId": {
             "type": "number",
             "required": false,
             "length": 10,
             "precision": 10,
             "scale": 0,
             "mysql": {
-              "columnName": "user_id",
+              "columnName": "manager_id",
               "dataType": "int",
               "dataLength": null,
               "dataPrecision": 10,
@@ -120,7 +115,7 @@
             "precision": 3,
             "scale": 0,
             "mysql": {
-                "columnName": "is_danger",
+                "columnName": "is_live",
                 "dataType": "tinyint",
                 "dataLength": null,
                 "dataPrecision": 3,
