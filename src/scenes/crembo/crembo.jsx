@@ -7,10 +7,11 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './crembo.css';
-import PrivateRoute from '../../App';
 import Home from './home';
-import Neta from './neta'
-import NewActivity from './newActivity'
+import Neta from './neta';
+import NewActivity from './newActivity';
+import ContactList from './contactlist';
+import Sidebar from './sidebar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -30,6 +31,17 @@ class Crembo extends Component {
                 <PrivateRoute exact path="/neta" component={Neta} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
 
+                <PrivateRoute exact path="/contact/assistants" component={() => (
+                    <ContactList contactApi={'/api/assistants'} />
+                )} />
+                <PrivateRoute exact path="/contact/children" component={() => (
+                    <ContactList contactApi={'/api/children'} />
+                )} />
+                <PrivateRoute exact path="/contact/drivers" component={() => (
+                    <ContactList contactApi={'/api/drivers'} />
+                )} />
+
+
             </div>
         );
     }
@@ -38,36 +50,24 @@ class Crembo extends Component {
 class NavHeaderComponent extends Component {
     constructor(props) {
         super(props);
-        this.state={
-            showMenu: false
-        }
-
-    }
-    menuBtnClicked=(val)=>{
-        this.setState({showMenu: val})
     }
 
 
     render() {
         return (
             <div>
-            <ul class="navbar-nav mr-auto ">
-                <li class="nav-item active">
-                    <a class="nav-link nav-linker" onClick={this.props.logout} href="#">
-                        <i className="fas fa-sign-in-alt" /> התנתק </a>
-                </li>
-                <li class="nav-item active" >
-                    <a class="nav-link nav-linker" href="/user">
-                        <i className="fas fa-user-tie" /> משתמש
+                <ul class="navbar-nav mr-auto ">
+                    <li class="nav-item active">
+                        <a class="nav-link nav-linker" onClick={this.props.logout} href="#">
+                            <i className="fas fa-sign-in-alt" /> התנתק </a>
+                    </li>
+                    <li className="nav-item active" >
+                        <a className="nav-link nav-linker" href="/user">
+                            <i className="fas fa-user-tie" /> משתמש
                     </a>
-                </li>
-                <li class="nav-item active" >
-                    <a class="nav-link nav-linker" >
-                       <i className="fas fa-star" onClick={()=>this.menuBtnClicked(true)}  />  תפריט
-                    </a>
-                </li>
-            </ul>
-            {this.state.showMenu && <div>this is the menu</div>}
+                    </li>
+                </ul>
+                <Sidebar/>
             </div>
         );
     }
