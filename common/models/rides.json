@@ -3,35 +3,74 @@
     "crud": {
         "fields": {
             "id": {},
-            "branch": {
-                "type": "text",
-                "editable": "true"
-            },
             "title": {
                 "type": "text",
                 "editable": "true"
             },
+            "activity": {
+                "type": "number",
+                "width": 10,
+                "editable": "true"
+            },
             "plannedTime": {
                 "type": "text",
-                "editable": "true",
-                "width": "100"
-            },
-            "rideDate": {
-                "type": "text",
-                "editable": "true",
-                "width": "100"
+                "editable": "true"
             },
             "direction": {
                 "type": "enum",
                 "options": [
                     "back",
-                    "fourth"
+                    "forth"
                 ],
                 "editable": "true",
                 "width": "100"
             },
+            "status": {
+                "type": "enum",
+                "options": [
+                    "abstract",
+                    "editing",
+                    "ready",
+                    "driving",
+                    "finished"
+                ],
+                "editable": "true",
+                "width": "100"
+            },
+            "departureTime": {
+                "type": "text",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "arrivalTime": {
+                "type": "text",
+                "editable": "true",
+                "isHidden": "false"
+            },
+            "driver": {
+                "type": "text",
+                "editable": "true"
+            },
             "children": {
-                "type": "text"
+                "type": "text",
+                "editable": "true"
+            },
+            "asisstants": {
+                "type": "number",
+                "editable": "true"
+            },
+            "childrenBoarded": {
+                "type": "number",
+                "width": 11,
+                "editable": "true"
+            },
+            "isDanger": {
+                "type": "boolean",
+                "editable": "true"
+            },
+            "summary": {
+                "type": "text",
+                "editable": "true"
             }
         }
     },
@@ -42,7 +81,13 @@
             "table": "rides"
         },
         "relations": {
-           
+            "children": {
+                "type": "hasMany",
+                "model": "Children",
+                "foreignKey": "rideId",
+                "through": "ChildrenRides",
+                "keyThrough": "childId"
+              }
         }
     },
     "properties": {
@@ -50,28 +95,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
-                "dataScale": 0,
-                "nullable": "N"
-            }
-        },
-        "branch": {
-            "type": "string",
-            "required": true,
-            "length": 7,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "branch",
-                "dataType": "varchar",
-                "dataLength": null,
-                "dataPrecision": 7,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -79,52 +109,65 @@
         "title": {
             "type": "String",
             "required": false,
-            "length": 200,
+            "length": 255,
             "precision": null,
             "scale": null,
             "mysql": {
                 "columnName": "title",
                 "dataType": "varchar",
+                "dataLength": 255,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "activity": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "activity",
+                "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
-                "nullable": "N"
+                "nullable": "Y"
             }
         },
         "plannedTime": {
             "type": "String",
             "required": false,
-            "length": null,
+            "length": 200,
             "precision": null,
             "scale": null,
-            "default": "null",
             "mysql": {
                 "columnName": "planned_time",
-                "dataType": "time",
-                "dataLength": null,
+                "dataType": "varchar",
+                "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
             }
         },
-        "rideDate": {
-            "type": "Date",
+        "branch": {
+            "type": "number",
             "required": false,
-            "length": null,
-            "precision": null,
-            "scale": null,
-            "default": "null",
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
             "mysql": {
-                "columnName": "ride_date",
-                "dataType": "date",
+                "columnName": "branch",
+                "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": null,
-                "dataScale": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         },
         "direction": {
-            "type": "String",
+            "type": "string",
             "required": false,
             "length": 7,
             "precision": null,
@@ -138,19 +181,124 @@
                 "nullable": "Y"
             }
         },
-        "children": {
+        "status": {
             "type": "string",
-            "required": true,
+            "required": false,
             "length": 7,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "children",
-                "dataType": "varchar",
+                "columnName": "status",
+                "dataType": "enum",
                 "dataLength": null,
                 "dataPrecision": 7,
                 "dataScale": 0,
-                "nullable": "N"
+                "nullable": "Y"
+            }
+        },
+        "departureTime": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "departure_time",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "arrivalTime": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "arrival_time",
+                "dataType": "varchar",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "driver": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "driver",
+                "dataType": "text",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "asisstants": {
+            "type": "String",
+            "required": false,
+            "length": 200,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "asisstants",
+                "dataType": "text",
+                "dataLength": 200,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        },
+        "childrenBoarded": {
+            "type": "number",
+            "required": false,
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "children_boarded",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "isDanger": {
+            "type": "Number",
+            "required": false,
+            "length": null,
+            "precision": 3,
+            "scale": 0,
+            "mysql": {
+                "columnName": "is_danger",
+                "dataType": "tinyint",
+                "dataLength": null,
+                "dataPrecision": 3,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
+        },
+        "summary": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "summary",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
             }
         }
     }
