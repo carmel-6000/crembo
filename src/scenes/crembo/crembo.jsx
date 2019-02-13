@@ -7,6 +7,9 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './crembo.css';
+import NewActivity from './newActivity';
+import ContactList from './contactlist';
+import Sidebar from './sidebar';
 import Home from './home'
 import Rides from './rides'
 import NewActivity from './newActivity'
@@ -62,6 +65,7 @@ class Crembo extends Component {
         console.log(this.state)
         return (
             <div className="crembo-font">
+
                 <NavBar />
                 <Route render={() => (
                     this.state.hasActivity=== true ?
@@ -74,6 +78,18 @@ class Crembo extends Component {
                 {/* <PrivateRoute exact path="/" component={Home} /> */}
                 <PrivateRoute exact path="/rides" component={Rides} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
+
+                <PrivateRoute exact path="/contact/assistants" component={() => (
+                    <ContactList contactApi={'/api/assistants'} />
+                )} />
+                <PrivateRoute exact path="/contact/children" component={() => (
+                    <ContactList contactApi={'/api/children'} />
+                )} />
+                <PrivateRoute exact path="/contact/drivers" component={() => (
+                    <ContactList contactApi={'/api/drivers'} />
+                )} />
+
+
                 <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
             </div>
         );
@@ -84,6 +100,7 @@ class NavHeaderComponent extends Component {
     constructor(props) {
         super(props);
     }
+
 
     render() {
         return (
@@ -101,6 +118,8 @@ class NavHeaderComponent extends Component {
         );
     }
 }
+
+
 
 //THIS IS WHERE THE CARMEL6000LOGO, ADMIN AND LOGIN IS. 
 class NavBar extends Component {
