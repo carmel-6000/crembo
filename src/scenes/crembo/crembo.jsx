@@ -18,15 +18,60 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
     )} />
 )
+
+
 class Crembo extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            hasActivity: null,
+            activityDate: null,
+            activityTime: null
+        }
     }
+    componentWillMount() {
+        let managerId = localStorage.getItem('userId');
+        console.log("sn", localStorage)
+        if (managerId) {
+            console.log(managerId)
+            Auth.authFetch(`api/activities?filter={"where": {"managerId" : ${managerId} }}`).then(response => { return response.json() }).then(res => {
+                if (res.length) {
+                    console.log("if", res)
+                    let index_found =-1;
+                    for( let i =0 ; i < res.length; i++ ){
+                        if(res[i].isLive == true)
+                            index_found=i;
+                    }
+                    if(index_found!==-1)
+                        this.setState({ hasActivity: true , activityDate : res[index_found].activityDate , activityTime:  res[index_found].activityTime})
+                    else
+                        this.setState({ hasActivity: false })
+
+                } 
+            })
+        }
+
+    }
+
+    check = () => {
+        console.log("isCalled")
+
+    }
+
     render() {
+        console.log(this.state)
         return (
             <div className="crembo-font">
                 <NavBar />
-                <PrivateRoute exact path="/" component={Home} />
+                <Route render={() => (
+                    this.state.hasActivity=== true ?
+                        <Redirect to={{ pathname: "/rides", state: this.state }}/>
+                        : this.state.hasActivity=== false ?
+                        <Redirect to={{ pathname: "/new-activity"}}/> :
+                        null
+
+                )} />
+                {/* <PrivateRoute exact path="/" component={Home} /> */}
                 <PrivateRoute exact path="/rides" component={Rides} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
                 <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
@@ -38,7 +83,6 @@ class Crembo extends Component {
 class NavHeaderComponent extends Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {

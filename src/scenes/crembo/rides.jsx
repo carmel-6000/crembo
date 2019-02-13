@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './rides.css';
+import './rideDetails.css';
 import Auth from '../../Auth/Auth';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
@@ -14,7 +14,7 @@ class Rides extends Component {
             ridesBackJson: [],
             hasJoined: [],
             numberOfJoinedKids: null,
-            rides: null
+            rides: null,
         }
     }
 
@@ -68,7 +68,7 @@ class Rides extends Component {
 
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, index) => (
-            <Link to={{ pathname: '/rides/ride-details/' + `${item.id}`, state:{item}}} >
+            <Link to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item } }} >
                 <div className="rideCard">
                     <div className="row">
                         <div className="col">
@@ -93,7 +93,7 @@ class Rides extends Component {
         return card;
     }
     render() {
-     
+
         return (
             <div>
                 <div className="row">

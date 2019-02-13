@@ -77,6 +77,8 @@ const Auth = {
           console.log("is this the access token?", res.id);
           this._isAuthenticated = true;
           localStorage.setItem('accessToken', res.id);
+          localStorage.setItem('userId', res.userId);
+
           return cb(true)
         }
 
