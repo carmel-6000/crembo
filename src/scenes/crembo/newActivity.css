@@ -1,5 +1,94 @@
 .row{
     margin: auto;
     text-align: center;
-    margin-top: 3vh;
+    margin-top: 5vh;
+}
+#activityText{
+color:#00acc1;
+margin-right: 10vw;
+}
+.activityCard{
+    -webkit-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
+    box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    width: 270px;
+    /* height: 50px; */
+    display: inline-block;
+    
+/* //float-right */
+}
+input{
+    border-bottom: 0;  
+}
+.calendar_alt{
+    margin-right: 5px;
+    font-size: 1.5rem;
+}
+
+input[type=date] {
+    margin: 0 auto;
+    width: 83%;
+    font-family: arial, sans-serif;
+    font-size: 25px;
+    background-color: lighten(#2f2f2f,40%);
+    border-radius: 3vh;
+    outline: none;
+    border: 0;
+    color: black;
+    
+    max-width: 100%;
+
+}   
+
+
+
+
+input[type=date]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=time] {
+    margin: 0 auto;
+    width: 83%;
+    font-family: arial, sans-serif;
+    font-size: 25px;
+    background-color: lighten(#2f2f2f,40%);
+    border-radius: 3vh;
+    outline: none;
+    border: 0;
+    color: black;
+   
+}   
+
+
+
+
+input[type=time]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.inputtime{
+    width: 70%;
+    margin: 0%;
+    display: inline-block;
+    padding: 0% !important;
+    text-align: center;
+    margin-right: 12%;
+}
+.addbottom{
+    display: inline-block; 
+    width: 100px;
+    margin-top: 4vh;
+}
+.vertical-center{
+     min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+}
+
+.middler {
+    margin-top: 8rem;
 }

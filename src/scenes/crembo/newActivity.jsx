@@ -6,6 +6,8 @@ import './newActivity.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 
+import TimeField from 'react-simple-timefield';
+
 //We also need to get the data from the activities table, and check if user.id and date already exists 
 //if so >> then the page automaticly leads to the back/forth tables. 
 
@@ -14,10 +16,9 @@ class NewActivity extends Component {
         super(props)
         this.state = {
             activityDate: null,
-            activityTime: null
+           activityTime: 0,
         }
     }
-
     setActivity = (e) => {
         let x = e.target.value;
         if (e.target.id === "date1") {
@@ -26,12 +27,21 @@ class NewActivity extends Component {
             var options = { weekday: 'long' };
             options.timeZone = 'UTC';
             let finalDay = date.toLocaleDateString('he-IS', options);
-            this.setState({ activityDay: finalDay })
-        } else this.setState({ activityTime: x })
+            this.setState({ activityDay: finalDay });
+            // let activityTime=this.state.hour+":"+this.state.minute;
+            // this.setState({ activityTime: activityTime });
+        }
+        else{
+            this.setState({ activityTime: x });
+        }
+    }
+
+    onTimeChange = (activityTime) => {
+        this.setState({ activityTime });
     }
 
     addActivity = () => {
-      
+        
         let activity = this.state;
         let modelApi = 'api/activities'
 
@@ -43,9 +53,7 @@ class NewActivity extends Component {
                 console.log("the row that has been added is:", newrow);
                 if (newrow.error) {
                     return (
-                        <div>
-                            "קיימת פעילות ביום זה! אנא בחר יום אחר"
-                        </div>
+                        <div>קיימת פעילות ביום זה! אנא בחר יום אחר</div>
                     );
                 }
 
@@ -54,17 +62,41 @@ class NewActivity extends Component {
     }
 
     render() {
-        console.log(this.state);    
+        console.log("state", this.state)
         return (
-            <div className="container">
-                <div className="row">תאריך הפעילות</div>
-                <input className="row" type="date" value={this.state.activityDate}  name="date" id="date1" onChange={this.setActivity}></input>
-                {/* <input className="row" type="date" value={this.state.activityDate ? this.state.activityDate : "2019-11-11"} name="date" id="date1" onChange={this.setActivity}></input> */}
-                <div className="row">שעת הפעילות</div>
-                <input className="row" type="time" name="time" id="time" onChange={this.setActivity}></input>
-                <Link to={{ pathname: "/rides", state: this.state }}>
-                    <button disabled={this.state.activityDate && this.state.activityTime ? false : true} className="row" onClick={this.addActivity} >הוסף</button>
-                </Link>
+<div class="middler">
+            <div className="  mx-auto align-middle">
+                <div className="row " id="activityText">תאריך הפעילות</div>
+
+                <div className="row" className="activityCard">
+
+                    <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
+                    <i className="calendar_alt far fa-calendar-alt"></i>
+                </div>
+
+
+                <div className="row" id="activityText">שעת הפעילות</div>
+
+                <div className="row" className="activityCard">
+
+                    <input className="d-sm-inline-block d-md-none" type="time" name="time" id="time" onChange={this.setActivity}></input>
+
+                    <TimeField
+                        value={this.state.activityTime}
+                        input={<input className="inputtime d-none d-md-inline-block " type="text" name="time" id="time" />}
+                        onChange={this.onTimeChange}
+                    />
+                    <i class="calendar_alt far fa-clock"></i>
+
+                </div>
+                
+                <br/>
+                <div className="addbottom">
+                    <Link to={{ pathname: "/rides", state: this.state }}>
+                        <button  disabled={this.state.activityDate  && this.state.activityTime ? false : true} className=" btn btn-info btn-lg" onClick={this.addActivity} >הוסף</button>
+                    </Link>
+                </div>
+            </div >
             </div>
         );
     }

@@ -48,8 +48,13 @@
             "schema": "crembo",
             "table": "drivers"
         },
-        "relations": {       
-        }
+        "relations": {
+            "rides": {
+              "type": "hasMany",
+              "model": "Rides",
+              "foreignKey": "driver"
+            }
+          }
     },
     "properties": {
         "id": {

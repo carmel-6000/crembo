@@ -19,6 +19,10 @@
             "isLive": {
                 "type": "boolean",
                 "editable": "true"
+            },
+            "activityDay": {
+                "type": "text",
+                "editable": "true"
             }
         }
     },
@@ -29,7 +33,11 @@
             "table": "activities"
         },
         "relations": {  
-          
+            "rides": {
+                "type": "hasMany",
+                "model": "Rides",
+                "foreignKey": "activity"
+              }
         }
     },
     "properties": {
@@ -46,6 +54,21 @@
                 "dataPrecision": 10,
                 "dataScale": 0,
                 "nullable": "N"
+            }
+        },
+        "activityDay": {
+            "type": "String",
+            "required": false,
+            "length": 10,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "activity_Day",
+                "dataType": "varchar",
+                "dataLength": 10,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
             }
         },
         "managerId": {
@@ -81,13 +104,13 @@
           "activityDate": {
             "type": "String",
             "required": false,
-            "length": 200,
+            "length": 10,
             "precision": null,
             "scale": null,
             "mysql": {
                 "columnName": "activity_date",
                 "dataType": "varchar",
-                "dataLength": 200,
+                "dataLength": 10,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"

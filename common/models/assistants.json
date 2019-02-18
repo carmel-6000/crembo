@@ -54,7 +54,14 @@
             "schema": "crembo",
             "table": "assistants"
         },
-        "relations": {         
+        "relations": {
+            "rides": {
+                "type": "belongsTo",
+                "model": "Rides",
+                "foreignKey": "assistantId",
+                "through": "assistantsRides",
+                "keyThrough": "assistantId"
+            }                
         }
     },
     "properties": {
