@@ -14,7 +14,8 @@ class NewActivity extends Component {
         super(props)
         this.state = {
             activityDate: null,
-            activityTime: null
+            activityTime: null,
+            activityDay: null
         }
     }
 
@@ -31,14 +32,13 @@ class NewActivity extends Component {
     }
 
     addActivity = () => {
-      
-        let activity = this.state;
+        console.log("the activity that's gonna be posted is", this.state)
         let modelApi = 'api/activities'
 
-        if (this.state.activityDate && this.state.activityTime) {
+        if (this.state.activityDate && this.state.activityTime && this.state.activityDay) {
             Auth.authPost(modelApi, {
                 method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                body: JSON.stringify(activity)
+                body: JSON.stringify(this.state)
             }).then(response => { return response.json() }).then(newrow => {
                 console.log("the row that has been added is:", newrow);
                 if (newrow.error) {
@@ -54,7 +54,7 @@ class NewActivity extends Component {
     }
 
     render() {
-        console.log(this.state);    
+        console.log("activity state",this.state);    
         return (
             <div className="container">
                 <div className="row">תאריך הפעילות</div>

@@ -7,7 +7,8 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: "null"
+            filteredPeople: "null",
+            chooseMode: false
         }
         console.log("the props is", this.props.contactApi)
     }

@@ -14,6 +14,7 @@ class RideDetails extends Component {
     componentWillMount() {
         this.setState({ item: this.props.location.state.item })
     }
+
     changeItemDetails = (e) => {
         console.log(e)
         let x = e.target.value;
@@ -31,11 +32,11 @@ class RideDetails extends Component {
                 console.log("error.")
         }
     }
-
+    //renders the children/assistants list
     mapOfchildOrAssistant = (val) => {
         if (val === "children") {
-            let card = this.state.item.children.map((value) => (
-                <div className="childrenCard">
+            let card = this.state.item.children.map((value, i) => (
+                <div className="childrenCard" key={i}>
                     <div className="row ">
                         <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div>
                         <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
@@ -45,13 +46,19 @@ class RideDetails extends Component {
                         <div className="newPadding col-1 text-right">
                             <div className="dropdown">
                                 <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i className=" font-responsive fas fa-ellipsis-v "></i>
+                                    <i className=" font-responsive fas fa-ellipsis-v "></i>
                                 </button>
-                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a className="dropdown-item text-right" href="#">מידע נוסף</a>
-                                <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
-                                <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
-                            </div>
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {/* <Link to={{ pathname: '/rides/ride-details//child-details/' + `${item.id}`, state: { item } }} > */}
+                                    {/* <button class="dropdown-item text-right" type="button">הסר מהסעה זו ביום זה</button>
+                                    <button class="dropdown-item text-right" type="button">מידע נוסף</button>
+                                    <button class="dropdown-item text-right" type="button">העבר להסעה אחרת</button> */}
+
+                                    <a className="dropdown-item text-right" href={"/rides/ride-details/"+ this.state.item.id +"/child-details/" + value.id }>מידע נוסף</a>
+                                    <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
+                                    <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
+                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,8 +79,8 @@ class RideDetails extends Component {
     }
 
     render() {
-        console.log(this.state)
-
+        console.log("item" ,this.state.item)
+        console.log("props", this.props)
         return (
 
             <div>

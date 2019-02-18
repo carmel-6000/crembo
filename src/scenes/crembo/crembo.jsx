@@ -9,12 +9,9 @@ import logoImage from '../../img/carmel.png';
 import './crembo.css';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
-import Sidebar from './sidebar';
-import Home from './home'
 import Rides from './rides'
-import NewActivity from './newActivity'
-import Test from './rideDetails'
 import RideDetails from './rideDetails';
+import ChildDetails from './childDetails';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -31,53 +28,73 @@ class Crembo extends Component {
             activityDate: null,
             activityTime: null
         }
+        this.toRender = true;
+        // //doing redirect to main page: cant rewrite url
+        // if (window.location.pathname != "/" && window.location.pathname != "/dashboard" && window.location.pathname != "/login") {
+        //     window.location.pathname = "/";
+        //     this.toRender = false;
+        // }
+
     }
     componentWillMount() {
+        //gets the manager's live activity details by his id from local storage
         let managerId = localStorage.getItem('userId');
-        console.log("sn", localStorage)
+        console.log("localStorage", localStorage)
         if (managerId) {
-            console.log(managerId)
             Auth.authFetch(`api/activities?filter={"where": {"managerId" : ${managerId} }}`).then(response => { return response.json() }).then(res => {
                 if (res.length) {
-                    console.log("if", res)
-                    let index_found =-1;
-                    for( let i =0 ; i < res.length; i++ ){
-                        if(res[i].isLive == true)
-                            index_found=i;
+                    console.log("res",res)
+                    let index_found = -1;
+                    for (let i = 0; i < res.length; i++) {
+                        if (res[i].isLive == true)
+                            index_found = i;
                     }
-                    if(index_found!==-1)
-                        this.setState({ hasActivity: true , activityDate : res[index_found].activityDate , activityTime:  res[index_found].activityTime})
+                    if (index_found !== -1)
+                        this.setState({ hasActivity: true, activityDate: res[index_found].activityDate, activityTime: res[index_found].activityTime, activityDay: res[index_found].activityDay })
                     else
                         this.setState({ hasActivity: false })
-
-                } 
+                }
+                else {
+                    this.setState({ hasActivity: false })
+                }
             })
         }
-
     }
 
-    check = () => {
-        console.log("isCalled")
-
-    }
 
     render() {
-        console.log(this.state)
+        if (!this.toRender)
+            return (
+                //loading logo
+                <div class="d-flex justify-content-center">
+                    <div class="mt-5 spinner-border text-info" style={{width: "7rem", height: "7rem"}} role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+            );
+            console.log("state",this.state )
         return (
             <div className="crembo-font">
-
                 <NavBar />
-                <Route render={() => (
-                    this.state.hasActivity=== true ?
-                        <Redirect to={{ pathname: "/rides", state: this.state }}/>
-                        : this.state.hasActivity=== false ?
-                        <Redirect to={{ pathname: "/new-activity"}}/> :
-                        null
+                <Route exact path="/" render={() => (
+                    this.state.hasActivity === true ?
+                        <Redirect to={{ pathname: "/rides", state: this.state }} />
+                        : this.state.hasActivity === false ?
+                            <Redirect to={{ pathname: "/new-activity" }} /> :
+                            null
 
                 )} />
                 {/* <PrivateRoute exact path="/" component={Home} /> */}
                 <PrivateRoute exact path="/rides" component={Rides} />
+                <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
+                <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
+
+                {/* <PrivateRoute exact path="/rides/ride-details/:id/child-details/:childid" component={() => (
+                    <ChildDetails childApi={'/api/children/:childid'} />
+                )} />  */}
+
 
                 <PrivateRoute exact path="/contact/assistants" component={() => (
                     <ContactList contactApi={'/api/assistants'} />
@@ -89,8 +106,6 @@ class Crembo extends Component {
                     <ContactList contactApi={'/api/drivers'} />
                 )} />
 
-
-                <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
             </div>
         );
     }
