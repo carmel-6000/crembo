@@ -109,10 +109,10 @@ console.log("this props is",this.props.location.state)
                 <div className="main-container">
                     <ul className="nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                         <li className="nav-item">
-                            <a className="nav-link active btn-block bnf-font" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
+                            <a className="nav-link active btn-block" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link bnf-font" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
+                            <a className="nav-link" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
                         </li>
                     </ul>
                     <div className="tab-content content-of-selected-tab" id="pills-tabContent">
