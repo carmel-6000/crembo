@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PrivateRoute from '../../App'
 import './crembo.css';
 import './newActivity.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -14,9 +12,11 @@ class NewActivity extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            activityDate: null,
-            activityDay: null,
-            activityTime: 0
+            activityDate: "",
+            activityDay: "",
+            activityTime: "",
+            isLive: true,
+            managerId: localStorage.getItem('userId')
         }
     }
     setActivity = (e) => {
@@ -41,7 +41,6 @@ class NewActivity extends Component {
     }
 
     addActivity = () => {
-        console.log("the activity that's gonna be posted is", this.state)
         let modelApi = 'api/activities'
 
         if (this.state.activityDate && this.state.activityTime && this.state.activityDay) {
@@ -49,7 +48,7 @@ class NewActivity extends Component {
                 method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state)
             }).then(response => { return response.json() }).then(newrow => {
-                console.log("the row that has been added is:", newrow);
+                console.log("the row that has been added", newrow)
                 if (newrow.error) {
                     return (
                         <div>קיימת פעילות ביום זה! אנא בחר יום אחר</div>
@@ -61,14 +60,12 @@ class NewActivity extends Component {
     }
 
     render() {
-        console.log("activity state",this.state);    
         return (
-<div class="middler">
+<div className="middler">
             <div className="  mx-auto align-middle">
                 <div className="row " id="activityText">תאריך הפעילות</div>
 
                 <div className="row" className="activityCard">
-
                     <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
                     <i className="calendar_alt far fa-calendar-alt"></i>
                 </div>
@@ -85,7 +82,7 @@ class NewActivity extends Component {
                         input={<input className="inputtime d-none d-md-inline-block " type="text" name="time" id="time" />}
                         onChange={this.onTimeChange}
                     />
-                    <i class="calendar_alt far fa-clock"></i>
+                    <i className="calendar_alt far fa-clock"/>
 
                 </div>
                 

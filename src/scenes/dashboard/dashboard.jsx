@@ -127,10 +127,7 @@ class SideBar extends Component {
         let url = '/api/get-models-list';
         Auth.authFetch(url)
         .then(response => { return response.json() }).then(res => {
-        // fetch(url) 
-        //     .then((res) => res.json()) // Transform the data into json
-        //     .then((data) => {
-                console.log("res data", res);
+                
                 this.setState({ TableList: res });
             });
     }

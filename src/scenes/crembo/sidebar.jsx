@@ -15,9 +15,9 @@ class Sidebar extends Component {
         }
     }
     changeModelState = (boolean) => {
-        console.log("ll",boolean)
+ 
         this.setState({ modalAppears: boolean });
-        console.log("this.state", this.state.modalAppears)
+
     }
 
 
@@ -33,10 +33,16 @@ class Sidebar extends Component {
                     <span>
                     <a className="closebtn" onClick={() => this.changeModelState(false)}>&times;</a>
                     <h3>אחראי הסעה בסניף</h3>
-                    <a href="/contact/children">הסעות הסניף</a>
-                    <a href="/contact/drivers">נהגים</a>
-                    <a href="/contact/assistants">מלווים</a>
-                    <a href="/contact/children">חניכים</a>
+                    <Link to={{ pathname: '/contact/children' }} >
+                    <p>חניכים</p>
+                    </Link>
+                    <Link to={{ pathname: '/contact/drivers'}} >
+                    <p>נהגים</p>
+                    </Link>
+                    <Link  to={{ pathname: '/contact/assistants' }} >
+                    <p>מלווים</p>
+                    </Link>
+                    <a href="/rides" >הסעות הסניף</a>
                     </span>}
                 </a>
             </div>

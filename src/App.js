@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {  Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Login from './Auth/Login';
 import Auth from './Auth/Auth';
 import Crembo from './scenes/crembo/crembo'
 import Dashboard from './scenes/dashboard/dashboard'
-
+import history from './history'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -27,7 +27,7 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
+            <Router history={history}>
                 <div className="App">
                     <PrivateRoute path="/dashboard" component={Dashboard} />
                     <PrivateRoute path="/" component={Crembo} />

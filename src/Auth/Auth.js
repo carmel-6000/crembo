@@ -1,5 +1,3 @@
-import React from "react";
-import { Redirect } from 'react-router';
 
 const Auth = {
 
@@ -20,7 +18,6 @@ const Auth = {
   authFetch(url) {
 
     let accessToken = Auth.getAccessToken();
-    console.log("authFetch given accessToken:", accessToken);
     if (accessToken === null) {
       return url;
     } else {
@@ -40,7 +37,6 @@ const Auth = {
   authPost(url, uRow) {
     let postUrl ="";
     let accessToken = Auth.getAccessToken();
-    console.log("authFetch returns accessToken", accessToken);
     if (accessToken === null) {
       return url,  + accessToken;
     } else {
@@ -50,7 +46,6 @@ const Auth = {
       } else {
         postUrl = url+ "?access_token=" + accessToken;
       }
-      console.log("postURl", postUrl)
       return fetch(postUrl,uRow);
 
     }

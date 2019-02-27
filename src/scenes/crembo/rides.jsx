@@ -21,7 +21,7 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch('api/rides?filter={"include": "children"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('api/rides?filter={"include": ["children", "assistants", "drivers"]}').then(response => { return response.json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -42,7 +42,7 @@ class Rides extends Component {
             console.log('Fetch Error :-S', err);
         });
         // takes the children that their status is hasJoined
-        Auth.authFetch('api/ChildrenRides').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/ChildrenRides').then(response => { return response.json() }).then(res => {
             let hasJoined = []
             for (let i = 0; i < res.length; i++) {
                 if (res[i].hasJoined) {
@@ -97,7 +97,6 @@ class Rides extends Component {
         return card;
     }
     render() {
-console.log("this props is",this.props.location.state)
         return (
             <div>
                 

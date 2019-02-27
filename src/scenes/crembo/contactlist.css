@@ -17,4 +17,7 @@ width: auto !important;
         height: 50px;
         }
   }
-  
+
+  .noPic{
+    font-size: 45px;
+  }

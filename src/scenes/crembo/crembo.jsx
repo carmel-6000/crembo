@@ -1,113 +1,92 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
-import Grid from '../../Grid/Grid';
-import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
-import logoImage from '../../img/carmel.png';
 import './crembo.css';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
 import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
+import notFound from './notFound';
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
     )} />
+    
 )
-
 
 class Crembo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasActivity: null,
+            hasActivity: false,
             activityDate: null,
-            activityTime: null
+            activityTime: null,
+            haschecked: null
         }
         this.toRender = true;
-        // //doing redirect to main page: cant rewrite url
-        // if (window.location.pathname != "/" && window.location.pathname != "/dashboard" && window.location.pathname != "/login") {
-        //     window.location.pathname = "/";
-        //     this.toRender = false;
-        // }
-
     }
+
     componentWillMount() {
         //gets the manager's live activity details by his id from local storage
         let managerId = localStorage.getItem('userId');
-        console.log("localStorage", localStorage)
         if (managerId) {
-            Auth.authFetch(`api/activities?filter={"where": {"managerId" : ${managerId} }}`).then(response => { return response.json() }).then(res => {
-                if (res.length) {
-                    console.log("res",res)
-                    let index_found = -1;
-                    for (let i = 0; i < res.length; i++) {
-                        if (res[i].isLive == true)
-                            index_found = i;
-                    }
-                    if (index_found !== -1)
-                        this.setState({ hasActivity: true, activityDate: res[index_found].activityDate, activityTime: res[index_found].activityTime, activityDay: res[index_found].activityDay })
-                    else
-                        this.setState({ hasActivity: false })
-                }
-                else {
-                    this.setState({ hasActivity: false })
-                }
-            })
+            Auth.authFetch(`api/activities?filter={"where": {"managerId":  ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
+                console.log("res.isLive", res)
+                for (let i = 0; i < res.length; i++)
+                    if (res[i].isLive) {
+                        this.setState({ hasActivity: true })
+                        this.setState({ haschecked: true });
+                        console.log("the activity ")
+                    } 
+
+            }).catch((err) => {
+                console.log('Fetch Error :-S', err);
+            });
+
         }
+        else { this.setState({ haschecked: true });
+    console.log("no activity")}
     }
 
 
     render() {
-        if (!this.toRender)
+            console.log("this.state.hasActivity", this.state.hasActivity)
+            console.log("haschecked", this.state.haschecked)
+            if (!this.toRender)
+                return (
+                    //loading logo
+                    <div className="d-flex justify-content-center">
+                        <div className="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+
+                );
+            
             return (
-                //loading logo
-                <div class="d-flex justify-content-center">
-                    <div class="mt-5 spinner-border text-info" style={{width: "7rem", height: "7rem"}} role="status">
-                        <span class="sr-only">Loading...</span>
+                <div className="crembo-font">
+                    <div>
+                        <NavBar />
+                        <Switch>
+                        <Route exact path="/" render={() => (
+                            this.state.hasActivity && this.state.haschecked ? (
+                                <Redirect to={{ pathname: "/rides", state: this.state }} />
+                             ) : <NewActivity/>
+                        )} />
+                        <PrivateRoute exact path="/rides" component={Rides} />
+                        <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
+                        <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
+                        <PrivateRoute exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
+                        <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
+                        <PrivateRoute component={notFound} />
+                        </Switch>
                     </div>
                 </div>
-
             );
-            console.log("state",this.state )
-        return (
-            <div className="crembo-font">
-                <NavBar />
-                <Route exact path="/" render={() => (
-                    this.state.hasActivity === true ?
-                        <Redirect to={{ pathname: "/rides", state: this.state }} />
-                        : this.state.hasActivity === false ?
-                            <Redirect to={{ pathname: "/new-activity" }} /> :
-                            null
-
-                )} />
-                {/* <PrivateRoute exact path="/" component={Home} /> */}
-                <PrivateRoute exact path="/rides" component={Rides} />
-                <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
-                <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
-                <PrivateRoute exact path="/new-activity" component={NewActivity} />
-
-                {/* <PrivateRoute exact path="/rides/ride-details/:id/child-details/:childid" component={() => (
-                    <ChildDetails childApi={'/api/children/:childid'} />
-                )} />  */}
-
-
-                <PrivateRoute exact path="/contact/assistants" component={() => (
-                    <ContactList contactApi={'/api/assistants'} />
-                )} />
-                <PrivateRoute exact path="/contact/children" component={() => (
-                    <ContactList contactApi={'/api/children'} />
-                )} />
-                <PrivateRoute exact path="/contact/drivers" component={() => (
-                    <ContactList contactApi={'/api/drivers'} />
-                )} />
-
-            </div>
-        );
     }
 }
 

@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Redirect } from 'react-router';
-import Grid from '../../Grid/Grid';
-import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import './childDetails.css';
 
@@ -17,7 +12,7 @@ class ChildDetails extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch("/api/children/" + this.props.match.params.id).then(response => { return response.json() }).then(res => {
+        Auth.authFetch("api/children/" + this.props.match.params.id).then(response => { return response.json() }).then(res => {
         this.setState({childInfo: res})
         
         }).catch((err) => {
@@ -26,8 +21,7 @@ class ChildDetails extends Component {
     }
 
     render(){
-        console.log("child info is:",this.state.childInfo)
-        // console.log("this.props",  this.props.match.params.id)
+       
         return(
             <div>
             {this.state.childInfo ?
@@ -51,9 +45,9 @@ class ChildDetails extends Component {
                 <div className="infoBox">{this.state.childInfo.alertTime}</div>
               </div>
             </div>: 
-                <div class="d-flex justify-content-center">
-                    <div class="mt-5 spinner-border text-info" style={{width: "7rem", height: "7rem"}} role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className="d-flex justify-content-center">
+                    <div className="mt-5 spinner-border text-info" style={{width: "7rem", height: "7rem"}} role="status">
+                    <span className="sr-only">Loading...</span>
                     </div>
                 </div>}
             </div>

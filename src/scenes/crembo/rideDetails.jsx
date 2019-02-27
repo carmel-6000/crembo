@@ -2,21 +2,29 @@ import React, { Component } from 'react';
 import './rides.css';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class RideDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             item: null,
+            assistantsItem:null,
+            driversItem:null
         }
-    }
 
+    }
+    componentDidMount(){
+        this.setState({ assistantsItem: this.props.location.state.item.assistants });
+        this.setState({ driversItem: this.props.location.state.item.drivers });
+    }
     componentWillMount() {
-        this.setState({ item: this.props.location.state.item })
+        this.setState({ item: this.props.location.state.item });
+
     }
 
     changeItemDetails = (e) => {
-        console.log(e)
+
         let x = e.target.value;
         let item = { ...this.state.item };
         switch (e.target.id) {
@@ -41,7 +49,7 @@ class RideDetails extends Component {
                         <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div>
                         <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                         <div className="newPadding col-1 text-right">
-                            <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
+                            <i style={{ color: "#c12735" }} className="font-responsive fas fa-exclamation "></i>
                         </div>
                         <div className="newPadding col-1 text-right">
                             <div className="dropdown">
@@ -49,15 +57,11 @@ class RideDetails extends Component {
                                     <i className=" font-responsive fas fa-ellipsis-v "></i>
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                {/* <Link to={{ pathname: '/rides/ride-details//child-details/' + `${item.id}`, state: { item } }} > */}
-                                    {/* <button class="dropdown-item text-right" type="button">הסר מהסעה זו ביום זה</button>
-                                    <button class="dropdown-item text-right" type="button">מידע נוסף</button>
-                                    <button class="dropdown-item text-right" type="button">העבר להסעה אחרת</button> */}
 
-                                    <a className="dropdown-item text-right" href={"/rides/ride-details/"+ this.state.item.id +"/child-details/" + value.id }>מידע נוסף</a>
+                                    <a className="dropdown-item text-right" href={"/rides/ride-details/" + this.state.item.id + "/child-details/" + value.id}>מידע נוסף</a>
                                     <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
                                     <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -65,25 +69,41 @@ class RideDetails extends Component {
                 </div>))
             return card;
         } else if (val === "assistants") {
-            let assist = <div>
-                <div class="d-inline-block shadow p-3 mb-5 bg-white rounded">
-                    + הוסף מלווה ראשון
-                          </div> <br />
-                <div class="d-inline-block shadow p-3 mb-5 bg-white rounded">
-                    + הוסף מלווה שני
-                          </div>
+            let driver = this.props.location.state.item.drivers;
+            let assist =
+                <div className="childrenCard">
+                    <div className="row ">
+                        {driver.thumbnail&&<div className="newPadding col-2"><img className="thumbnailIMG" src={driver.thumbnail} /></div>}
+                        <div className="newPadding font-responsive col text-right">{driver.firstName} {driver.lastName}</div>
+                        <div className="newPadding col-1 text-right">
+                            <i style={{ color: "#c12735" }} className="font-responsive fas fa-exclamation "></i>
+                        </div>
+                        <div className="newPadding col-1 text-right">
+                            <div className="dropdown">
+                                <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i className=" font-responsive fas fa-ellipsis-v "></i>
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-            </div>
+                                   
+                                    <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
+                                    <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             return assist;
         }
     }
 
     render() {
-        console.log("item" ,this.state.item)
-        console.log("props", this.props)
         return (
 
             <div>
+                {console.log("prop",this.props)}
                 <div className="row ">
                     <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDay}</p></div>
                     <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDate}</p></div>
@@ -95,7 +115,7 @@ class RideDetails extends Component {
                 <div className="main-container">
                     <ul className="nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                         <li className="nav-item">
-                            <a className="nav-link active btn-block bnf-font" id="pills-assistants-tab" data-toggle="pill" href="#pills-assistants" role="tab" aria-controls="pills-assistants" aria-selected="true">מלווים</a>
+                            <a className="nav-link active btn-block bnf-font" id="pills-assistants-tab" data-toggle="pill" href="#pills-assistants" role="tab" aria-controls="pills-assistants" aria-selected="true">אנשי קשר</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link bnf-font" id="pills-children-tab" data-toggle="pill" href="#pills-children" role="tab" aria-controls="pills-children" aria-selected="false">נוסעים</a>
@@ -104,6 +124,18 @@ class RideDetails extends Component {
                     <div className="tab-content content-of-selected-tab" id="pills-tabContent">
 
                         <div className="tab-pane fade show active" id="pills-assistants" role="tabpanel" aria-labelledby="pills-assistants-tab">
+                        <div>
+                    <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/add/assistants', state: { chooseMode: true } }} >
+                        <div className="d-inline-block shadow p-3 mb-5 bg-white rounded"> + הוסף מלווה </div>
+                    </Link>
+                    <br />
+
+
+                    <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/add/drivers', state: { chooseMode: true } }} >
+                        <div className="d-inline-block shadow p-3 mb-5 bg-white rounded"> + הוסף נהג </div>
+                    </Link>
+
+                </div>
                             {this.mapOfchildOrAssistant("assistants")}
                         </div>
                         <div className="tab-pane fade " id="pills-children" role="tabpanel" aria-labelledby="pills-children-tab">

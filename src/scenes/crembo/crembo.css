@@ -1,5 +1,7 @@
 .crembo-font {
     font-family: 'Alef', sans-serif;
+    text-align: center;
+
 }
 
 .primary {
@@ -20,21 +22,18 @@
 
 .navbar-brand {
     font-family: 'Amatic SC', cursive;
-    font-size: 44px;
+    font-size: 40px;
 }
 
 body {
     padding-top: 5rem;
-    padding-bottom: 3rem;
-    color: #5a5a5a;
+    /* background-position: 100% 100%;
+    background-size: cover; */
   }
-  
-
-.center{
-    text-align: center;
-}
 
 .font-responsive {
     font-size: 5.5vw;
 }
-
+.bold{
+    font-weight: bold
+}
