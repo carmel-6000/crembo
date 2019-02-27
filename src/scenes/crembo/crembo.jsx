@@ -9,7 +9,7 @@ import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
 import notFound from './notFound';
-
+import Sidebar from './sidebar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -79,6 +79,7 @@ class Crembo extends Component {
                         )} />
                         <PrivateRoute exact path="/rides" component={Rides} />
                         <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
+                        <PrivateRoute exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
                         <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <PrivateRoute exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
@@ -108,6 +109,7 @@ class NavHeaderComponent extends Component {
                         <i className="fas fa-user-tie" /> משתמש
                 </a>
                 </li>
+                <Sidebar/>
             </ul>
         );
     }

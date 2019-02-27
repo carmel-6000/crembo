@@ -6,50 +6,83 @@ class ChildDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        childInfo: null,
+            userInfo: null,
+            userMode: null,
         }
     }
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch("api/children/" + this.props.match.params.id).then(response => { return response.json() }).then(res => {
-        this.setState({childInfo: res})
-        
-        }).catch((err) => {
-            console.log('Fetch Error :-S', err);
-        });
+        this.setState({ userInfo: this.props.location.state.person });
+        switch (this.props.match.params.person) {
+            case "children":
+                console.log("inside children")
+                this.setState({ userMode: "child" })
+                break;
+            case "drivers":
+                this.setState({ userMode: "driver" })
+                break;
+            case "assistants":
+                this.setState({ userMode: "assistant" })
+                break;
+            default:
+                console.log("Ride direction is not specify.")
+        }
+
     }
 
-    render(){
-       
-        return(
+
+
+    render() {
+        console.log("user info is:", this.state)
+        console.log("props is:", this.props)
+        return (
             <div>
-            {this.state.childInfo ?
-            <div className="infoTXT">
-              <div className="text-center childName">
-              פרטי חניך <br/>
-                {this.state.childInfo.firstName+" "+this.state.childInfo.lastName}
-                {this.state.childInfo.gender==="male" ? <i className="fas fa-mars fa-1x mr-1" style={{ color: "#007bff78" }} ></i> :
-                this.state.childInfo.gender==="female"? <i className="fas fa-venus fa-1x mr-1" style={{ color: "#e83e8cc4" }}></i> :
-                <i className="fas fa-genderless fa-1x mr-1" style={{ color: "grey" }} ></i> }
-                <div><img className="thumbnailIMG" src={this.state.childInfo.thumbnail} /></div>
-              </div>
-              <div className="text-right">
-                <div className="mr-4" > כתובת הלוך</div>
-                <div className="infoBox ">{this.state.childInfo.adressForth}</div>
-                <div className="mr-4" > כתובת חזור</div>
-                <div className="infoBox">{this.state.childInfo.adressBack}</div>
-                <div className="mr-4" >איש קשר</div>
-                <div className="infoBox row"><span className="col-10">{this.state.childInfo.contactName}</span> <i className="fas fa-phone fa-1x col"></i> </div>
-                <div className="mr-4" >התראה לפני הגעה</div>
-                <div className="infoBox">{this.state.childInfo.alertTime}</div>
-              </div>
-            </div>: 
-                <div className="d-flex justify-content-center">
-                    <div className="mt-5 spinner-border text-info" style={{width: "7rem", height: "7rem"}} role="status">
-                    <span className="sr-only">Loading...</span>
-                    </div>
-                </div>}
+                {this.state.userInfo && this.state.userMode ?
+                    <div className="container infoTXT">
+                        <div className="text-center childName">
+                            פרטי {this.state.userMode === "child" ? "חניך" :
+                                this.state.userMode === "driver" ? "נהג" :
+                                    "מלווה"} <br />
+                            {this.state.userInfo.firstName + " " + this.state.userInfo.lastName}
+                            {this.state.userInfo.gender === "male" ? <i className="fas fa-mars fa-1x mr-1" style={{ color: "#007bff78" }} ></i> :
+                                this.state.userInfo.gender === "female" ? <i className="fas fa-venus fa-1x mr-1" style={{ color: "#f59cc5bf" }}></i> :
+                                    <i className="fas fa-genderless fa-1x mr-1" style={{ color: "grey" }} ></i>}
+                            <div><img className="thumbnailIMG" src={this.state.userInfo.thumbnail} /></div>
+                        </div>
+                        <div className="text-right">
+                            {this.state.userInfo.adressForth &&
+                            <div>
+                                <div className="mt-3" > כתובת הלוך</div>
+                                <div className="infoBox mt-1">{this.state.userInfo.adressForth}</div>
+                            </div>}
+                            {this.state.userInfo.adressBack &&
+                            <div>
+                                <div className="mt-3" > כתובת חזור</div>
+                                <div className="infoBox mt-1">{this.state.userInfo.adressBack}</div>
+                            </div>}
+                            {this.state.userInfo.contactName &&
+                            <div>
+                                <div className="mr-4 mt-3" >איש קשר</div>
+                                <div className="infoBox row mt-1"><span className="col-10">{this.state.userInfo.contactName}</span> <i className="fas fa-phone fa-1x col"></i> </div>
+                            </div>}
+                            {this.state.userInfo.contactName &&
+                            <div>
+                                <div className="mr-4 mt-3">טלפון</div>
+                                <div className="infoBox row mt-1" ><span className="col-10">{this.state.userInfo.phone}</span> <i className="fas fa-phone fa-1x col"></i> </div>
+                            </div>}
+                            {this.state.userInfo.alertTime &&
+                            <div>
+                                <div className="mr-4 mt-3" >התראה לפני הגעה</div>
+                                <div className="infoBox mt-1">{this.state.userInfo.alertTime}</div>
+                            </div>}
+                        </div>
+                    </div> :
+                    <div class="d-flex justify-content-center">
+                        <div class="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>}
             </div>
         );
     }

@@ -8,8 +8,7 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: "null",
-            chooseMode: false
+            filteredPeople: "null"
         }
 
     }
@@ -34,51 +33,50 @@ class ContactList extends Component {
 
     }
 
-    filteredList = (event) => {
-        let updatedList = this.state.people;
-        console.log("event.target.value", event.target.value)
-        //the search cant get "\" so:
-        try {
-            updatedList = updatedList.filter(function (item) {
-                return ((item.firstName + " " + item.lastName).toLowerCase().search(
-                    event.target.value.toLowerCase()
-                ) !== -1);
-            });
-            this.setState({ filteredPeople: updatedList });
-        } catch (error) {
-            console.log(error)
-        }
 
+filteredList = (event) => {
+    let updatedList = this.state.people;
+    console.log("event.target.value", event.target.value)
+    //the search cant get "\" so:
+    try {
+        updatedList = updatedList.filter(function (item) {
+            return ((item.firstName + " " + item.lastName).toLowerCase().search(
+                event.target.value.toLowerCase()
+            ) !== -1);
+        });
+        this.setState({ filteredPeople: updatedList });
+    } catch (error) {
+        console.log(error)
     }
 
-    filteredIsNotNull = () => {
-        if (this.state.filteredPeople) {
-            return <List chooseMode={this.state.chooseMode} filteredPeople={this.state.filteredPeople} params={this.props.match.params} history={this.props.history} />
-        }
-    }
+}
 
-
-
-    render() {
-        return (
-            <div className="filter-list">
-
-                <form>
-                    <fieldset className="form-group">
-                        <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
-                    </fieldset>
-                </form>
-
-                <div className="list-group">
-                    {console.log("lala", this.state.filteredPeople)}
-                    {this.filteredIsNotNull()}
-                </div>
-
-            </div>
-        );
+filteredIsNotNull = () => {
+    if (this.state.filteredPeople) {
+        return <List chooseMode={this.state.chooseMode} filteredPeople={this.state.filteredPeople} params={this.props.match.params} history={this.props.history} />
     }
 }
 
+
+
+render() {
+    return (
+        <div className="filter-list">
+            <form>
+                <fieldset className="form-group">
+                    <input type="text" className=" mt-3 form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
+                </fieldset>
+            </form>
+
+            <div className="list-group">
+                {this.filteredIsNotNull()}
+            </div>
+
+        </div>
+    );
+}
+
+}
 
 class List extends Component {
     constructor(props) {
@@ -138,22 +136,24 @@ class List extends Component {
 
     render() {
         return (this.props.filteredPeople.map((person) => (
-            <a className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
-                <div className="row">
-                    {person.thumbnail && <div className="col-3">
-                        <img src={person.thumbnail} className=" contactImg" alt="Responsive image" />
-                    </div>}
-                    {!person.thumbnail && <div className="col-3">
-                        <i className="fas fa-user-tie noPic"></i>
-                    </div>}
-                    <div className="col text-right">{person.firstName} {person.lastName} </div>
-                    <div className="col-2 "><i className="fas fa-phone"></i></div>
-                    {this.props.chooseMode &&
-                        <div onClick={() => this.contactChoosen(person.id)} className="col-2"><i className="fas fa-user-plus"></i></div>
+            <Link to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+                <a className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
+                    <div className="row">
+                        {person.thumbnail && <div className="col-3">
+                            <img src={person.thumbnail} className=" contactImg" alt="Responsive image" />
+                        </div>}
+                        {!person.thumbnail && <div className="col-3">
+                            <i className="fas fa-user-tie noPic"></i>
+                        </div>}
+                        <div className="col text-right">{person.firstName} {person.lastName} </div>
+                        <a href={"tel:" + person.phone}><div class="col-2 "><i class="fas fa-phone" /></div></a>
+                        {this.props.chooseMode &&
+                            <div onClick={() => this.contactChoosen(person.id)} className="col-2"><i className="fas fa-user-plus"></i></div>
 
-                    }
-                </div>
-            </a>
+                        }
+                    </div>
+                </a>
+            </Link>
         )));
     }
 }
