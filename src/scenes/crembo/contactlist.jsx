@@ -8,8 +8,7 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: "null",
-            chooseMode: false
+            filteredPeople: "null"
         }
         console.log("the props is", this.props.match.params.person)
     }
@@ -55,7 +54,7 @@ componentWillMount() {
             <div className="filter-list">
                 <form>
                     <fieldset className="form-group">
-                        <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
+                        <input type="text" className=" mt-3 form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
                     </fieldset>
                 </form>
 
@@ -85,7 +84,7 @@ class List extends Component {
 
                             </div>
                             <div class="col text-right">{person.firstName} {person.lastName} </div>
-                            <div class="col-2 "><i class="fas fa-phone"></i></div>
+                            <a href={"tel:" + person.phone}><div class="col-2 "><i class="fas fa-phone"/></div></a>
                         </div>
                     </div>
                 </Link>
