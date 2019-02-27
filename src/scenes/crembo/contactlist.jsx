@@ -7,23 +7,22 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: "null",
-            chooseMode: false
+            filteredPeople: "null"
         }
-        console.log("the props is", this.props.contactApi)
+        
     }
 
     componentWillMount() {
         let modelApi = this.props.contactApi;
-        console.log("entered to didmount");
+        
     
         Auth.authFetch(modelApi).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res});
-            console.log("dfg", this.state.people)
+            
          });
 
         this.setState({ filteredPeople: this.state.people });
-        console.log("filterdpeople", this.state.filteredPeople)
+        
     }
 
     filteredList = (event) => {
@@ -34,7 +33,7 @@ class ContactList extends Component {
             ) !== -1); 
         });
         this.setState({ filteredPeople: updatedList });
-        console.log("updated list", this.state.filteredPeople);
+        
     }
 
     filteredIsNotNull = () => {
@@ -51,12 +50,12 @@ class ContactList extends Component {
 
                 <form>
                     <fieldset className="form-group">
-                        <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
+                        <input type="text" className=" mt-3 form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
                     </fieldset>
                 </form>
 
                 <div class="list-group">
-                {console.log("lala", this.state.filteredPeople)}
+                {}
                     {this.filteredIsNotNull()}
                 </div>
 
@@ -70,15 +69,16 @@ class ContactList extends Component {
 class List extends Component {
     listLayout = () => {
             let contactCard = this.props.filteredPeople.map((person) => (
+             
                 <a href="#" class="list-group-item list-group-item-action personCard" data-category={person} key={person}>
                     <div class="row">
                         <div class="col-3">
 
-                            <img src={person.thumbnail} class=" contactImg" alt="Responsive image" />
+                            <img src={person.thumbnail} class=" contactImg" />
 
                         </div>
                         <div class="col text-right">{person.firstName} {person.lastName} </div>
-                        <div class="col-2 "><i class="fas fa-phone"></i></div>
+                       <a href={"tel:" + person.phone}> <div class="col-2 "><i class="fas fa-phone"></i></div> </a>
                     </div>
                 </a>
             ))

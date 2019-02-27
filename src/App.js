@@ -6,7 +6,7 @@ import Login from './Auth/Login';
 import Auth from './Auth/Auth';
 import Crembo from './scenes/crembo/crembo'
 import Dashboard from './scenes/dashboard/dashboard'
-
+import AssistantSide from './scenes/assistants/home'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -31,6 +31,7 @@ class App extends Component {
                 <div className="App">
                     <PrivateRoute path="/dashboard" component={Dashboard} />
                     <PrivateRoute path="/" component={Crembo} />
+                    <PrivateRoute path="/assistant" component={AssistantSide} />
                     <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}
                     />
                 </div>

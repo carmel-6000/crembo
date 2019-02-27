@@ -12,6 +12,7 @@ import ContactList from './contactlist';
 import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
+import Sidebar from './sidebar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -129,6 +130,7 @@ class NavHeaderComponent extends Component {
                         <i className="fas fa-user-tie" /> משתמש
                 </a>
                 </li>
+                <Sidebar/>
             </ul>
         );
     }
