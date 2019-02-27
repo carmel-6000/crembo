@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './rides.css';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class RideDetails extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ class RideDetails extends Component {
     componentWillMount() {
         this.setState({ item: this.props.location.state.item })
     }
-
     changeItemDetails = (e) => {
         console.log(e)
         let x = e.target.value;
@@ -41,23 +41,25 @@ class RideDetails extends Component {
                         <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div>
                         <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                         <div className="newPadding col-1 text-right">
-                            <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
+                            <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
+                            </button>
+                            <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
+                                <ul type="square" className="mb-0">
+                                    {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
+                                </ul>
+                            </div>
                         </div>
                         <div className="newPadding col-1 text-right">
                             <div className="dropdown">
-                                <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button className="dropdownsButtons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i className=" font-responsive fas fa-ellipsis-v "></i>
                                 </button>
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                {/* <Link to={{ pathname: '/rides/ride-details//child-details/' + `${item.id}`, state: { item } }} > */}
-                                    {/* <button class="dropdown-item text-right" type="button">הסר מהסעה זו ביום זה</button>
-                                    <button class="dropdown-item text-right" type="button">מידע נוסף</button>
-                                    <button class="dropdown-item text-right" type="button">העבר להסעה אחרת</button> */}
-
-                                    <a className="dropdown-item text-right" href={"/rides/ride-details/"+ this.state.item.id +"/child-details/" + value.id }>מידע נוסף</a>
+                                <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                                    <Link className="dropdown-item text-right" to={{ pathname: "/rides/ride-details/" + this.state.item.id + "/child-details/" + value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
                                     <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
                                     <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -79,19 +81,18 @@ class RideDetails extends Component {
     }
 
     render() {
-        console.log("item" ,this.state.item)
         console.log("props", this.props)
         return (
 
             <div>
                 <div className="row ">
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDay}</p></div>
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDate}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityInfo.activityDay}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityInfo.activityDate}</p></div>
                     <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
                 </div>
                 <input className="row" type="time" value={this.state.item.plannedTime} name="planned_time" id="planned_time" onChange={this.changeItemDetails}></input>
                 <input className="row" type="text" value={this.state.item.title} name="title" id="title" onChange={this.changeItemDetails}></input>
-
+                
                 <div className="main-container">
                     <ul className="nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                         <li className="nav-item">
@@ -120,6 +121,3 @@ class RideDetails extends Component {
 
 
 export default RideDetails;
-
-
-

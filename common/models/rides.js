@@ -5,6 +5,5 @@ const dataSourceConfig = require('../../server/datasources.json');
 const ds = new loopback.DataSource(dataSourceConfig['msql']);
 
 module.exports = function(Rides) {
-
     
 };

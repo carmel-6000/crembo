@@ -1,0 +1,74 @@
+{
+    "name": "Requests",
+    "crud": {
+        "fields": {
+            "id": {},
+            "request": {
+                "type": "text",
+                "editable": "true"
+            }
+        }
+    },
+    "options": {
+        "idInjection": false,
+        "mysql": {
+            "schema": "crembo",
+            "table": "requests"
+        },
+        "relations": {
+            "children": {
+                "type": "belongsTo",
+                "model": "Children",
+                "foreignKey": "requestId",
+                "through": "requestsMap",
+                "keyThrough": "childId"
+            },
+            "drivers": {
+                "type": "belongsTo",
+                "model": "Drivers",
+                "foreignKey": "requestId",
+                "through": "requestsMap",
+                "keyThrough": "driverId"
+            },
+            "assistants": {
+                "type": "belongsTo",
+                "model": "Assistants",
+                "foreignKey": "requestId",
+                "through": "requestsMap",
+                "keyThrough": "assistantId"
+            }
+        }
+    },
+    "properties": {
+        "id": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "id",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
+        "request": {
+            "type": "String",
+            "required": false,
+            "length": 65535,
+            "precision": null,
+            "scale": null,
+            "mysql": {
+                "columnName": "request",
+                "dataType": "text",
+                "dataLength": 65535,
+                "dataPrecision": null,
+                "dataScale": null,
+                "nullable": "Y"
+            }
+        }
+    }
+}

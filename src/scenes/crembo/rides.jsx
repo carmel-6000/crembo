@@ -21,7 +21,7 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch('api/rides?filter={"include": "children"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('api/rides?filter={"include": [{"children": "requests"}, "drivers"]}').then(response => { return response.json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -73,7 +73,7 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item } }} >
+            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.location.state} }} >
                 <div className="rideCard" >
                     <div className="row" >
                         <div className="col">

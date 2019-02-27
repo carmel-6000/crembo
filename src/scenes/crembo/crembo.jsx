@@ -89,22 +89,9 @@ class Crembo extends Component {
                 <PrivateRoute exact path="/rides" component={Rides} />
                 <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
                 <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
+                <PrivateRoute exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
+                <PrivateRoute exact path="/contact/:person(assistants|children|drivers)" component={ContactList} />
                 <PrivateRoute exact path="/new-activity" component={NewActivity} />
-
-                {/* <PrivateRoute exact path="/rides/ride-details/:id/child-details/:childid" component={() => (
-                    <ChildDetails childApi={'/api/children/:childid'} />
-                )} />  */}
-
-
-                <PrivateRoute exact path="/contact/assistants" component={() => (
-                    <ContactList contactApi={'/api/assistants'} />
-                )} />
-                <PrivateRoute exact path="/contact/children" component={() => (
-                    <ContactList contactApi={'/api/children'} />
-                )} />
-                <PrivateRoute exact path="/contact/drivers" component={() => (
-                    <ContactList contactApi={'/api/drivers'} />
-                )} />
 
             </div>
         );

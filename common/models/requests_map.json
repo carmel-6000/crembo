@@ -1,0 +1,124 @@
+{
+    "name": "RequestsMap",
+        "crud": {
+            "fields": {
+                "id": {},
+                "requestId": {
+                    "width": 11,
+                    "editable": "true",
+                    "type": "Number"
+                },
+                "childId": {
+                    "type": "Number",
+                    "width": 11,
+                    "editable": "true"
+                }
+            }
+        },
+        "options": {
+            "idInjection": false,
+            "mysql": {
+                "schema": "crembo",
+                "table": "requests_map"
+            },
+            "relations": {
+                "children": {
+                    "model": "Children",
+                    "type": "belongsTo",
+                    "foreignKey": "childId"
+                },
+                "drivers": {
+                    "model": "Drivers",
+                    "type": "belongsTo",
+                    "foreignKey": "driverId"
+                },
+                "assistants": {
+                    "model": "Assistants",
+                    "type": "belongsTo",
+                    "foreignKey": "assistantId"
+                },
+                "requests": {
+                    "model": "Requests",
+                    "type": "belongsTo",
+                    "foreignKey": "requestId"
+                }
+            }
+        },
+        "properties": {
+            "id": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 10,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 10,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "requestId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "request_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "childId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "child_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "driverId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "driver_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "assistantId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "assistant_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            }
+        }
+}

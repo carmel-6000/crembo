@@ -55,11 +55,6 @@
                 "type": "number",
                 "editable": "true",
                 "isHidden": "false"
-            },
-            "requests": {
-                "type": "text",
-                "editable": "true",
-                "isHidden": "false"
             }
         }
     },
@@ -76,6 +71,13 @@
                 "foreignKey": "childId",
                 "through": "childrenRides",
                 "keyThrough": "rideId"
+            },
+            "requests": {
+                "type": "hasMany",
+                "model": "Requests",
+                "foreignKey": "childId",
+                "through": "RequestsMap",
+                "keyThrough": "requestId"
             }
         }
     },
@@ -84,13 +86,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }
@@ -243,17 +245,17 @@
             }
         },
         "requests": {
-            "type": "String",
+            "type": "number",
             "required": false,
-            "length": 65535,
-            "precision": null,
-            "scale": null,
+            "length": 11,
+            "precision": 11,
+            "scale": 0,
             "mysql": {
                 "columnName": "requests",
-                "dataType": "text",
-                "dataLength": 65535,
-                "dataPrecision": null,
-                "dataScale": null,
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
                 "nullable": "Y"
             }
         },
