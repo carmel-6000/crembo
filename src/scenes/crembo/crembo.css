@@ -17,12 +17,14 @@
 .nav-linker {
     text-align: right;
     font-family: 'Amatic SC', cursive;
-    font-size: 36px;
+    font-size: 20vw;
 }
 
 .navbar-brand {
-    font-family: 'Amatic SC', cursive;
-    font-size: 40px;
+    font-size: 6vw;
+    text-align: center;
+    color: white !important; 
+    padding: 2.5vh;
 }
 
 body {
@@ -36,4 +38,7 @@ body {
 }
 .bold{
     font-weight: bold
+}
+.navWithChanges{
+    justify-content: unset;
 }

@@ -8,22 +8,23 @@ class RideDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: null,
-            assistantsItem:null,
-            driversItem:null
+            item: null
         }
 
     }
-    componentDidMount(){
-        this.setState({ assistantsItem: this.props.location.state.item.assistants });
-        this.setState({ driversItem: this.props.location.state.item.drivers });
-    }
+
     componentWillMount() {
-        this.setState({ item: this.props.location.state.item });
-
+        if(this.props.location.state){
+            this.setState({ item: this.props.location.state.item });
+        } else {
+            Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, "drivers"]}`).then(response => { return response.clone().json()}).then(res => {
+                console.log("res" , res)
+                this.setState({ item : res })
+            })
+        }  
     }
+    
     changeItemDetails = (e) => {
-
         let x = e.target.value;
         let item = { ...this.state.item };
         switch (e.target.id) {
@@ -63,7 +64,7 @@ class RideDetails extends Component {
                                     <i className=" font-responsive fas fa-ellipsis-v "></i>
                                 </button>
                                 <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                    <Link className="dropdown-item text-right" to={{ pathname: "/rides/ride-details/" + this.state.item.id + "/child-details/" + value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
+                                    <Link className="dropdown-item text-right" to={{ pathname: "/contact/children/details/" +  value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
                                     <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
                                     <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
 
@@ -74,44 +75,48 @@ class RideDetails extends Component {
                 </div>))
             return card;
         } else if (val === "assistants") {
-            let driver = this.props.location.state.item.drivers;
-            let assist =
-                <div className="childrenCard">
-                    <div className="row ">
-                        {driver.thumbnail&&<div className="newPadding col-2"><img className="thumbnailIMG" src={driver.thumbnail} /></div>}
-                        <div className="newPadding font-responsive col text-right">{driver.firstName} {driver.lastName}</div>
-                        <div className="newPadding col-1 text-right">
-                            <i style={{ color: "#c12735" }} className="font-responsive fas fa-exclamation "></i>
-                        </div>
-                        <div className="newPadding col-1 text-right">
-                            <div className="dropdown">
-                                <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i className=" font-responsive fas fa-ellipsis-v "></i>
-                                </button>
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            // let driver = this.props.location.state.item.drivers;
+            // let assist =
+            //     <div className="childrenCard">
+            //         <div className="row ">
+            //             <div className="newPadding font-responsive col text-right">{driver.firstName} {driver.lastName}</div>
+            //             <div className="newPadding col-1 text-right">
+            //                 <i style={{ color: "#c12735" }} className="font-responsive fas fa-exclamation "></i>
+            //             </div>
+            //             <div className="newPadding col-1 text-right">
+            //                 <div className="dropdown">
+            //                     <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            //                         <i className=" font-responsive fas fa-ellipsis-v "></i>
+            //                     </button>
+            //                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                    
-                                    <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
-                                    <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
+            //                         <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
+            //                         <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     </div>
                 
-            return assist;
+            // return assist;
+            <div>hi</div>
         }
     }
 
     render() {
-        return (
+        console.log("item" ,this.state.item)
+        console.log("the props is" , this.props)
 
+        return (
             <div>
+            {this.state.item &&
+                <div>
                 {console.log("prop",this.props)}
                 <div className="row ">
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityInfo.activityDay}</p></div>
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityInfo.activityDate}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
                     <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
                 </div>
                 <input className="row" type="time" value={this.state.item.plannedTime} name="planned_time" id="planned_time" onChange={this.changeItemDetails}></input>
@@ -149,7 +154,7 @@ class RideDetails extends Component {
                     </div>
 
                 </div>
-
+                </div>}
             </div>
         );
     }

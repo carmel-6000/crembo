@@ -21,7 +21,8 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch('api/rides?filter={"include": [{"children": "requests"}, "drivers"]}').then(response => { return response.json() }).then(res => {
+        console.log("the props page rides" , this.props.location)
+        Auth.authFetch('/api/rides?filter={"include": [{"children": "requests"}, "drivers"]}').then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -53,7 +54,7 @@ class Rides extends Component {
         }).catch((err) => {
             console.log('Fetch Error :-S', err);
         });
-        var date = new Date(this.props.location.state.activityDate);
+        var date = new Date(this.props.activityDetails.activityDate);
             var options = { weekday: 'long' };
             options.timeZone = 'UTC';
             let finalDay = date.toLocaleDateString('he-IS', options);
@@ -73,7 +74,7 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.location.state} }} >
+            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.activityDetails} }} >
                 <div className="rideCard" >
                     <div className="row" >
                         <div className="col">
@@ -99,10 +100,10 @@ class Rides extends Component {
     render() {
         return (
             <div>
-                
+               
                 <div className="row">
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDay}</p></div>
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDate}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
                     <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
                 </div>
                 <div className="main-container">

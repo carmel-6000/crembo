@@ -24,25 +24,31 @@ class Sidebar extends Component {
     render() {
         return (
             <div>
-                <a onClick={() => this.changeModelState(true)}>
-                    <i className="fas fa-star" />  תפריט
-                </a>
+                <button className="navbar-toggler" onClick={() => this.changeModelState(true)} >
+                        <span className="navbar-toggler-icon"></span>
+                </button>
 
-                <a  className={this.state.modalAppears ? "sidenav widthy" : "notwidthy"} onBlur = {() => this.changeModelState(false)}>
+                <a  className={this.state.modalAppears ? "sidenav widthy" : "notwidthy"} onblur = {() => this.changeModelState(false)}>
                     {this.state.modalAppears &&
-                    <span>
-                    <a className="closebtn" onClick={() => this.changeModelState(false)}>&times;</a>
-                    <h3>אחראי הסעה בסניף</h3>
-                    <Link to={{ pathname: '/contact/children' }} >
-                    <p>חניכים</p>
+                    <span className="text-right ">
+                    <a className="closebtn text-left" onClick={() => this.changeModelState(false)}>&times;</a>
+                    <h3 className="mr-3 title_person">אחראי הסעה בסניף</h3>
+                    <Link to={{ pathname: '/contact/children' }} onClick={() => this.changeModelState(false)} >
+                    <p className="mr-3">חניכים</p>
                     </Link>
-                    <Link to={{ pathname: '/contact/drivers'}} >
-                    <p>נהגים</p>
+                    <Link to={{ pathname: '/contact/drivers'}} onClick={() => this.changeModelState(false)} >
+                    <p className="mr-3">נהגים</p>
                     </Link>
-                    <Link  to={{ pathname: '/contact/assistants' }} >
-                    <p>מלווים</p>
+                    <Link to={{ pathname: '/contact/assistants' }}  onClick={() => this.changeModelState(false)}>
+                    <p className="mr-3">מלווים</p>
                     </Link>
-                    <a href="/rides" >הסעות הסניף</a>
+                    <Link to={{ pathname:'/rides' }} onClick={() => this.changeModelState(false)} >
+                    <p className="mr-3"> הסעות הסניף</p>
+                    </Link>
+                    <p>
+                        <a onClick={this.props.logout} href="#">
+                        <i className="fas fa-sign-in-alt mr-3" /> התנתק </a>
+                    </p>
                     </span>}
                 </a>
             </div>

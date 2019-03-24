@@ -76,6 +76,14 @@ class ChildDetails extends Component {
                                 <div className="mr-4 mt-3" >התראה לפני הגעה</div>
                                 <div className="infoBox mt-1">{this.state.userInfo.alertTime}</div>
                             </div>}
+                            {this.state.userInfo.requests &&
+                            <div>
+                                <div className="mr-4 mt-3" >הערות נוספות</div>
+                                <div className="infoBox mt-1">
+                                {this.state.userInfo.requests.map((val)=>
+                                    <div>{val.request}</div>)}
+                                </div>
+                            </div>}
                         </div>
                     </div> :
                     <div class="d-flex justify-content-center">
