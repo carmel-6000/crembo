@@ -13,7 +13,7 @@ class AssistantSide extends Component {
     }
 
   enterForm = () => {
-      <form>
+    return  <form>
           <label><input type="number"></input> מספר פלאפון</label>
           <select>
               <option value="forward">הלוך</option>

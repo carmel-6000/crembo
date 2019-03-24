@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
-import './crembo.css';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
 import Rides from './rides'
@@ -11,12 +10,13 @@ import ChildDetails from './childDetails';
 import notFound from './notFound';
 import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
+import './crembo.css';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
         Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
     )} />
-    
+
 )
 
 class Crembo extends Component {
@@ -36,47 +36,44 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`api/activities?filter={"where": {"managerId":  ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                console.log("res.isLive", res)
                 for (let i = 0; i < res.length; i++)
                     if (res[i].isLive) {
                         this.setState({ hasActivity: true })
-                        this.setState({ haschecked: true });
-                        console.log("the activity ")
-                    } 
+                        this.setState({ haschecked: true });                    }
 
             }).catch((err) => {
                 console.log('Fetch Error :-S', err);
             });
 
         }
-        else { this.setState({ haschecked: true });
-    console.log("no activity")}
+        else {
+            this.setState({ haschecked: true });
+            console.log("no activity")
+        }
     }
 
 
     render() {
-            console.log("this.state.hasActivity", this.state.hasActivity)
-            console.log("haschecked", this.state.haschecked)
-            if (!this.toRender)
-                return (
-                    //loading logo
-                    <div className="d-flex justify-content-center">
-                        <div className="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
-                );
-            
+        if (!this.toRender)
             return (
-                <div className="crembo-font">
-                    <div>
-                        <NavBar />
-                        <Switch>
+                //loading logo
+                <div className="d-flex justify-content-center">
+                    <div className="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+            );
+
+        return (
+            <div className="crembo-font">
+                <div>
+                    <NavBar />
+                    <Switch>
                         <Route exact path="/" render={() => (
                             this.state.hasActivity && this.state.haschecked ? (
                                 <Redirect to={{ pathname: "/rides", state: this.state }} />
-                             ) : <NewActivity/>
+                            ) : <NewActivity />
                         )} />
                         <PrivateRoute exact path="/rides" component={Rides} />
                         <PrivateRoute exact path="/rides/ride-details/:id" component={RideDetails} />
@@ -86,10 +83,10 @@ class Crembo extends Component {
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/map" component={MapDirections} />
                         <PrivateRoute component={notFound} />
-                        </Switch>
-                    </div>
+                    </Switch>
                 </div>
-            );
+            </div>
+        );
     }
 }
 
@@ -111,7 +108,7 @@ class NavHeaderComponent extends Component {
                         <i className="fas fa-user-tie" /> משתמש
                 </a>
                 </li>
-                <Sidebar/>
+                <Sidebar />
             </ul>
         );
     }

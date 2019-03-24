@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import {  Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Login from './Auth/Login';
 import Auth from './Auth/Auth';
-import Crembo from './scenes/crembo/crembo'
-import Dashboard from './scenes/dashboard/dashboard'
-import history from './history'
-import AssistantSide from './scenes/assistants/home'
+import Crembo from './scenes/crembo/crembo';
+import Dashboard from './scenes/dashboard/dashboard';
+import history from './history';
+import AssistantSide from './scenes/assistants/home';
+import notFound from './scenes/crembo/notFound';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -30,9 +31,12 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div className="App">
-                    <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute path="/" component={Crembo} />
-                    <PrivateRoute path="/assistant" component={AssistantSide} />
+                    <Switch>
+                        <PrivateRoute path="/dashboard" component={Dashboard} />
+                        <PrivateRoute path="/assistant" component={AssistantSide} />
+                        <PrivateRoute path="/" component={Crembo} />
+                        <PrivateRoute component={notFound} />
+                    </Switch>
                     <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}
                     />
                 </div>
