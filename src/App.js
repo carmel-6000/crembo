@@ -31,8 +31,8 @@ class App extends Component {
             <Router history={history}>
                 <div className="App">
                     <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute path="/" component={Crembo} />
                     <PrivateRoute path="/assistant" component={AssistantSide} />
+                    <PrivateRoute path="/" component={Crembo} />        
                     <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}
                     />
                 </div>

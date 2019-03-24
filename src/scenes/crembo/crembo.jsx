@@ -10,6 +10,7 @@ import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
 import notFound from './notFound';
 import Sidebar from './sidebar';
+import assistantRide from '../assistants/assistantRide';
 import MapDirections from './mapDirections';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -84,6 +85,7 @@ class Crembo extends Component {
                         <PrivateRoute exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <PrivateRoute exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
+                        <PrivateRoute exact path="/assistant/ride-details" component={assistantRide} />
                         <PrivateRoute exact path="/map" component={MapDirections} />
                         <PrivateRoute component={notFound} />
                         </Switch>
