@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
-import './crembo.css';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
 import Rides from './rides'
@@ -10,12 +9,14 @@ import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
 import notFound from './notFound';
 import Sidebar from './sidebar';
+import MapDirections from './mapDirections';
+import './crembo.css';
 
 const PrivateRoute = ({ component: Component, state, ...rest }) => (
     <Route {...rest} render={(props) => (
         Auth.isAuthenticated() === true ? <Component activityDetails={state} {...props}/> : <Redirect to='/login' />
     )} />
-    
+
 )
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
@@ -69,7 +70,7 @@ class Crembo extends Component {
         }
         else { 
         this.setState({ haschecked: true });
-        console.log("no activity")}
+             console.log("no activity")}
     }
 
 
@@ -77,7 +78,7 @@ class Crembo extends Component {
     render() {
        
         console.log("state is", this.state)
-            if (!this.state.haschecked)
+        if (!this.state.haschecked) 
                 return (
                     //loading logo
                     <div className="d-flex justify-content-center">
@@ -105,11 +106,12 @@ class Crembo extends Component {
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
+                        <PrivateRoute exact path="/map" component={MapDirections} />
                         <PrivateRoute component={notFound} />
-                        </Switch>
-                    </div>
+                    </Switch>
                 </div>
-            );
+            </div>
+        );
     }
 }
 
