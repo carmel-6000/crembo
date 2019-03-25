@@ -74,7 +74,7 @@ class RideDetails extends Component {
                 </div>))
             return card;
         } else if (val === "drivers") {
-            let driver = this.props.location.state.item.drivers;
+            let driver = this.state.item.drivers;
             let driverCard =
                 <div className="childrenCard">
                     <div className="row ">
@@ -142,10 +142,10 @@ class RideDetails extends Component {
                                 </Link>
 
                             </div>
-                        {this.props.location.state.item.drivers&&<div>{this.mapOfchildOrAssistant("drivers")}</div>}
+                        {this.state.item.drivers&&<div>{this.mapOfchildOrAssistant("drivers")}</div>}
                         </div>
                         <div className="tab-pane fade " id="pills-children" role="tabpanel" aria-labelledby="pills-children-tab">
-                        {this.props.location.state.item.children&&<div className="container">{this.mapOfchildOrAssistant("children")}</div>}
+                        {this.state.item.children&&<div className="container">{this.mapOfchildOrAssistant("children")}</div>}
                         </div>
                     </div>
 
