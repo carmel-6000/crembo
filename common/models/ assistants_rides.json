@@ -1,0 +1,84 @@
+{
+    "name": "AssistantsRides",
+        "crud": {
+            "fields": {
+                "id": {},
+                "rideId": {
+                    "width": 11,
+                    "editable": "true",
+                    "type": "Number"
+                },
+                "assistantId": {
+                    "type": "Number",
+                    "width": 11,
+                    "editable": "true"
+                }
+            }
+        },
+        "options": {
+            "idInjection": false,
+            "mysql": {
+                "schema": "crembo",
+                "table": "assistants_rides"
+            },
+            "relations": {
+                "rides": {
+                    "model": "Rides",
+                    "type": "belongsTo",
+                    "foreignKey": "rideId"
+                },
+                "assistants": {
+                    "model": "Assistants",
+                    "type": "belongsTo",
+                    "foreignKey": "assistantId"
+                }
+            }
+        },
+        "properties": {
+            "id": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "rideId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "ride_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            },
+            "assistantId": {
+                "id": true,
+                "type": "number",
+                "length": null,
+                "precision": 11,
+                "scale": 0,
+                "mysql": {
+                    "columnName": "assistant_id",
+                    "dataType": "int",
+                    "dataLength": null,
+                    "dataPrecision": 11,
+                    "dataScale": 0,
+                    "nullable": "N"
+                }
+            }
+        }
+}

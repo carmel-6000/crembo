@@ -1,0 +1,45 @@
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color:#ffff;
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  .sidenav a {
+    padding: 1.5vw;
+    text-decoration: none;
+    font-size: 5vw;
+    color: black;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav h3 {
+    font-size: 6vw;
+  }
+  
+  .sidenav a:hover {
+    color: #2d2b2b75;
+  }
+  
+  .sidenav .closebtn {
+    font-size: 8vw;
+    padding-left: 4vw;
+  }
+
+  .title_person{
+    color: #00aebe;
+  }
+  
+  .notwidthy {
+      width: 0;
+  }
+  .widthy{
+      width: 60vw;
+  }

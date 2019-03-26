@@ -1,15 +1,22 @@
-html,
-body {
+/* html, body { 
+  text-align: center !important;
   min-height: 100%;
+} */
+
+* {
+  margin: 0;
+  padding: 0;
 }
-
-
 .App {
   /* text-align: center; */
   font-family: "PT Sans", sans-serif;
   
 }
-
+a {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
 .App-logo {
   animation: App-logo-spin infinite 30s linear;
   margin-top: 5px;

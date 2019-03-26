@@ -9,7 +9,7 @@
             },
             "activity": {
                 "type": "number",
-                "width": 10,
+                "width":10,
                 "editable": "true"
             },
             "plannedTime": {
@@ -55,10 +55,6 @@
                 "type": "text",
                 "editable": "true"
             },
-            "asisstants": {
-                "type": "number",
-                "editable": "true"
-            },
             "childrenBoarded": {
                 "type": "number",
                 "width": 11,
@@ -87,7 +83,25 @@
                 "foreignKey": "rideId",
                 "through": "ChildrenRides",
                 "keyThrough": "childId"
-              }
+              },
+              "assistants": {
+                "type": "hasMany",
+                "model": "Assistants",
+                "foreignKey": "rideId",
+                "through": "AssistantsRides",
+                "keyThrough": "assistantId"
+              },
+
+               "drivers": {
+                "type": "belongsTo",
+                "model": "Drivers",
+                "foreignKey": "driver"
+              },
+              "activities": {
+                "model": "Activities",
+                "type": "belongsTo",
+                "foreignKey": "activity"
+            }
         }
     },
     "properties": {
@@ -116,21 +130,6 @@
                 "columnName": "title",
                 "dataType": "varchar",
                 "dataLength": 255,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "activity": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "activity",
-                "dataType": "varchar",
-                "dataLength": 200,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
@@ -226,6 +225,21 @@
                 "nullable": "Y"
             }
         },
+        "activity": {
+            "id": true,
+            "type": "number",
+            "length": null,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "activity",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
+                "nullable": "N"
+            }
+        },
         "driver": {
             "type": "String",
             "required": false,
@@ -234,21 +248,6 @@
             "scale": null,
             "mysql": {
                 "columnName": "driver",
-                "dataType": "text",
-                "dataLength": 200,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "asisstants": {
-            "type": "String",
-            "required": false,
-            "length": 200,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "asisstants",
                 "dataType": "text",
                 "dataLength": 200,
                 "dataPrecision": null,

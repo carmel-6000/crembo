@@ -1,0 +1,16 @@
+.body404{
+    
+    background-color: #e0dfd4;  
+    background-position: 100% 100%;
+    background-size: cover;
+    width: 100%;
+    min-height: 87.5vh;
+    position: absolute;
+    overflow: hidden;
+}
+.vanGif{
+    width: 350px;
+}
+.margin3{
+    margin: 2vh;
+}

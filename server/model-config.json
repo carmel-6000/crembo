@@ -66,9 +66,25 @@
     "public": true,
     "expose": true
   },
+  "Requests": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
   "ChildrenRides": {
     "dataSource": "msql",
     "public": true,
     "expose": true
+  },
+  "RequestsMap": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": false
+  },
+  "AssistantsRides": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
   }
+
 }
