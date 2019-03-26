@@ -52,9 +52,14 @@ class NewActivity extends Component {
                 if (newrow.error) {
                     return (
                         <div>קיימת פעילות ביום זה! אנא בחר יום אחר</div>
-                    );
+                     );
                 }
 
+
+            // get the abstract rides.
+            // do a function that goes over the array 
+            // for each stracture-ride, "delete res.id"
+            // for each stracture-ride, set res.status="editing" && res.activity = newrow.id,
             });
         }
     }
