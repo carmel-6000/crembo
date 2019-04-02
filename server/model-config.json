@@ -36,6 +36,11 @@
     "public": true,
     "expose": false
   },
+  "Managers": {
+    "dataSource": "msql",
+    "public": true,
+    "expose": true
+  },
   "Children": {
     "dataSource": "msql",
     "public": true,
