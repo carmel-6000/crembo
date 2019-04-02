@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './rides.css';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 
 class RideDetails extends Component {
     constructor(props) {
@@ -48,6 +48,8 @@ class RideDetails extends Component {
                         <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div>
                         <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                         <div className="newPadding col-1 text-right">
+                            {value.requests && 
+                            <div>
                             <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
                             </button>
@@ -56,6 +58,7 @@ class RideDetails extends Component {
                                     {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
                                 </ul>
                             </div>
+                            </div>}
                         </div>
                         <div className="newPadding col-1 text-right">
                             <div className="dropdown">
@@ -105,7 +108,6 @@ class RideDetails extends Component {
     }
 
     render() {
-      
         return (
             <div>
             {this.state.item &&

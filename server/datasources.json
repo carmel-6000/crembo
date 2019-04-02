@@ -5,13 +5,12 @@
   },
   
   "msql": {
-    "host": "localhost",
+    "host": "68.66.253.184",
     "port": 3306,
-    "database": "crembo",
-    "password": "z10mz10m",
+    "database": "vango",
+    "password": "z10mz10m))",
     "name": "msql",
-    "user": "root",
+    "user": "monty",
     "connector": "mysql"
   }
-
 }

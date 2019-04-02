@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PrivateRoute from '../../App'
 import './sidebar.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 
 
 class Sidebar extends Component {
@@ -28,7 +28,7 @@ class Sidebar extends Component {
                         <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <a  className={this.state.modalAppears ? "sidenav widthy" : "notwidthy"} onblur = {() => this.changeModelState(false)}>
+                <a  className={this.state.modalAppears ? "sidenav widthy" : "notwidthy"} onBlur = {() => this.changeModelState(false)}>
                     {this.state.modalAppears &&
                     <span className="text-right ">
                     <a className="closebtn text-left" onClick={() => this.changeModelState(false)}>&times;</a>
