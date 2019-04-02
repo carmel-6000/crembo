@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Router, Route, Link , Switch} from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
 import NewActivity from './newActivity';
@@ -34,6 +34,7 @@ class Crembo extends Component {
             activityDate: null,
             activityDay: null,
             haschecked: null,
+            activityId: null
         }
     }
 
@@ -52,7 +53,7 @@ class Crembo extends Component {
                 else {
                   for (let i = 0; i < res.length; i++){
                         if (res[i].isLive) {
-                            this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay });
+                            this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay , activityId: res[i].id });
                             this.setState({ haschecked: true });
                             console.log("the activity ", res[i].activityDate ,res[i].activityDay )
                         } 
@@ -73,11 +74,15 @@ class Crembo extends Component {
              console.log("no activity")}
     }
 
+    setStateOfHasActivity=(activity)=>{
+        this.setState({hasActivity : true, 
+            activityDate: activity.activityDate,
+            activityDay: activity.activityDate,
+            activityId: activity.id })
+    }
 
 
     render() {
-       
-        console.log("state is", this.state)
         if (!this.state.haschecked) 
                 return (
                     //loading logo
@@ -98,10 +103,10 @@ class Crembo extends Component {
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
                                 <Redirect to={{ pathname: "/rides" }} />
-                             ) : <NewActivity/>
+                             ) : <NewActivity setStateOfHasActivity = {this.setStateOfHasActivity}/>
                         }} />
                         <ActivityRoute state= {this.state} exact path="/rides" component={Rides} />
-                        <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id" component={RideDetails} />
+                        <ActivityRoute state= {this.state} exact path="/rides/ride-details/:id" component={RideDetails} />
                         <PrivateRoute exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
