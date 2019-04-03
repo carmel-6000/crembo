@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import './../crembo/crembo.css'
 import { Router, Route, Link } from "react-router-dom";
-import './crembo.css';
+import './../crembo/crembo.css';
 import './notFound.css';
 import vanGif from '../../img/404.gif';
+import Auth from '../../Auth/Auth';
 
 class NotFound extends Component {
 
 
 
     render() {
+        console.log(Auth.isAuthenticated())
         return(
         <div className="body404">
         <div dir="ltr" className="bold margin3">404 not found</div>

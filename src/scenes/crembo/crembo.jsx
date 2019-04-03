@@ -7,10 +7,11 @@ import ContactList from './contactlist';
 import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
-import notFound from './notFound';
+import notFound from './../NotFound/notFound';
 import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
+import NavBar from './navbar';
 
 const PrivateRoute = ({ component: Component, state, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -98,7 +99,7 @@ class Crembo extends Component {
             return (
                 <div className="crembo-font">
                     <div>
-                        <NavBar />
+                        <NavBar/>
                         <Switch>
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
@@ -121,36 +122,5 @@ class Crembo extends Component {
 }
 
 
-
-//THIS IS WHERE THE CARMEL6000LOGO, ADMIN AND LOGIN IS. 
-class NavBar extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            navHeader: Auth.isAuthenticated() === true ? true : false,
-        }
-
-    }
-
-    // Calling Auth.logout -> clears cache and returns back. hitting route login
-    logOut = () => {
-        Auth.logout();
-        this.setState({ navHeader: false });
-    }
-    render() {
-        let navHeader = this.state.navHeader === true ?  <Sidebar logout={this.logOut} /> : "";
-        return (
-
-            <header>
-                <nav className="navbar navWithChanges navbar-dark fixed-top shadow primary ">
-                    {navHeader}
-                    <a className="navbar-brand" >כנפיים של קרמבו</a>
-                </nav>
-            </header>
-
-        );
-    }
-}
 
 export default  Crembo 

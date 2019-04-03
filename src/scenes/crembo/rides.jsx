@@ -23,7 +23,7 @@ class Rides extends Component {
     componentDidMount = () => {
         // filters the rides by their direction
         console.log("the props page rides" , this.props.location)
-        Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers"]}`).then(response => { return response.clone().json() }).then(res => {
+        Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -76,7 +76,7 @@ class Rides extends Component {
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
             <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.activityDetails} }} >
-                <div className="rideCard" >
+                <div className="rideCard p-2" >
                     <div className="row" >
                         <div className="col">
                             <p className="text-right" key={item.title} style={{ fontSize: "4.5vw" }}> {item.title} </p>
@@ -102,18 +102,18 @@ class Rides extends Component {
         return (
             <div>
                
-                <div className="row">
+                <div className="row top">
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
                     <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
                 </div>
                 <div className="main-container">
-                    <ul className="nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
+                    <ul className="nav rideNav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                         <li className="nav-item">
-                            <a className="nav-link active btn-block" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
+                            <a className="nav-link active btn-block bnf-font" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
+                            <a className="nav-link bnf-font" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
                         </li>
                     </ul>
                     <div className="tab-content content-of-selected-tab" id="pills-tabContent">

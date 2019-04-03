@@ -40,11 +40,6 @@
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
-            },
-            "notes": {
-                "type": "text",
-                "editable": "true",
-                "isHidden": "false"
             }
         }
     },
@@ -119,13 +114,14 @@
         },
         "thumbnail": {
             "type": "String",
-            "required": true,
+            "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
                 "columnName": "thumbnail",
                 "dataType": "varchar",
+                "dataLength": 255,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
@@ -186,21 +182,6 @@
                 "columnName": "phone",
                 "dataType": "varchar",
                 "dataLength": 10,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "notes": {
-            "type": "String",
-            "required": false,
-            "length": 65535,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "notes",
-                "dataType": "text",
-                "dataLength": 65535,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"

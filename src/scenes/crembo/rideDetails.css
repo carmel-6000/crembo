@@ -28,3 +28,54 @@
 .requestsDropdown{
     min-width: 15rem;
 }
+.title{
+    margin-top: 0vh;
+    background-color: #00acc1;
+    color: white;
+    font-size: 4vh;
+}
+
+.timein{    
+    background-color: #00acc1;
+    color: white;
+    width: 116px !important;
+    margin: 0 !important;
+    font-size: 3vh !important;
+    
+}
+.unpadding{
+    margin-top: 0vh;
+}
+.timeout{
+    border-top: 1px solid white;
+    display: inline-block;
+    margin-top: 2vh;
+    font-size: 3vh;
+}
+.driveri{
+    font-size: 3vh;
+    padding-bottom: 12px;
+ 
+}
+.staffCard{
+    width: 90vw !important;
+    color:#00acc1;
+    border-radius: 15px !important;
+    font-size: 4vh;
+    padding-top: 2.5vh!important;
+    padding-bottom: 2.5vh!important;
+    margin-top: 2vh!important;
+}
+.driverCard{
+    margin-top: 2vh;
+    width: 90vw !important;
+    color:rgb(110, 132, 145);
+    border-radius: 15px !important;
+}
+.name{
+    font-size: 3vh;
+}
+.cardTittle{
+    font-weight: bold;
+    font-size: 4vh;
+}
