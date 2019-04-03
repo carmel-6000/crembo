@@ -12,11 +12,8 @@ class MapDirections extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // origin: 'ליאו וייסמן 3',
-      // destination: 'שלמה מומו הלוי 5',
-      // places: ['נחום אהרנפלד 4', 'נחום אהרנפלד 4'],
-      // address: []
-      
+     
+
     }
   }
   componentWillMount() {
@@ -26,7 +23,7 @@ class MapDirections extends Component {
       console.log("yes")
     } else {
       Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": ["children"]}`).then(response => { return response.clone().json() }).then(res => {
-        this.setState({ children: res.children });
+        this.setState({ children: res.children })
         console.log("no")
       })
     }
@@ -43,16 +40,17 @@ class MapDirections extends Component {
   }
 
   mapOfAddress = () => {
-    let arr=[];
-    this.state.children.map((value, index) => arr.push(value.adressForth));
-    console.log(arr);
-    this.setState({ origin: arr[arr.length-1] });
-    this.setState({ destination: arr[0] });
+    let arr = [];
+    this.state.children.map((value, index) =>  arr.push(value.addressForth));
+    console.log("arr",arr)
+    this.setState({ destination: arr[arr.length-1] });
+    this.setState({ origin: arr[0] });
     this.setState({ places: arr});
+
   }
 
   mapOfchildren = () => {
-    this.mapOfAddress()
+
     let card = null;
     card = this.state.children.map((value, i) => (
       <div className="childrenCard p-2" key={i}>
@@ -103,6 +101,7 @@ class MapDirections extends Component {
     });
     directionsDisplay.setMap(map);
 
+    this.mapOfAddress();
     this.calculateAndDisplayRoute(directionsService, directionsDisplay);
 
 
@@ -113,9 +112,7 @@ class MapDirections extends Component {
   calculateAndDisplayRoute = (directionsService, directionsDisplay) => {
 
     directionsService.route({
-      // origin: { lat: 37.77, lng: -122.447 },  // Haight.
-      // destination: { lat: 37.768, lng: -122.511 },  // Ocean Beach.
-
+      
       origin: this.state.origin,
       destination: this.state.destination,
       waypoints: this.state.places.map((address) => { return { location: address, stopover: true } }),
@@ -134,8 +131,10 @@ class MapDirections extends Component {
 
   render() {
     console.log("props:", this.props);
-    console.log("state.children:", this.state.children)
-   
+    console.log("state.children:", this.state.children);
+    console.log("state:", this.state);
+
+
     return (
       <div>
         <div id="map" className="mapDiv"></div>
@@ -150,6 +149,13 @@ class MapDirections extends Component {
 
 export default MapDirections;
 
+
+
+
 //apiKey= AIzaSyCZ2EImKFwNu1PKEFcK4OhMq5eEnxnsF-g
 
 //link: https://developers.google.com/maps/documentation/javascript/directions
+
+//this.setState({ origin: arr[arr.length-1] });
+// this.setState({ destination: arr[0] });
+// this.setState({ places: arr});
