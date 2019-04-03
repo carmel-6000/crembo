@@ -35,10 +35,6 @@
                 "type": "number",
                 "width": 10,
                 "editable": "true"
-            },
-            "notes": {
-                "type": "text",
-                "editable": "true"
             }
         }
     },
@@ -163,20 +159,6 @@
                 "columnName": "sits",
                 "dataType": "int",
                 "dataLength": 10,
-                "dataPrecision": null,
-                "dataScale": null,
-                "nullable": "Y"
-            }
-        },
-        "notes": {
-            "type": "String",
-            "required": false,
-            "length": 65535,
-            "precision": null,
-            "scale": null,
-            "mysql": {
-                "columnName": "notes",
-                "dataType": "text",
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
