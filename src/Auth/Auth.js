@@ -7,6 +7,7 @@ const Auth = {
     console.log("_isAuthenticated", this._isAuthenticated)
     let at = localStorage.getItem('accessToken');
     console.log("access token?", at);
+    console.log("check", at !== null )
     this._isAuthenticated = at !== null;
     console.log("_isAuthenticated", this._isAuthenticated)
     return this._isAuthenticated;
@@ -66,7 +67,7 @@ const Auth = {
         if (res.error) {
           console.log("there is an error")
           this._isAuthenticated = false;
-          localStorage.setItem('accessToken', null);
+          localStorage.removeItem('accessToken');
           localStorage.setItem('userId', null);
           return cb(false);
         } else {
