@@ -119,13 +119,14 @@
         },
         "thumbnail": {
             "type": "String",
-            "required": true,
+            "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
                 "columnName": "thumbnail",
                 "dataType": "varchar",
+                "dataLength": 255,
                 "dataPrecision": null,
                 "dataScale": null,
                 "nullable": "Y"
