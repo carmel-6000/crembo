@@ -16,12 +16,12 @@
                 "editable": "true",
                 "isHidden": "false"
             },
-            "adressForth": {
+            "addressForth": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "adressBack": {
+            "addressBack": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
@@ -131,7 +131,7 @@
                 "nullable": "Y"
             }
         },
-        "adressForth": {
+        "addressForth": {
             "type": "String",
             "required": false,
             "length": 200,
@@ -146,7 +146,7 @@
                 "nullable": "Y"
             }
         },
-        "adressBack": {
+        "addressBack": {
             "type": "String",
             "required": false,
             "length": 200,
