@@ -9,12 +9,7 @@ import ChildrenList from './currentChildren';
 import ChildDetails from '../crembo/childDetails';
 import PrivateRoute from '../NotFound/privateRoute';
 
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//     <Route {...rest} render={(props) => (
-//         Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
-//     )} />
 
-// )
 
 class Assistant extends Component {
     constructor(props){
