@@ -10,12 +10,13 @@ import history from './history';
 import Assistant from './scenes/assistants/assistant';
 import notFound from './scenes/NotFound/notFound';
 import NavBar from './scenes/crembo/navbar';
+import PrivateRoute from './scenes/NotFound/privateRoute'
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
-    )} />
-)
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//     <Route {...rest} render={(props) => (
+//         Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
+//     )} />
+// )
 
 class App extends Component {
 
