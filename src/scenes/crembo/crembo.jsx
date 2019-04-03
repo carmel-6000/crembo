@@ -7,7 +7,7 @@ import ContactList from './contactlist';
 import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
-import notFound from '../NotFound/notFound';
+import notFound from './../NotFound/notFound';
 import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
@@ -44,7 +44,7 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                
+                console.log("res.isLive", res);
                 if(res.length === 0) {
                     this.setState({ haschecked: true });
                 } 
@@ -56,7 +56,7 @@ class Crembo extends Component {
                         if (res[i].isLive) {
                             this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay , activityId: res[i].id });
                             this.setState({ haschecked: true });
-                           
+                            console.log("the activity ", res[i].activityDate ,res[i].activityDay )
                         } 
                         if(i === res.length -1) {
                             this.setState({ haschecked: true });
@@ -84,8 +84,6 @@ class Crembo extends Component {
 
 
     render() {
-       
-       
         if (!this.state.haschecked) 
                 return (
                     //loading logo
@@ -101,8 +99,7 @@ class Crembo extends Component {
             return (
                 <div className="crembo-font">
                     <div>
-                        {/* <NavBar /> */}
-                        <PrivateRoute component={NavBar} />
+                        <NavBar/>
                         <Switch>
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
@@ -123,7 +120,6 @@ class Crembo extends Component {
         );
     }
 }
-
 
 
 

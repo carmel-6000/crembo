@@ -32,7 +32,6 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div className="App">
-                    <NavBar/>
                     <Switch>
                         <PrivateRoute path="/dashboard" component={Dashboard} />
                         <PrivateRoute path="/assistant" component={Assistant} />
