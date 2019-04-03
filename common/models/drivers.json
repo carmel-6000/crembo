@@ -27,7 +27,7 @@
                 "width": "100"
             },
             "phone": {
-                "type": "number",
+                "type": "text",
                 "width": 10,
                 "editable": "true"
             },
@@ -135,14 +135,14 @@
             }
         },
         "phone": {
-            "type": "Number",
+            "type": "String",
             "required": false,
             "length": 10,
             "precision": null,
             "scale": null,
             "mysql": {
                 "columnName": "phone",
-                "dataType": "int",
+                "dataType": "varchar",
                 "dataLength": 10,
                 "dataPrecision": null,
                 "dataScale": null,

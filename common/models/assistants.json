@@ -16,12 +16,12 @@
                 "editable": "true",
                 "isHidden": "false"
             },
-            "adressForth": {
+            "addressForth": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
             },
-            "adressBack": {
+            "addressBack": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
@@ -127,14 +127,14 @@
                 "nullable": "Y"
             }
         },
-        "adressForth": {
+        "addressForth": {
             "type": "String",
             "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_forth",
+                "columnName": "address_forth",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
@@ -142,14 +142,14 @@
                 "nullable": "Y"
             }
         },
-        "adressBack": {
+        "addressBack": {
             "type": "String",
             "required": false,
             "length": 200,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_back",
+                "columnName": "address_back",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
