@@ -82,7 +82,6 @@ class Crembo extends Component {
             activityId: activity.id })
     }
 
-
     render() {
        
        
@@ -115,7 +114,7 @@ class Crembo extends Component {
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
-                        <PrivateRoute exact path="/map" component={MapDirections} />
+                        <ActivityRoute state= {this.state} exact path="/rides/ride-details/:id/map" component={MapDirections} />
                         <PrivateRoute component={notFound} />
                     </Switch>
                 </div>
