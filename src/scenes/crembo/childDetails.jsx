@@ -16,7 +16,7 @@ class ChildDetails extends Component {
         this.setState({ userInfo: this.props.location.state.person });
         switch (this.props.match.params.person) {
             case "children":
-                console.log("inside children")
+                
                 this.setState({ userMode: "child" })
                 break;
             case "drivers":
@@ -34,8 +34,7 @@ class ChildDetails extends Component {
 
 
     render() {
-        console.log("user info is:", this.state)
-        console.log("props is:", this.props)
+        
         return (
             <div>
                 {this.state.userInfo && this.state.userMode ?

@@ -11,6 +11,7 @@ import notFound from './notFound';
 import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
+import NavBar from './navbar';
 
 const PrivateRoute = ({ component: Component, state, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -42,7 +43,7 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                console.log("res.isLive", res);
+                
                 if(res.length === 0) {
                     this.setState({ haschecked: true });
                 } 
@@ -54,7 +55,7 @@ class Crembo extends Component {
                         if (res[i].isLive) {
                             this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay });
                             this.setState({ haschecked: true });
-                            console.log("the activity ", res[i].activityDate ,res[i].activityDay )
+                           
                         } 
                         if(i === res.length -1) {
                             this.setState({ haschecked: true });
@@ -77,7 +78,7 @@ class Crembo extends Component {
 
     render() {
        
-        console.log("state is", this.state)
+       
         if (!this.state.haschecked) 
                 return (
                     //loading logo
@@ -93,7 +94,8 @@ class Crembo extends Component {
             return (
                 <div className="crembo-font">
                     <div>
-                        <NavBar />
+                        {/* <NavBar /> */}
+                        <PrivateRoute component={NavBar} />
                         <Switch>
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
@@ -117,35 +119,5 @@ class Crembo extends Component {
 
 
 
-//THIS IS WHERE THE CARMEL6000LOGO, ADMIN AND LOGIN IS. 
-class NavBar extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            navHeader: Auth.isAuthenticated() === true ? true : false,
-        }
-
-    }
-
-    // Calling Auth.logout -> clears cache and returns back. hitting route login
-    logOut = () => {
-        Auth.logout();
-        this.setState({ navHeader: false });
-    }
-    render() {
-        let navHeader = this.state.navHeader === true ?  <Sidebar logout={this.logOut} /> : "";
-        return (
-
-            <header>
-                <nav className="navbar navWithChanges navbar-dark fixed-top shadow primary ">
-                    {navHeader}
-                    <a className="navbar-brand" >כנפיים של קרמבו</a>
-                </nav>
-            </header>
-
-        );
-    }
-}
 
 export default  Crembo 

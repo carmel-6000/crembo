@@ -9,6 +9,7 @@ import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';
 import AssistantSide from './scenes/assistants/home';
 import notFound from './scenes/crembo/notFound';
+import NavBar from './scenes/crembo/navbar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -31,6 +32,7 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div className="App">
+                    <NavBar/>
                     <Switch>
                         <PrivateRoute path="/dashboard" component={Dashboard} />
                         <PrivateRoute path="/assistant" component={AssistantSide} />

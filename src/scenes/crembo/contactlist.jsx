@@ -14,16 +14,16 @@ class ContactList extends Component {
     }
     componentDidMount() {
 
+        
+
+    }
+
+    componentWillMount() {
         if (this.props.match.params.id) {
             this.setState({ chooseMode: true })
 
         }
-
-        console.log("props", this.props)
-    }
-
-    componentWillMount() {
-
+        
         Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
@@ -90,7 +90,7 @@ class List extends Component {
 
 
     contactChoosen(contactId) {
-        console.log("contactId", contactId);
+        
         let api = "";
         switch (this.props.params.person) {
             case "drivers":

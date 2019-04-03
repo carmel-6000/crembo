@@ -68,7 +68,8 @@ class NewActivity extends Component {
         return (
 <div className="middler">
             <div className="  mx-auto align-middle">
-                <div className="row " id="activityText">תאריך הפעילות</div>
+            <h1>יצירת פעילות</h1> 
+                <div className="row" id="activityText">תאריך הפעילות</div>
 
                 <div className="row" className="activityCard">
                     <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>

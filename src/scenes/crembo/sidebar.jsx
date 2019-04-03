@@ -30,6 +30,7 @@ class Sidebar extends Component {
 
                 <a  className={this.state.modalAppears ? "sidenav widthy" : "notwidthy"} onblur = {() => this.changeModelState(false)}>
                     {this.state.modalAppears &&
+                
                     <span className="text-right ">
                     <a className="closebtn text-left" onClick={() => this.changeModelState(false)}>&times;</a>
                     <h3 className="mr-3 title_person">אחראי הסעה בסניף</h3>
