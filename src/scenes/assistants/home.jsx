@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { Router, Route, Link, NavLink } from "react-router-dom";
 
 class AssistantSide extends Component {
     constructor(props){
@@ -37,15 +37,8 @@ class AssistantSide extends Component {
   
   
     render() {
-<<<<<<< HEAD
         console.log("rides" , this.state.isInclude)
         return(this.enterForm())
-=======
-        
-        return(
-            this.enterForm()
-            )
->>>>>>> 7f8cfb0ed6c90a0590f112e560a1a37a7e68718c
     }
 }
 
