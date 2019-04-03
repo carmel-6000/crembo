@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './crembo.css';
 import './newActivity.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 import TimeField from 'react-simple-timefield';
-
-//We also need to get the data from the activities table, and check if user.id and date already exists 
-//if so >> then the page automaticly leads to the back/forth tables. 
 
 class NewActivity extends Component {
     constructor(props) {
@@ -19,6 +16,8 @@ class NewActivity extends Component {
             managerId: localStorage.getItem('userId')
         }
     }
+
+
     setActivity = (e) => {
         let x = e.target.value;
         if (e.target.id === "date1") {
@@ -31,7 +30,7 @@ class NewActivity extends Component {
             // let activityTime=this.state.hour+":"+this.state.minute;
             // this.setState({ activityTime: activityTime });
         }
-        else{
+        else {
             this.setState({ activityTime: x });
         }
     }
@@ -41,64 +40,71 @@ class NewActivity extends Component {
     }
 
     addActivity = () => {
-        let modelApi = 'api/activities'
-
+        let modelApi = 'api/activities';
         if (this.state.activityDate && this.state.activityTime && this.state.activityDay) {
+
             Auth.authPost(modelApi, {
                 method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state)
-            }).then(response => { return response.json() }).then(newrow => {
-                console.log("the row that has been added", newrow)
-                if (newrow.error) {
-                    return (
-                        <div>קיימת פעילות ביום זה! אנא בחר יום אחר</div>
-                     );
+            }).then(response => { return response.json() }).then(activity => {
+                console.log("the row that has been added", activity)
+                if (activity.error) {
+                    this.setState({ isloading: false })
+                    alert("קיימת כבר פעילות ביום זה!");
+                    return;
                 }
 
+                Auth.authPost('/api/rides/structure', {
+                    method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ activity: activity.id })
+                }).then(response => { return response.json() }).then(newrides => {
+                    console.log("the rides that has been added", newrides)
+                    this.props.setStateOfHasActivity(activity)
+                    if (newrides.error) {
+                        return (
+                            <div>יש בעיה עם הסעות הסניף</div>
+                        );
+                    }
 
-            // get the abstract rides.
-            // do a function that goes over the array 
-            // for each stracture-ride, "delete res.id"
-            // for each stracture-ride, set res.status="editing" && res.activity = newrow.id,
+                })
             });
         }
     }
 
     render() {
         return (
-<div className="middler">
-            <div className="  mx-auto align-middle">
-            <h1>יצירת פעילות</h1> 
-                <div className="row" id="activityText">תאריך הפעילות</div>
+            <div className="middler">
+                <div className="  mx-auto align-middle">
+                    <div className="row " id="activityText">תאריך הפעילות</div>
 
-                <div className="row" className="activityCard">
-                    <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
-                    <i className="calendar_alt far fa-calendar-alt"></i>
-                </div>
+                    <div className="row" className="activityCard">
+                        <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
+                        <i className="calendar_alt far fa-calendar-alt"></i>
+                    </div>
 
 
-                <div className="row" id="activityText">שעת הפעילות</div>
+                    <div className="row" id="activityText">שעת הפעילות</div>
 
-                <div className="row" className="activityCard">
+                    <div className="row" className="activityCard">
 
-                    <input className="d-sm-inline-block d-md-none" type="time" name="time" id="time" onChange={this.setActivity}></input>
+                        <input className="d-sm-inline-block d-md-none" type="time" name="time" id="time" onChange={this.setActivity}></input>
 
-                    <TimeField
-                        value={this.state.activityTime}
-                        input={<input className="inputtime d-none d-md-inline-block " type="text" name="time" id="time" />}
-                        onChange={this.onTimeChange}
-                    />
-                    <i className="calendar_alt far fa-clock"/>
+                        <TimeField
+                            value={this.state.activityTime}
+                            input={<input className="inputtime d-none d-md-inline-block " type="text" name="time" id="time" />}
+                            onChange={this.onTimeChange}
+                        />
+                        <i className="calendar_alt far fa-clock" />
 
-                </div>
-                
-                <br/>
-                <div className="addbottom">
-                    <Link to={{ pathname: "/rides", state: this.state }}>
-                        <button  disabled={this.state.activityDate  && this.state.activityTime ? false : true} className=" btn btn-info btn-lg" onClick={this.addActivity} >הוסף</button>
-                    </Link>
-                </div>
-            </div >
+                    </div>
+
+                    <br />
+                    <div className="addbottom">
+                        <Link to={{ pathname: "/rides", state: this.state }} >
+                            <button onClick={this.addActivity} disabled={this.state.activityDate && this.state.activityTime ? false : true} className=" btn btn-info btn-lg"  >{this.state.isloading ? "אנא המתן" : "הוסף"}</button>
+                        </Link>
+                    </div>
+                </div >
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './crembo.css';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 import "./mapDirections.css";
 

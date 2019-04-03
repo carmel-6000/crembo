@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '../../Grid/Grid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';

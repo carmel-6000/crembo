@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './rideDetails.css';
 import Auth from '../../Auth/Auth';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
 import RideDetails from './rideDetails';
+import loading_dots from '../../img/loading_dots.svg';
 
 
 class Rides extends Component {
@@ -21,8 +22,8 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-       
-        Auth.authFetch('/api/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}').then(response => { return response.clone().json() }).then(res => {
+        console.log("the props page rides" , this.props.location)
+        Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -118,7 +119,7 @@ class Rides extends Component {
                     <div className="tab-content content-of-selected-tab" id="pills-tabContent">
 
                         <div className="tab-pane fade show active" id="pills-forth" role="tabpanel" aria-labelledby="pills-forth-tab">
-                            {this.mapOfRidesArray(this.state.ridesForthJson)}
+                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesForthJson) : <img  src={loading_dots} alt="loading.io/spinner/"></img>}
                         </div>
                         <div className="tab-pane fade" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab">
                             {this.mapOfRidesArray(this.state.ridesBackJson)}
