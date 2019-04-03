@@ -8,7 +8,7 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: "null"
+            filteredPeople: null
         }
 
     }
@@ -37,7 +37,7 @@ class ContactList extends Component {
     filteredList = (event) => {
         let updatedList = this.state.people;
         console.log("event.target.value", event.target.value)
-        //the search cant get "\" so:
+        //the search cant get "\" s,o,m in children:
         try {
             updatedList = updatedList.filter(function (item) {
                 return ((item.firstName + " " + item.lastName).toLowerCase().search(
@@ -52,8 +52,14 @@ class ContactList extends Component {
     }
 
     filteredIsNotNull = () => {
+        console.log("state", this.state.filteredPeople);
         if (this.state.filteredPeople) {
-            return <List chooseMode={this.state.chooseMode} filteredPeople={this.state.filteredPeople} params={this.props.match.params} history={this.props.history} />
+            return <List
+             chooseMode={this.state.chooseMode} 
+             filteredPeople={this.state.filteredPeople} 
+             params={this.props.match.params} 
+             history={this.props.history} 
+            />
         }
     }
 
@@ -135,15 +141,16 @@ class List extends Component {
 
 
     render() {
-        return (this.props.filteredPeople.map((person) => (
-            <Link className="linkTo" to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+        return (this.props.filteredPeople.map((person) => { 
+            return(
+            <Link key={person.id} className="linkTo" to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
 
-                <a className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
+                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
                     <div className="row">
                         <div className="col-3">
-                            {person.thumbnail &&
-                                <img src={person.thumbnail} className="contactImg" alt="Responsive image" />}
-                            {!person.thumbnail &&
+                            {person.thumbnail !== null ?
+                                <img src={person.thumbnail} className="contactImg" alt="Responsive image" />
+                                :
                                 <i className="fas fa-user-tie noPic" />}
                         </div>
 
@@ -153,8 +160,8 @@ class List extends Component {
 
                         <div onClick={e => e.preventDefault()}>
                             <a href={"tel:" + person.phone}>
-                                <div class="col-2">
-                                    <i class="fas fa-phone" />
+                                <div className="col-2">
+                                    <i className="fas fa-phone" />
                                 </div>
                             </a>
                         </div>
@@ -168,12 +175,13 @@ class List extends Component {
                         </div>
 
                     </div>
-                </a>
+                </div>
             </Link>
 
 
 
-        )));
+
+        )}));
     }
 }
 

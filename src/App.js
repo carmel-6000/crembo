@@ -7,8 +7,8 @@ import Auth from './Auth/Auth';
 import Crembo from './scenes/crembo/crembo';
 import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';
-import AssistantSide from './scenes/assistants/home';
-import notFound from './scenes/crembo/notFound';
+import Assistant from './scenes/assistants/assistant';
+import notFound from './scenes/NotFound/notFound';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -33,7 +33,7 @@ class App extends Component {
                 <div className="App">
                     <Switch>
                         <PrivateRoute path="/dashboard" component={Dashboard} />
-                        <PrivateRoute path="/assistant" component={AssistantSide} />
+                        <PrivateRoute path="/assistant" component={Assistant} />
                         <PrivateRoute path="/" component={Crembo} />
                         <PrivateRoute component={notFound} />
                     </Switch>

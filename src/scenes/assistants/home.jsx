@@ -26,7 +26,9 @@ class AssistantSide extends Component {
   }
 
   gettingRideData = () => {
-   Auth.authFetch('api/rides?filter={{"where": {"activities": {"isLive": true}     }}{ "include": ["assistants", "activities"]}}').then(response => { return response.json() }).then(res => {
+   Auth.authFetch('/api/rides?filter={ 	"where": {"activities": {"isLive": true}     } , 	"include": ["assistants", "activities"] }').then(response => { return response.json() }).then(res => {
+        console.log("answer of",'/api/rides?filter={{"where": {"activities": {"isLive": true}     }}{ "include": ["assistants", "activities"]}}');
+        console.log("res",res);
         this.setState({ isInclude: res })
     })    
 }
