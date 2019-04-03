@@ -1,13 +1,15 @@
 
 const Auth = {
-
+  
   _isAuthenticated: false,
 
   isAuthenticated() {
-
+    console.log("_isAuthenticated", this._isAuthenticated)
     let at = localStorage.getItem('accessToken');
-    // console.log("access token?", at);
+    console.log("access token?", at);
+    console.log("check", at !== null )
     this._isAuthenticated = at !== null;
+    console.log("_isAuthenticated", this._isAuthenticated)
     return this._isAuthenticated;
 
   },
@@ -63,12 +65,13 @@ const Auth = {
         //res == userId, ttl, id(=accessToken), created
         console.log("res after login", res);
         if (res.error) {
-
+          console.log("there is an error")
           this._isAuthenticated = false;
-          localStorage.setItem('accessToken', '');
+          localStorage.removeItem('accessToken');
+          localStorage.setItem('userId', null);
           return cb(false);
         } else {
-
+          console.log("there is NOOOOOO error")
           console.log("is this the access token?", res.id);
           this._isAuthenticated = true;
           localStorage.setItem('accessToken', res.id);
