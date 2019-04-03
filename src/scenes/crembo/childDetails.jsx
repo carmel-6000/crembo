@@ -50,15 +50,15 @@ class ChildDetails extends Component {
                             <div><img className="thumbnailIMG" src={this.state.userInfo.thumbnail} /></div>
                         </div>
                         <div className="text-right">
-                            {this.state.userInfo.adressForth &&
+                            {this.state.userInfo.addressForth &&
                             <div>
                                 <div className="mt-3" > כתובת הלוך</div>
-                                <div className="infoBox mt-1">{this.state.userInfo.adressForth}</div>
+                                <div className="infoBox mt-1">{this.state.userInfo.addressForth}</div>
                             </div>}
-                            {this.state.userInfo.adressBack &&
+                            {this.state.userInfo.addressBack &&
                             <div>
                                 <div className="mt-3" > כתובת חזור</div>
-                                <div className="infoBox mt-1">{this.state.userInfo.adressBack}</div>
+                                <div className="infoBox mt-1">{this.state.userInfo.addressBack}</div>
                             </div>}
                             {this.state.userInfo.contactName &&
                             <div>
