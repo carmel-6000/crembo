@@ -12,13 +12,7 @@ import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
-
-const PrivateRoute = ({ component: Component, state, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        Auth.isAuthenticated() === true ? <Component activityDetails={state} {...props}/> : <Redirect to='/login' />
-    )} />
-
-)
+import PrivateRoute from '../NotFound/privateRoute';
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
     <Route {...rest} render={(props)=>  (
