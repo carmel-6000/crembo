@@ -134,7 +134,7 @@
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_forth",
+                "columnName": "address_forth",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
@@ -149,7 +149,7 @@
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "adress_back",
+                "columnName": "address_back",
                 "dataType": "varchar",
                 "dataLength": 200,
                 "dataPrecision": null,
