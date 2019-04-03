@@ -18,8 +18,6 @@ module.exports = function(server) {
   });
   server.use(router);
 
-
-
 /*
 var TWO_WEEKS = 60 * 60 * 24 * 7 * 2;
 server.models.User.login({

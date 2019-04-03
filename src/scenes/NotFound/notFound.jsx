@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import './../crembo/crembo.css'
+import { Router, Route, Link } from "react-router-dom";
+import './crembo.css';
 import './notFound.css';
 import vanGif from '../../img/404.gif';
 

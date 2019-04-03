@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './rideDetails.css';
 import Auth from '../../Auth/Auth';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
 import RideDetails from './rideDetails';
+import loading_dots from '../../img/loading_dots.svg';
 
 
 class Rides extends Component {
@@ -21,7 +22,8 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        Auth.authFetch('api/rides?filter={"include": [{"children": "requests"}, "drivers"]}').then(response => { return response.json() }).then(res => {
+        console.log("the props page rides" , this.props.location)
+        Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
             let ridesForthJson = [];
@@ -53,7 +55,7 @@ class Rides extends Component {
         }).catch((err) => {
             console.log('Fetch Error :-S', err);
         });
-        var date = new Date(this.props.location.state.activityDate);
+        var date = new Date(this.props.activityDetails.activityDate);
             var options = { weekday: 'long' };
             options.timeZone = 'UTC';
             let finalDay = date.toLocaleDateString('he-IS', options);
@@ -73,8 +75,8 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.location.state} }} >
-                <div className="rideCard" >
+            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.activityDetails} }} >
+                <div className="rideCard p-2" >
                     <div className="row" >
                         <div className="col">
                             <p className="text-right" key={item.title} style={{ fontSize: "4.5vw" }}> {item.title} </p>
@@ -99,25 +101,25 @@ class Rides extends Component {
     render() {
         return (
             <div>
-                
-                <div className="row">
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDay}</p></div>
-                    <div className="col basicDataOnActivity"><p>{this.props.location.state.activityDate}</p></div>
+               
+                <div className="row top">
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
                     <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
                 </div>
                 <div className="main-container">
-                    <ul className="nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
+                    <ul className="nav rideNav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
                         <li className="nav-item">
-                            <a className="nav-link active btn-block" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
+                            <a className="nav-link active btn-block bnf-font" id="pills-forth-tab" data-toggle="pill" href="#pills-forth" role="tab" aria-controls="pills-forth" aria-selected="true">נסיעות הלוך</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
+                            <a className="nav-link bnf-font" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
                         </li>
                     </ul>
                     <div className="tab-content content-of-selected-tab" id="pills-tabContent">
 
                         <div className="tab-pane fade show active" id="pills-forth" role="tabpanel" aria-labelledby="pills-forth-tab">
-                            {this.mapOfRidesArray(this.state.ridesForthJson)}
+                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesForthJson) : <img  src={loading_dots} alt="loading.io/spinner/"></img>}
                         </div>
                         <div className="tab-pane fade" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab">
                             {this.mapOfRidesArray(this.state.ridesBackJson)}

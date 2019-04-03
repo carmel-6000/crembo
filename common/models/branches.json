@@ -45,6 +45,11 @@
                 "model": "Drivers",
                 "foreignKey": "branch"
 
+              },
+              "Managers": {
+                "type": "hasMany",
+                "model": "Managers",
+                "foreignKey": "branch"
               }      
         }
     },
@@ -53,13 +58,13 @@
             "id": true,
             "type": "number",
             "length": null,
-            "precision": 10,
+            "precision": 11,
             "scale": 0,
             "mysql": {
                 "columnName": "id",
                 "dataType": "int",
                 "dataLength": null,
-                "dataPrecision": 10,
+                "dataPrecision": 11,
                 "dataScale": 0,
                 "nullable": "N"
             }

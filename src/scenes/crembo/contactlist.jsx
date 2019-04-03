@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import "./contactlist.css";
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 
 class ContactList extends Component {
     constructor(props) {
@@ -14,17 +14,17 @@ class ContactList extends Component {
     }
     componentDidMount() {
 
+        
+
+    }
+
+    componentWillMount() {
         if (this.props.match.params.id) {
             this.setState({ chooseMode: true })
 
         }
-
-        console.log("props", this.props)
-    }
-
-    componentWillMount() {
-
-        Auth.authFetch("/api/" + this.props.match.params.person).then(response => { return response.json() }).then(res => {
+        
+        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -96,7 +96,7 @@ class List extends Component {
 
 
     contactChoosen(contactId) {
-        console.log("contactId", contactId);
+        
         let api = "";
         switch (this.props.params.person) {
             case "drivers":

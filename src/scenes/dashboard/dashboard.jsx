@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '../../Grid/Grid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Router, Route, Link } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
@@ -13,21 +13,21 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     )} />
 )
 
-class NavHeaderComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return (
-            <ul className="nav d-flex flex-row-reverse">
-                <a className="nav-linker" onClick={this.props.logout} href="#"> <i className="fas fa-sign-in-alt" /> Log out</a>
-                <Link to="/dashboard/user" style={{ textDecoration: 'none' }}>
-                <a className="nav-linker" href="#"><i className="fas fa-user-tie" /> Admin</a>
-                </Link>
-            </ul>
-        );
-    }
-}
+// class NavHeaderComponent extends Component {
+//     constructor(props) {
+//         super(props);
+//     }
+//     render() {
+//         return (
+//             <ul className="nav d-flex flex-row-reverse">
+//                 <a className="nav-linker" onClick={this.props.logout} href="#"> <i className="fas fa-sign-in-alt" /> Log out</a>
+//                 <Link to="/dashboard/user" style={{ textDecoration: 'none' }}>
+//                 <a className="nav-linker" href="#"><i className="fas fa-user-tie" /> Admin</a>
+//                 </Link>
+//             </ul>
+//         );
+//     }
+// }
 
 class Dashboard extends Component {
 
@@ -39,7 +39,6 @@ class Dashboard extends Component {
 
         return (
             <div>
-                <NavBar />
                 <div className="container-fluid">
                     <div className="row">
                         <SideBar />
@@ -67,7 +66,7 @@ class Dashboard extends Component {
 class MatchTableToRoute extends Component {
     render() {
         let modelName = this.props.match.params.modelName;
-        console.log("modelName", modelName);
+       
         //NAME LOWER CHANGES ThisWord to this_word. 
         let namelower = (modelName.charAt(0).toLowerCase() + modelName.slice(1)).replace(/([A-Z])/, "_$&").toLowerCase();
         return (
@@ -77,41 +76,41 @@ class MatchTableToRoute extends Component {
 }
 
 //THIS IS WHERE THE CARMEL6000LOGO, ADMIN AND LOGIN IS. 
-class NavBar extends Component {
+// class NavBar extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            navHeader: Auth.isAuthenticated() === true ? true : false,
-        }
+//     constructor(props) {
+//         super(props)
+//         this.state = {
+//             navHeader: Auth.isAuthenticated() === true ? true : false,
+//         }
 
-    }
+//     }
 
-    updateNav = () => {
-        this.setState({ navHeader: true })
-    }
+//     updateNav = () => {
+//         this.setState({ navHeader: true })
+//     }
 
-    // Calling Auth.logout -> clears cache and returns back. hitting route login
-    logOut = () => {
-        Auth.logout();
-        this.setState({ navHeader: false });
-    }
-    render() {
-        let navHeader = this.state.navHeader === true ? <NavHeaderComponent logout={this.logOut} /> : "";
-        return (
-            <nav className="navbar navbar-dark fixed-top shadow navbar-admin">
-                <div className="d-flex flex-row">
-                    <img src={logoImage} className="App-logo" />
-                    <a className="brand p-2" href="/dashoboard">Carmel6000</a>
-                </div>
-                {navHeader}
+//     // Calling Auth.logout -> clears cache and returns back. hitting route login
+//     logOut = () => {
+//         Auth.logout();
+//         this.setState({ navHeader: false });
+//     }
+//     render() {
+//         let navHeader = this.state.navHeader === true ? <NavHeaderComponent logout={this.logOut} /> : "";
+//         return (
+//             <nav className="navbar navbar-dark fixed-top shadow navbar-admin">
+//                 <div className="d-flex flex-row">
+//                     <img src={logoImage} className="App-logo" />
+//                     <a className="brand p-2" href="/dashoboard">Carmel6000</a>
+//                 </div>
+//                 {navHeader}
 
-            </nav>
+//             </nav>
 
 
-        );
-    }
-}
+//         );
+//     }
+// }
 
 //SIDEBAR  - CONTAIN ALL THE LINKS AND STUFF 
 class SideBar extends Component {

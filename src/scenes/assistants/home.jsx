@@ -8,7 +8,7 @@ class AssistantSide extends Component {
         this.state = {
             isInclude: null
         }
-        console.log("dfdfg");
+        
         this.gettingRideData();
 
     }
@@ -37,8 +37,15 @@ class AssistantSide extends Component {
   
   
     render() {
+<<<<<<< HEAD
         console.log("rides" , this.state.isInclude)
         return(this.enterForm())
+=======
+        
+        return(
+            this.enterForm()
+            )
+>>>>>>> 7f8cfb0ed6c90a0590f112e560a1a37a7e68718c
     }
 }
 

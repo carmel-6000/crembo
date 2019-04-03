@@ -53,7 +53,7 @@ const Auth = {
 
   authenticate(email, pw, cb) {
 
-    fetch('/api/Users/login', {
+    fetch('/api/Managers/login', {
       method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, password: pw })
     })

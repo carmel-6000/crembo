@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Login from './Auth/Login';
 import Auth from './Auth/Auth';
@@ -9,6 +9,7 @@ import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';
 import Assistant from './scenes/assistants/assistant';
 import notFound from './scenes/NotFound/notFound';
+import NavBar from './scenes/crembo/navbar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -31,14 +32,14 @@ class App extends Component {
         return (
             <Router history={history}>
                 <div className="App">
+                    <NavBar/>
                     <Switch>
                         <PrivateRoute path="/dashboard" component={Dashboard} />
                         <PrivateRoute path="/assistant" component={Assistant} />
                         <PrivateRoute path="/" component={Crembo} />
                         <PrivateRoute component={notFound} />
                     </Switch>
-                    <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}
-                    />
+                    <Route path="/login" render={(props) => <Login {...props} navHeader={this.updateNav} />}/>
                 </div>
             </Router>
         );

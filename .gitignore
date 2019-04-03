@@ -6,6 +6,8 @@
 .pnp.js
 ./package-lock.json
 ./crembo.dump.sql
+package-lock.json
+.gitignore
 
 # testing
 /coverage

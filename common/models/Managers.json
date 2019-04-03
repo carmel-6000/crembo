@@ -1,0 +1,58 @@
+{
+  "name": "Managers",
+  "base": "User",
+  "idInjection": true,
+  "strict": true,
+  "options": {
+    "validateUpsert": true,
+    "caseSensitiveEmail": true
+  },
+  "properties": {
+    "realm": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "branch": {
+      "type": "string",
+      "required": true
+    },
+    "emailVerified": "boolean",
+    "verificationToken": "string"
+  },
+  "hidden": ["password", "verificationToken"],
+
+  "validations": [],
+  "relations": {
+    "accessTokens": {
+      "type": "hasMany",
+      "model": "AccessToken",
+      "foreignKey": "userId",
+      "options": {
+        "disableInclude": true
+      }
+    },
+    "branches": {
+      "type": "belongsTo",
+      "model": "Branches",
+      "foreignKey": "branch"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}
