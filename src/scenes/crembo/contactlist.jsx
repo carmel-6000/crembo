@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import "./contactlist.css";
 import { Router, Route, Link } from "react-router-dom";
+import loading_dots from '../../img/loading_dots.svg';
 
 class ContactList extends Component {
     constructor(props) {
@@ -81,7 +82,7 @@ class ContactList extends Component {
                 </form>
 
                 <div className="list-group">
-                    {this.filteredIsNotNull()}
+                    {this.state.filteredPeople? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/"/> }
                 </div>
 
             </div>
@@ -146,7 +147,8 @@ class List extends Component {
 
 
     render() {
-        return (this.props.filteredPeople.map((person) => {
+        return (
+            this.props.filteredPeople.map((person) => {
             console.log('id', person.id)
             return (
                 <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>

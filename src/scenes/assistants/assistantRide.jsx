@@ -14,7 +14,7 @@ class AssistantRide extends Component {
 
     componentDidMount() {
         console.log("in assistant rides");
-        Auth.authFetch('/api/rides/1?filter={"include": ["drivers", "children", "activities"]}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/rides/3419?filter={"include": ["drivers", "children", "activities"]}').then(response => { return response.json() }).then(res => {
             console.log("resiuiui", res);
             this.setState({ ride: res })
         }).catch((err) => {
