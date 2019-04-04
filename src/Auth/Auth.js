@@ -51,15 +51,12 @@ const Auth = {
 
   authenticate(email, pw, cb) {
 
-    fetch('/api/Managers/login', {
+    fetch('/api/Managers/login?include=user', {
       method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email, password: pw })
     })
 
       .then(response => { return response.json() }).then(res => {
-
-        //res == userId, ttl, id(=accessToken), created
-      
         if (res.error) {
         
           this._isAuthenticated = false;
@@ -71,6 +68,7 @@ const Auth = {
           this._isAuthenticated = true;
           localStorage.setItem('accessToken', res.id);
           localStorage.setItem('userId', res.userId);
+          localStorage.setItem('branchId', res.user.branch);
 
           return cb(true)
         }
