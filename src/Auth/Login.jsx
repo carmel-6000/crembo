@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Login.css';
 import Auth from './Auth';
 import { Redirect } from 'react-router';
+import logovan from './../img/logovan.png';
+import vangoh from "./../img/vangoh.jpg";
+
 
 class Login extends Component {
 
@@ -25,7 +28,8 @@ class Login extends Component {
 
             this.setState({ isLoading: false });
             if (isAuthenticated === false) {
-                alert("Login Failed, \n Try again");
+                alert("שם משתמש או סיסמה אינם נכונים. \n אנא נסה שנית!");
+
                 return;
             }
             if (isAuthenticated === true) {
@@ -46,30 +50,45 @@ class Login extends Component {
             }} />);
         } else
             return (
-                <div className='loginPage'>
+                <div class="container h-100 ">
+                <img src={vangoh} alt="bg" class="bg"/> 
+                    <div class="d-flex justify-content-center h-100 d-flex align-items-center">
+                        <div class="user_card">
+                            <div class="d-flex justify-content-center">
+                                <div class="brand_logo_container">
+                                    <img src={logovan} class="brand_logo" alt="Logo" />
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center form_container">
+                                <form onSubmit={this.handleLogin}>
+                                    <div class="form-group">
+                                        <h1 class="text-center logintitle" >התחברות</h1>
+                                    </div>
 
-                    <div className='loginBox'>
-                        <div className='frow'>
-                            <h3>ברוך הבא למערכת ההסעות של קרמבו! מי אתה?</h3>
+                                    <div class="input-group mb-3">
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fas fa-user" /></span>
+                                        </div>
+                                        <input type='email' ref='email' placeholder='הכנס אימייל...' required class="form-control input_user" />
+                                    </div>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-append">
+                                            <span className="input-group-text"><i class="fas fa-key"></i></span>
+                                        </div>
+                                        <input type='password' ref='pw' placeholder='הכנס סיסמה...' required class="form-control input_pass" />
+                                    </div>
+                                    <div class="d-flex justify-content-center mt-4 login_container">
+
+                                        <input type="submit" value={this.state.isLoading ? "אנא המתן..." : "התחבר"} className="btn login_btn" />
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
-                        <form onSubmit={this.handleLogin}>
-                            <div className='frow'>
-                                <input type='email' ref='email' placeholder='הכנס אימייל...' required />
-                            </div>
-                            <div className='frow'>
-                                <input type='password' ref='pw' placeholder='הכנס סיסמה...' required />
-                            </div>
-                            <div className='frow'>
-                                {this.state.isLoading ?
-                                    <button className='btn btn-warning'>אנא המתן...</button> :
-                                    <input type='submit' className='btn btn-lg btn-warning' value='הכנס' />
-                                }
-                            </div>
-                        </form>
-
-
                     </div>
                 </div>
+
             )
 
     }
