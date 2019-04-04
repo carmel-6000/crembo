@@ -7,8 +7,15 @@ import vanGif from '../../img/404.gif';
 import Auth from '../../Auth/Auth';
 
 class NotFound extends Component {
-
-
+    constructor(props) {
+        super(props)
+        this.state = {
+         
+    
+        }
+        props.activityDetails.onStart('העמוד לא נמצא')
+    
+      }
 
     render() {
         return(

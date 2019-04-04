@@ -9,6 +9,8 @@ class ChildDetails extends Component {
             userInfo: null,
             userMode: null,
         }
+        props.activityDetails.onStart('פרטי איש קשר')
+
     }
 
     componentDidMount = () => {

@@ -15,6 +15,8 @@ class NewActivity extends Component {
             isLive: true,
             managerId: localStorage.getItem('userId')
         }
+        props.activityDetails.onStart('יצירת פעילות')
+
     }
 
 

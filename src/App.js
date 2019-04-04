@@ -8,9 +8,9 @@ import Crembo from './scenes/crembo/crembo';
 import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';
 import Assistant from './scenes/assistants/assistant';
-import notFound from './scenes/NotFound/notFound';
+import notFound from './scenes/common/notFound';
 import NavBar from './scenes/crembo/navbar';
-import PrivateRoute from './scenes/NotFound/privateRoute'
+import PrivateRoute from './scenes/common/privateRoute'
 
 
 class App extends Component {

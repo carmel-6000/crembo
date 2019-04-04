@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link , Switch} from "react-router-dom";
+import { Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
 import NewActivity from './newActivity';
@@ -7,19 +7,19 @@ import ContactList from './contactlist';
 import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
-import notFound from './../NotFound/notFound';
+import notFound from './../common/notFound';
 import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
-import PrivateRoute from '../NotFound/privateRoute';
+import PrivateRoute from '../common/privateRoute';
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
-    <Route {...rest} render={(props)=>  (
-        state.hasActivity  === false ? <Redirect to='/'/>: 
-        <PrivateRoute state={state} {...props} component={Comp} />
+    <Route {...rest} render={(props) => (
+        state.hasActivity === false ? <Redirect to='/' /> :
+            <PrivateRoute state={state} {...props} component={Comp} />
     )} />
-   )
+)
 
 class Crembo extends Component {
     constructor(props) {
@@ -29,7 +29,8 @@ class Crembo extends Component {
             activityDate: null,
             activityDay: null,
             haschecked: null,
-            activityId: null
+            activityId: null,
+            title: null
         }
     }
 
@@ -38,75 +39,83 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                
-                if(res.length === 0) {
+
+                if (res.length === 0) {
                     this.setState({ haschecked: true });
-                } 
-                else if (res.error){
+                }
+                else if (res.error) {
                     this.setState({ haschecked: true });
-                } 
+                }
                 else {
-                  for (let i = 0; i < res.length; i++){
+                    for (let i = 0; i < res.length; i++) {
                         if (res[i].isLive) {
-                            this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay , activityId: res[i].id });
+                            this.setState({ hasActivity: true, haschecked: true, activityDate: res[i].activityDate, activityDay: res[i].activityDay, activityId: res[i].id });
                             this.setState({ haschecked: true });
-                            
-                        } 
-                        if(i === res.length -1) {
+
+                        }
+                        if (i === res.length - 1) {
                             this.setState({ haschecked: true });
                         }
-                    }  
+                    }
                 }
-                
+
 
             }).catch((err) => {
                 console.log('Fetch Error :-S', err);
             });
 
         }
-        else { 
-        this.setState({ haschecked: true });
-             console.log("no activity")}
+        else {
+            this.setState({ haschecked: true });
+            console.log("no activity")
+        }
     }
 
-    setStateOfHasActivity=(activity)=>{
-        this.setState({hasActivity : true, 
+    setStateOfHasActivity = (activity) => {
+        this.setState({
+            hasActivity: true,
             activityDate: activity.activityDate,
             activityDay: activity.activityDate,
-            activityId: activity.id })
+            activityId: activity.id
+        })
+    }
+
+    onStart = (title ='') =>{
+        this.setState({title});
     }
 
     render() {
-        if (!this.state.haschecked) 
-                return (
-                    //loading logo
-                    <div className="d-flex justify-content-center">
-                        <div className="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
-                            <span className="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
-                )
-                
-    
+        if (!this.state.haschecked)
             return (
-                <div className="crembo-font">
-                    <div>
-                        <NavBar/>
-                        <Switch>
+                //loading logo
+                <div className="d-flex justify-content-center">
+                    <div className="mt-5 spinner-border text-info" style={{ width: "7rem", height: "7rem" }} role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+            )
+                const extraState = {...this.state, onStart: this.onStart};
+        console.log("theeee props", this.props)
+        return (
+
+            <div className="crembo-font">
+                <div>
+                    <NavBar title={this.state.title} />
+                    <Switch>
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
                                 <Redirect to={{ pathname: "/rides" }} />
-                             ) : <NewActivity setStateOfHasActivity = {this.setStateOfHasActivity}/>
+                            ) : <NewActivity setStateOfHasActivity={this.setStateOfHasActivity} />
                         }} />
-                        <ActivityRoute state= {this.state} exact path="/rides" component={Rides} />
-                        <ActivityRoute state= {this.state} exact path="/rides/ride-details/:id" component={RideDetails} />
-                        <PrivateRoute exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
-                        <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
-                        <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
-                        <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
-                        <ActivityRoute state= {this.state} exact path="/rides/ride-details/:id/map" component={MapDirections} />
-                        <PrivateRoute component={notFound} />
+                        <ActivityRoute state={{...extraState}} exact path="/rides" component={Rides} />
+                        <ActivityRoute state={{...extraState}} exact path="/rides/ride-details/:id" component={RideDetails} />
+                        <PrivateRoute state={{onStart: this.onStart}} exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
+                        <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
+                        <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
+                        <PrivateRoute state={{onStart: this.onStart}} exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
+                        <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/map" component={MapDirections} />
+                        <PrivateRoute state={{onStart: this.onStart}} component={notFound} />
                     </Switch>
                 </div>
             </div>
@@ -116,4 +125,4 @@ class Crembo extends Component {
 
 
 
-export default  Crembo 
+export default Crembo 

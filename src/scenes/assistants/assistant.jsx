@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
-import notFound from '../NotFound/notFound';
+import notFound from '../common/notFound';
 import AssistantRide from '../assistants/assistantRide';
 import AssistantSide from '../assistants/home';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import ChildrenList from './currentChildren';
 import ChildDetails from '../crembo/childDetails';
-import PrivateRoute from '../NotFound/privateRoute';
+import PrivateRoute from '../common/privateRoute';
 
 
 

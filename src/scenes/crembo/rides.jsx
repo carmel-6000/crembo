@@ -15,9 +15,9 @@ class Rides extends Component {
             ridesBackJson: [],
             hasJoined: [],
             numberOfJoinedKids: null,
-            rides: null,
-
+            rides: null
         }
+        props.activityDetails.onStart('הסעות הסניף')
     }
 
     componentDidMount = () => {
@@ -75,7 +75,7 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: this.props.activityDetails} }} >
+            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: {...this.props.activityDetails, onStart: null }} }} >
                 <div className="rideCard p-2" >
                     <div className="row" >
                         <div className="col">

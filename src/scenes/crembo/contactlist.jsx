@@ -10,6 +10,7 @@ class ContactList extends Component {
             people: null,
             filteredPeople: null
         }
+        props.activityDetails.onStart('אנשי קשר')
 
     }
 
@@ -42,7 +43,6 @@ class ContactList extends Component {
 
     filteredList = (event) => {
         let updatedList = this.state.people;
-        console.log("event.target.value", event.target.value)
         //the search cant get "\" s,o,m in children:
         try {
             updatedList = updatedList.filter(function (item) {
@@ -128,7 +128,6 @@ class List extends Component {
     }
 
     updatedride = (api) => {
-        console.log("this.state", JSON.stringify(this.state));
         Auth.authPost(api, {
             method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify(this.state)
