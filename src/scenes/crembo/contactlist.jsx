@@ -12,26 +12,32 @@ class ContactList extends Component {
         }
 
     }
-    componentDidMount() {
 
-        
-
-    }
-
-    componentWillMount() {
-        if (this.props.match.params.id) {
-            this.setState({ chooseMode: true })
-
-        }
-        
-        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+    whenStartOrUpdate = () => {
+        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
 
+    }
+
+    componentDidMount() {
+        if (this.props.match.params.id) {
+            this.setState({ chooseMode: true })
+
+        }
         this.setState({ filteredPeople: this.state.people });
 
     }
+
+    componentDidUpdate(prevProp, prevState){
+        if(this.props.match.params !== prevProp.match.params) {
+          this.whenStartOrUpdate();
+    
+            };
+    
+        }
+       
 
 
     filteredList = (event) => {
@@ -55,10 +61,10 @@ class ContactList extends Component {
         console.log("state", this.state.filteredPeople);
         if (this.state.filteredPeople) {
             return <List
-             chooseMode={this.state.chooseMode} 
-             filteredPeople={this.state.filteredPeople} 
-             params={this.props.match.params} 
-             history={this.props.history} 
+                chooseMode={this.state.chooseMode}
+                filteredPeople={this.state.filteredPeople}
+                params={this.props.match.params}
+                history={this.props.history}
             />
         }
     }
@@ -96,7 +102,7 @@ class List extends Component {
 
 
     contactChoosen(contactId) {
-        
+
         let api = "";
         switch (this.props.params.person) {
             case "drivers":
@@ -141,32 +147,32 @@ class List extends Component {
 
 
     render() {
-        return (this.props.filteredPeople.map((person) => { 
-            return(
-            <Link key={person.id} className="linkTo" to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
-
+        return (this.props.filteredPeople.map((person) => {
+            console.log('id', person.id)
+            return (
                 <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
-                    <div className="row">
-                        <div className="col-3">
-                            {person.thumbnail !== null ?
-                                <img src={person.thumbnail} className="contactImg" alt="Responsive image" />
-                                :
-                                <i className="fas fa-user-tie noPic" />}
-                        </div>
-
-                        <div className="col text-right">
-                            {person.firstName} {person.lastName}
-                        </div>
-
-                        <div onClick={e => e.preventDefault()}>
-                            <a href={"tel:" + person.phone}>
-                                <div className="col-2">
-                                    <i className="fas fa-phone" />
+                    <div className="row align-items-center">
+                        <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-8": "col-10"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+                            <div className="row align-items-center">
+                                <div className="col-3">
+                                    {person.thumbnail !== null ?
+                                        <img src={person.thumbnail} className="contactImg" alt="Responsive image" />
+                                        :
+                                        <i className="fas fa-user-tie noPic" />}
                                 </div>
-                            </a>
-                        </div>
-                        <div onClick={e => e.preventDefault()}>
 
+                                <div className="col text-right">
+                                    {person.firstName} {person.lastName}
+                                </div>
+                            </div>
+                        </Link>
+                        <a href={"tel:" + person.phone}>
+                            <div className="col-2">
+                                <i className="fas fa-phone" />
+                            </div>
+                        </a>
+
+                        <div onClick={e => e.preventDefault()}>
                             {this.props.chooseMode &&
                                 <div onClick={() => this.contactChoosen(person.id)} className="col-2">
                                     <i className="fas fa-user-plus" />
@@ -176,12 +182,12 @@ class List extends Component {
 
                     </div>
                 </div>
-            </Link>
 
 
 
 
-        )}));
+            )
+        }));
     }
 }
 

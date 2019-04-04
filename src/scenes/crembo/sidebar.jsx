@@ -32,13 +32,13 @@ class Sidebar extends Component {
                     <span className="text-right ">
                     <a className="closebtn text-left" onClick={() => this.changeModelState(false)}>&times;</a>
                     <h3 className="mr-3 title_person">אחראי הסעה בסניף</h3>
-                    <Link to={{ pathname: '/contact/children' }} onClick={() => this.changeModelState(false)} >
+                    <Link  to='/contact/children' onClick={() => this.changeModelState(false)} >
                     <p className="mr-3">חניכים</p>
                     </Link>
-                    <Link to={{ pathname: '/contact/drivers'}} onClick={() => this.changeModelState(false)} >
+                    <Link  to='/contact/drivers' onClick={() => this.changeModelState(false)} >
                     <p className="mr-3">נהגים</p>
                     </Link>
-                    <Link to={{ pathname: '/contact/assistants' }}  onClick={() => this.changeModelState(false)}>
+                    <Link  to='/contact/assistants' onClick={() => this.changeModelState(false)} >
                     <p className="mr-3">מלווים</p>
                     </Link>
                     <Link to={{ pathname:'/rides' }} onClick={() => this.changeModelState(false)} >
