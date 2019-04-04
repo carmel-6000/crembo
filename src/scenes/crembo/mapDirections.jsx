@@ -15,6 +15,8 @@ class MapDirections extends Component {
      
 
     }
+    props.activityDetails.onStart('פרטי מפה ונוסעים')
+
   }
   componentWillMount() {
 

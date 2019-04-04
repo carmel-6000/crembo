@@ -6,7 +6,7 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './dashboard.css';
-import PrivateRoute from '../NotFound/privateRoute'
+import PrivateRoute from '../common/privateRoute'
 
 // class NavHeaderComponent extends Component {
 //     constructor(props) {

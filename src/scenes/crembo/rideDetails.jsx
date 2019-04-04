@@ -11,9 +11,10 @@ class RideDetails extends Component {
         this.state = {
             item: null
         }
+        props.activityDetails.onStart('פרטי הסעה')
     }
 
-    componentWillMount() {
+    componentDidMount() {
         Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ item: res })
         })

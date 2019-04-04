@@ -26,7 +26,7 @@ class NavBar extends Component {
             <header>
                 <nav className="navbar navbar-dark fixed-top primary ">
                     {navHeader}
-                    <a className="navbar-brand">כנפיים של קרמבו</a>
+                    <a className="navbar-brand">{this.props.title || 'כנפיים של קרמבו'}</a>
                 </nav>
             </header>
 
