@@ -78,15 +78,15 @@ class RideDetails extends Component {
                             {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
                             <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                             <div className="newPadding col-1 text-right">
-                                {value.request&&<div>
-                                <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
-                                </button>
-                                <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
-                                    <ul type="square" className="mb-0">
-                                        {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
-                                    </ul>
-                                </div>
+                                {value.request && <div>
+                                    <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
+                                    </button>
+                                    <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
+                                        <ul type="square" className="mb-0">
+                                            {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
+                                        </ul>
+                                    </div>
                                 </div>}
                             </div>
                             <div className="newPadding col-1 text-right">
@@ -149,40 +149,30 @@ class RideDetails extends Component {
                             {this.state.item.drivers && <div className="driveri">הנהג: {this.state.item.drivers.firstName} {this.state.item.drivers.lastName}</div>}
                         </div>
 
-                        <div className="main-container">
-                            <ul className="rideNav nav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
-                                <li className="nav-item">
-                                    <a className="nav-link active btn-block bnf-font" id="pills-assistants-tab" data-toggle="pill" href="#pills-assistants" role="tab" aria-controls="pills-assistants" aria-selected="true">צוות</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link bnf-font" id="pills-children-tab" data-toggle="pill" href="#pills-children" role="tab" aria-controls="pills-children" aria-selected="false">נוסעים</a>
-                                </li>
-                            </ul>
-
-                            <div className="tab-content content-of-selected-tab" id="pills-tabContent">
-
-                                <div className="tab-pane fade show active" id="pills-assistants" role="tabpanel" aria-labelledby="pills-assistants-tab">
-                                    <div>
-                                        {this.state.item.drivers && <div>{this.mapOfstaff("drivers")}</div>}
-                                        {this.state.item.assistants && <div>{this.mapOfstaff("assistants")}</div>}
-
-                                        {!this.state.item.drivers && <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/add/drivers', state: { chooseMode: true } }} >
-                                            <div className="d-inline-block bold shadow p-2 mb-2  bg-white rounded pr-5 text-right staffCard"> + הוסף נהג </div>
-                                        </Link>}
-
-                                        {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
-                                    </div>
-
-                                </div>
 
 
-                                <div className="tab-pane fade " id="pills-children" role="tabpanel" aria-labelledby="pills-children-tab">
-                                    {this.state.item.children && <div className="container">{this.mapOfstaff("children")}</div>}
-                                </div>
 
-                            </div>
+                        <div>
+                            {this.state.item.drivers && <div>{this.mapOfstaff("drivers")}</div>}
+                            {this.state.item.assistants && <div>{this.mapOfstaff("assistants")}</div>}
 
+                            {!this.state.item.drivers && <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/add/drivers', state: { chooseMode: true } }} >
+                                <div className="d-inline-block bold shadow p-2 mb-2  bg-white rounded pr-5 text-right staffCard"> + הוסף נהג </div>
+                            </Link>}
+
+                            {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
+                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children }  }} >
+                            <div className="d-inline-block bold shadow p-2 mb-2  bg-white rounded text-center staffCard">מסלול ונוסעים</div>
+                            </Link>}
                         </div>
+
+
+
+
+                        {/* {this.state.item.children && <div className="container">{this.mapOfstaff("children")}</div>} */}
+
+
+
                     </div>}
             </div>
 

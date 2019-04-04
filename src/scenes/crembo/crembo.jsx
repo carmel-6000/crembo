@@ -12,13 +12,7 @@ import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
-
-const PrivateRoute = ({ component: Component, state, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        Auth.isAuthenticated() === true ? <Component activityDetails={state} {...props}/> : <Redirect to='/login' />
-    )} />
-
-)
+import PrivateRoute from '../NotFound/privateRoute';
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
     <Route {...rest} render={(props)=>  (
@@ -44,7 +38,7 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                console.log("res.isLive", res);
+                
                 if(res.length === 0) {
                     this.setState({ haschecked: true });
                 } 
@@ -56,7 +50,7 @@ class Crembo extends Component {
                         if (res[i].isLive) {
                             this.setState({ hasActivity: true ,haschecked: true , activityDate: res[i].activityDate , activityDay: res[i].activityDay , activityId: res[i].id });
                             this.setState({ haschecked: true });
-                            console.log("the activity ", res[i].activityDate ,res[i].activityDay )
+                            
                         } 
                         if(i === res.length -1) {
                             this.setState({ haschecked: true });
@@ -81,7 +75,6 @@ class Crembo extends Component {
             activityDay: activity.activityDate,
             activityId: activity.id })
     }
-
 
     render() {
         if (!this.state.haschecked) 
@@ -112,7 +105,7 @@ class Crembo extends Component {
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <ActivityRoute  state= {this.state}  exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
-                        <PrivateRoute exact path="/map" component={MapDirections} />
+                        <ActivityRoute state= {this.state} exact path="/rides/ride-details/:id/map" component={MapDirections} />
                         <PrivateRoute component={notFound} />
                     </Switch>
                 </div>
