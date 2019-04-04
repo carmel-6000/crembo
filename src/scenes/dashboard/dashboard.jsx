@@ -6,12 +6,7 @@ import Login from '../../Auth/Login';
 import Auth from '../../Auth/Auth';
 import logoImage from '../../img/carmel.png';
 import './dashboard.css';
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        Auth.isAuthenticated() === true ? <Component {...props} /> : <Redirect to='/login' />
-    )} />
-)
+import PrivateRoute from '../NotFound/privateRoute'
 
 // class NavHeaderComponent extends Component {
 //     constructor(props) {

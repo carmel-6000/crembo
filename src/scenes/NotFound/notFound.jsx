@@ -11,7 +11,6 @@ class NotFound extends Component {
 
 
     render() {
-        console.log(Auth.isAuthenticated())
         return(
         <div className="body404">
         <div dir="ltr" className="bold margin3">404 not found</div>

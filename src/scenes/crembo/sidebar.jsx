@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import PrivateRoute from '../../App'
 import './sidebar.css';
 import { Router, Route, Link } from "react-router-dom";
 
