@@ -21,7 +21,7 @@ class MapDirections extends Component {
   componentWillMount() {
 
     if (this.props.location.state) {
-      this.setState({ children: this.props.location.state.children, assistants: this.props.location.state.assistants, branchAddress: this.props.location.state.branches.address}, () => {
+      this.setState({ children: this.props.location.state.children, assistants: this.props.location.state.assistants, branchAddress: this.props.location.state.branches.address }, () => {
         this.mapOfAddress();
       });
       console.log("yes")
@@ -53,14 +53,19 @@ class MapDirections extends Component {
   mapOfAddress = () => {
     let arr = [];
     this.state.children.map((value, index) => arr.push(value.addressForth));
-    this.state.assistants.map((value, index) => arr.unshift(value.addressForth));
-    console.log("assistants", this.state.assistants.addressForth)
-    console.log("arr", arr)
-    // this.setState({ destination: arr[arr.length - 1] });
     this.setState({ destination: this.state.branchAddress });
-    this.setState({ origin: arr.shift() });
-    this.setState({ places: arr });
+    if (this.state.assistants[0]) {
+      this.state.assistants.map((value, index) => arr.unshift(value.addressForth));
+      this.setState({ origin: arr.shift() });
+      this.setState({ places: arr });
+      console.log("assistants", this.state.assistants.addressForth)
+    }
+    else {
+      this.setState({ origin: arr[0] });
+      this.setState({ places: arr });
+    }
 
+    
     this.map1();
 
   }
@@ -149,7 +154,7 @@ class MapDirections extends Component {
     console.log("props:", this.props);
     console.log("state.children:", this.state.children);
     console.log("state:", this.state);
-
+    console.log("state.assistants:", this.state.assistants[0]);
 
     return (
       <div>
