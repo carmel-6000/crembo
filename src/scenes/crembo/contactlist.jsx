@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import "./contactlist.css";
-import { Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import loading_dots from '../../img/loading_dots.svg';
 
 class ContactList extends Component {
@@ -122,7 +122,8 @@ class List extends Component {
                     this.updatedride(api);
                 });
                 break;
-            default: null;
+            default: 
+            console.log("no API has been given.");
 
         }
 
@@ -157,7 +158,7 @@ class List extends Component {
                             <div className="row align-items-center">
                                 <div className="col-3">
                                     {person.thumbnail !== null ?
-                                        <img src={person.thumbnail} className="contactImg" alt="Responsive image" />
+                                        <img src={person.thumbnail} className="contactImg" alt="thumbnail" />
                                         :
                                         <i className="fas fa-user-tie noPic" />}
                                 </div>

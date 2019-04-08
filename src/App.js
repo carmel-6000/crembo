@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Router, Route, Link, Switch } from "react-router-dom";
-import { Redirect } from 'react-router';
+import { Router, Route, Switch } from "react-router-dom";
 import Login from './Auth/Login';
 import Auth from './Auth/Auth';
 import Crembo from './scenes/crembo/crembo';
@@ -9,7 +8,6 @@ import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';
 import Assistant from './scenes/assistants/assistant';
 import notFound from './scenes/common/notFound';
-import NavBar from './scenes/crembo/navbar';
 import PrivateRoute from './scenes/common/privateRoute'
 
 

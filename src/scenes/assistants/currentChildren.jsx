@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
-import {  Router, Route, Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class ChildrenList extends Component {
     constructor(props) {
@@ -26,13 +25,13 @@ class ChildrenList extends Component {
 
     myChildren = (children) => { return (children.map((person) => {
         return (
-        <Link className="linkTo" to={{ pathname: '/assistant/children/details/' + `${person.id}`, state: { person } }} >
+        <Link className="linkTo" to={{ pathname: `/assistant/children/details/${person.id}`, state: { person } }} >
 
             <a className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
                 <div className="row">
                     <div className="col-3">
                         {person.thumbnail &&
-                            <img src={person.thumbnail} className="contactImg" alt="Responsive image" />}
+                            <img src={person.thumbnail} className="contactImg" alt="thumbnail" />}
                         {!person.thumbnail &&
                             <i className="fas fa-user-tie noPic" />}
                     </div>

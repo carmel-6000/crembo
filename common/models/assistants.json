@@ -3,6 +3,9 @@
     "crud": {
         "fields": {
             "id": {},
+            "realm": {
+                "type": "text"
+            },
             "firstName": {
                 "type": "text",
                 "editable": "true"
@@ -63,7 +66,7 @@
                 "foreignKey": "assistantId",
                 "through": "RequestsMap",
                 "keyThrough": "requestId"
-            }                
+            }
         }
     },
     "properties": {
@@ -82,6 +85,9 @@
                 "nullable": "N"
             }
         },
+        "realm": {
+            "type": "string"
+          },      
         "firstName": {
             "type": "String",
             "required": false,
@@ -217,5 +223,14 @@
                 "nullable": "Y"
             }
         }
-    }
+    },
+    "acls": [
+        {
+          "principalType": "$everyone",
+          "principalId": "$everyone",
+          "permission": "ALLOW",
+          "accessType": "READ"
+        }
+      ],
+      "methods": {}
 }

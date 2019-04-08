@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './crembo.css';
 import './newActivity.css';
-import { Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 import TimeField from 'react-simple-timefield';
 
@@ -79,7 +79,7 @@ class NewActivity extends Component {
                 <div className="  mx-auto align-middle">
                     <div className="row " id="activityText">תאריך הפעילות</div>
 
-                    <div className="row" className="activityCard">
+                    <div className="row activityCard">
                         <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
                         <i className="calendar_alt far fa-calendar-alt"></i>
                     </div>
@@ -87,7 +87,7 @@ class NewActivity extends Component {
 
                     <div className="row" id="activityText">שעת הפעילות</div>
 
-                    <div className="row" className="activityCard">
+                    <div className="row activityCard">
 
                         <input className="d-sm-inline-block d-md-none" type="time" name="time" id="time" onChange={this.setActivity}></input>
 

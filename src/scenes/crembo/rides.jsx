@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './rideDetails.css';
 import Auth from '../../Auth/Auth';
-import { Router, Route, Link } from "react-router-dom";
-import { Redirect } from 'react-router';
-import RideDetails from './rideDetails';
+import { Link } from "react-router-dom";
 import loading_dots from '../../img/loading_dots.svg';
 
 
@@ -75,7 +73,7 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: '/rides/ride-details/' + `${item.id}`, state: { item: item, activityInfo: {...this.props.activityDetails, onStart: null }} }} >
+            <Link key={i} to={{ pathname: `/rides/ride-details/${item.id}`, state: { item: item, activityInfo: {...this.props.activityDetails, onStart: null }} }} >
                 <div className="rideCard p-2" >
                     <div className="row" >
                         <div className="col">

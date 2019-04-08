@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Link, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
 import NewActivity from './newActivity';
@@ -8,7 +8,6 @@ import Rides from './rides'
 import RideDetails from './rideDetails';
 import ChildDetails from './childDetails';
 import notFound from './../common/notFound';
-import Sidebar from './sidebar';
 import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
@@ -95,7 +94,8 @@ class Crembo extends Component {
                 </div>
 
             )
-                const extraState = {...this.state, onStart: this.onStart};
+        const extraState = {...this.state, onStart: this.onStart};
+
         console.log("theeee props", this.props)
         return (
 

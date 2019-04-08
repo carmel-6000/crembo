@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './sidebar.css';
-import { Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 class Sidebar extends Component {
@@ -44,7 +43,7 @@ class Sidebar extends Component {
                     <p className="mr-3"> הסעות הסניף</p>
                     </Link>
                     <p>
-                        <a onClick={this.props.logout} href="#">
+                        <a onClick={this.props.logout}>
                         <i className="fas fa-sign-in-alt mr-3" /> התנתק </a>
                     </p>
                     </span>}
