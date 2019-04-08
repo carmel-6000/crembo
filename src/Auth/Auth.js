@@ -36,13 +36,13 @@ const Auth = {
     let postUrl ="";
     let accessToken = Auth.getAccessToken();
     if (accessToken === null) {
-      return url + accessToken;
+      return url, + accessToken;
     } else {
 
       if (url.includes("?")) {
         postUrl = url +"&access_token=" + accessToken;
       } else {
-        postUrl = url+ "?access_token=" + accessToken;
+        postUrl = url + "?access_token=" + accessToken;
       }
       return fetch(postUrl,uRow);
 
