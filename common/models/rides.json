@@ -91,7 +91,6 @@
                 "through": "AssistantsRides",
                 "keyThrough": "assistantId"
               },
-
                "drivers": {
                 "type": "belongsTo",
                 "model": "Drivers",
