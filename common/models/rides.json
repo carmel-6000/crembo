@@ -96,6 +96,11 @@
                 "model": "Drivers",
                 "foreignKey": "driver"
               },
+              "branches": {
+                "type": "belongsTo",
+                "model": "Branches",
+                "foreignKey": "branch"
+              },
               "activities": {
                 "model": "Activities",
                 "type": "belongsTo",

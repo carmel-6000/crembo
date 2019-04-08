@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './rides.css';
 import Auth from '../../Auth/Auth';
-import { Link } from "react-router-dom";
+import logoImage from '../../img/carmel.png';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 
 class RideDetails extends Component {
@@ -14,19 +15,9 @@ class RideDetails extends Component {
     }
 
     componentDidMount() {
-        Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
+        Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, {"assistants": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ item: res })
         })
-
-
-        //m
-        // if (this.props.location.state) {
-        //     this.setState({ item: this.props.location.state.item });
-        // } else {
-        //     Auth.authFetch(`/ /rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
-        //         this.setState({ item: res })
-        //     })
-        // }
     }
 
     changeItemDetails = (e) => {
@@ -75,7 +66,7 @@ class RideDetails extends Component {
                 card = this.state.item.children.map((value, i) => (
                     <div className="childrenCard p-2" key={i}>
                         <div className="row ">
-                            {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} alt="thumbnail" /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
+                            {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
                             <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                             <div className="newPadding col-1 text-right">
                                 {value.request && <div>
@@ -96,8 +87,8 @@ class RideDetails extends Component {
                                     </button>
                                     <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                                         <Link className="dropdown-item text-right" to={{ pathname: "/contact/children/details/" + value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
-                                        <a className="dropdown-item text-right" >הסר מהסעה זו ביום זה</a>
-                                        <a className="dropdown-item text-right" >העבר להסעה אחרת</a>
+                                        <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
+                                        <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
 
                                     </div>
                                 </div>
@@ -134,6 +125,7 @@ class RideDetails extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div>
                 {this.state.item &&
@@ -161,8 +153,9 @@ class RideDetails extends Component {
                             </Link>}
 
                             {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
-                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children }  }} >
-                            <div className="d-inline-block bold shadow p-2 mb-2  bg-white rounded text-center staffCard">מסלול ונוסעים</div>
+                            
+                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children, assistants:this.state.item.assistants, branches:this.state.item.branches}  }} >
+                            <div className="d-inline-block bold shadow p-2 mb-2 bg-white rounded text-center staffCard">מסלול ונוסעים</div>
                             </Link>}
                         </div>
 
