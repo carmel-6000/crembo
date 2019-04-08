@@ -15,7 +15,7 @@ class RideDetails extends Component {
     }
 
     componentDidMount() {
-        Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
+        Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, {"assistants": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ item: res })
         })
 
@@ -135,6 +135,7 @@ class RideDetails extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div>
                 {this.state.item &&
@@ -162,7 +163,8 @@ class RideDetails extends Component {
                             </Link>}
 
                             {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
-                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children }  }} >
+                            
+                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children, assistants:this.state.item.assistants, branches:this.state.item.branches}  }} >
                             <div className="d-inline-block bold shadow p-2 mb-2  bg-white rounded text-center staffCard">מסלול ונוסעים</div>
                             </Link>}
                         </div>

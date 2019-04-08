@@ -12,7 +12,7 @@ class MapDirections extends Component {
   constructor(props) {
     super(props)
     this.state = {
-     
+
 
     }
     props.activityDetails.onStart('פרטי מפה ונוסעים')
@@ -21,11 +21,16 @@ class MapDirections extends Component {
   componentWillMount() {
 
     if (this.props.location.state) {
-      this.setState({ children: this.props.location.state.children });
+      this.setState({ children: this.props.location.state.children, assistants: this.props.location.state.assistants, branchAddress: this.props.location.state.branches.address}, () => {
+        this.mapOfAddress();
+      });
       console.log("yes")
     } else {
-      Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": ["children"]}`).then(response => { return response.clone().json() }).then(res => {
-        this.setState({ children: res.children })
+      Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, {"assistants": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
+        this.setState({ children: res.children, assistants: res.assistants, branchAddress: res.branches.address }, () => {
+          this.mapOfAddress();
+          console.log(res)
+        })
         console.log("no")
       })
     }
@@ -33,6 +38,10 @@ class MapDirections extends Component {
   }
 
   componentDidMount() {
+
+  }
+
+  map1 = () => {
     window.initMap = this.initMap.bind(this);
     const script = document.createElement('script')
     script.async = true;
@@ -43,11 +52,16 @@ class MapDirections extends Component {
 
   mapOfAddress = () => {
     let arr = [];
-    this.state.children.map((value, index) =>  arr.push(value.addressForth));
-    console.log("arr",arr)
-    this.setState({ destination: arr[arr.length-1] });
-    this.setState({ origin: arr[0] });
-    this.setState({ places: arr});
+    this.state.children.map((value, index) => arr.push(value.addressForth));
+    this.state.assistants.map((value, index) => arr.unshift(value.addressForth));
+    console.log("assistants", this.state.assistants.addressForth)
+    console.log("arr", arr)
+    // this.setState({ destination: arr[arr.length - 1] });
+    this.setState({ destination: this.state.branchAddress });
+    this.setState({ origin: arr.shift() });
+    this.setState({ places: arr });
+
+    this.map1();
 
   }
 
@@ -103,7 +117,7 @@ class MapDirections extends Component {
     });
     directionsDisplay.setMap(map);
 
-    this.mapOfAddress();
+
     this.calculateAndDisplayRoute(directionsService, directionsDisplay);
 
 
@@ -114,7 +128,7 @@ class MapDirections extends Component {
   calculateAndDisplayRoute = (directionsService, directionsDisplay) => {
 
     directionsService.route({
-      
+
       origin: this.state.origin,
       destination: this.state.destination,
       waypoints: this.state.places.map((address) => { return { location: address, stopover: true } }),

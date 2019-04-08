@@ -91,11 +91,15 @@
                 "through": "AssistantsRides",
                 "keyThrough": "assistantId"
               },
-
                "drivers": {
                 "type": "belongsTo",
                 "model": "Drivers",
                 "foreignKey": "driver"
+              },
+              "branches": {
+                "type": "belongsTo",
+                "model": "Branches",
+                "foreignKey": "branch"
               },
               "activities": {
                 "model": "Activities",
