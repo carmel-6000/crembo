@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import notFound from '../common/notFound';
-import AssistantRide from '../assistants/assistantRide';
+import AssistantRide from './assistantRide';
 import AssistantSide from '../assistants/home';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
@@ -21,9 +21,10 @@ class Assistant extends Component {
         <div>
             <Switch>
                 <PrivateRoute exact path="/assistant" component={AssistantSide} />
-                <PrivateRoute exact path="/assistant/ride-details" component={AssistantRide} />
-                <PrivateRoute exact path="/assistant/:person" component={ChildrenList} />
+                <PrivateRoute exact path="/assistant/:rideId/ride-details" component={AssistantRide} />
+                <PrivateRoute exact path="/assistant/:rideId/ride-details/:person" component={ChildrenList} />
                 <PrivateRoute exact path="/assistant/:person/details/:id" component={ChildDetails} />
+                <PrivateRoute exact path="/assistant/start" component={AssistantRide}/>
                 <PrivateRoute component={notFound} />
             </Switch>
         </div>

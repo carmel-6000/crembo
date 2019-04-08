@@ -7,8 +7,22 @@ class ChildrenList extends Component {
         super(props);
         this.state = {
             rides: this.props.location.state.ride,
+            children: this.props.location.state.ride.children,
+            watched: true
         }
     }
+
+    componentDidMount() {
+        if(!this.state.rides) {
+        console.log("in current");
+        Auth.authFetch('/api/rides/3419/children').then(response => { return response.json() }).then(res => {
+            console.log("res children", res);
+            this.setState({ children: res })
+        }).catch((err) => {
+            console.log('Fetch Error :-S', err);
+        });}
+    }
+
 
     myChildren = (children) => { return (children.map((person) => {
         return (
@@ -54,13 +68,15 @@ class ChildrenList extends Component {
 
 
     render() {
+        console.log(this.props)
+
         console.log("rides", this.state.rides)
         return(
             <div> 
               <div className="filter-list">
         <div className="list-group">     
-            {this.myChildren(this.state.rides.children)}
-           {/* <Link><button>עברתי על פרטי ההסעה</button></Link>  */}
+            {this.state.children?this.myChildren(this.state.children):''}
+           <Link to={{pathname: '/assistant/start', state:{watched:this.state.watched}}}><button>עברתי על פרטי ההסעה</button></Link> 
         </div>
 
     </div>

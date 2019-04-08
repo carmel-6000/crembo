@@ -6,7 +6,8 @@ class AssistantSide extends Component {
     constructor(props){
         super(props);
         this.state = {
-            isInclude: null
+            isInclude: null,
+            watched: false
         }
         
         this.gettingRideData();
@@ -21,16 +22,16 @@ class AssistantSide extends Component {
               <option value="forward">הלוך</option>
               <option value="back">חזור</option>
           </select>
-          <Link to="/assistant/ride-details"><button>כניסה למערכת</button></Link>
+          <Link to={{pathname: "/assistant/3419/ride-details", state:this.state.watched }}><button>כניסה למערכת</button></Link>
       </form>)
   }
 
   gettingRideData = () => {
-   Auth.authFetch('/api/rides?filter={ 	"where": {"activities": {"isLive": true}     } , 	"include": ["assistants", "activities"] }').then(response => { return response.json() }).then(res => {
-        console.log("answer of",'/api/rides?filter={{"where": {"activities": {"isLive": true}     }}{ "include": ["assistants", "activities"]}}');
-        console.log("res",res);
-        this.setState({ isInclude: res })
-    })    
+//    Auth.authFetch('/api/rides?filter={ 	"where": {"activities": {"isLive": true}     } , 	"include": ["assistants", "activities"] }').then(response => { return response.json() }).then(res => {
+//         console.log("answer of",'/api/rides?filter={{"where": {"activities": {"isLive": true}     }}{ "include": ["assistants", "activities"]}}');
+//         console.log("res",res);
+//         this.setState({ isInclude: res })
+//     })    
 }
   
   

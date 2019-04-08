@@ -8,7 +8,7 @@ class AssistantRide extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            watched: this.props.location.state.watched,
         }
     }
 
@@ -27,6 +27,7 @@ class AssistantRide extends Component {
 
     render() {
         let ride = this.state.ride;
+        console.log('props', this.props.location.state.watched, 'state', this.state.watched)
             return (
                 <div>
                     {ride?
@@ -34,8 +35,11 @@ class AssistantRide extends Component {
                       <h2>{ride.activities.activityDate}</h2>
                       <h1>{ride.title}</h1>
                       <h1>{ride.plannedTime}</h1>
-                     <Link to={{ pathname: "/assistant/children", state: this.state }}> <button> צפייה בפרטי ההסעה</button> </Link>
-                     <Link to={{ pathname: "/assistant/children", state: this.state }}> <button> התחל נסיעה</button> </Link>
+                      {this.state.watched? 
+                      <Link to={{ pathname: "/assistant", state: this.state }}> <button> התחל נסיעה</button> </Link> :
+                      <Link to={{ pathname: "/assistant/3419/ride-details/children", state: this.state }}> <button> צפייה בפרטי ההסעה</button> </Link>
+                     }
+                    
                   </div>:''}
                 </div >
         );
@@ -43,5 +47,4 @@ class AssistantRide extends Component {
     }
 }
 
-//this.props.location.state.?? console log this.props 
 export default AssistantRide;
