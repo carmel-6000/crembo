@@ -36,7 +36,7 @@ const Auth = {
     let postUrl ="";
     let accessToken = Auth.getAccessToken();
     if (accessToken === null) {
-      return url,  + accessToken;
+      return url + accessToken;
     } else {
 
       if (url.includes("?")) {

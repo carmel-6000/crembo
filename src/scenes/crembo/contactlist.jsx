@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import "./contactlist.css";
-import { Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class ContactList extends Component {
     constructor(props) {
@@ -115,7 +115,8 @@ class List extends Component {
                     this.updatedride(api);
                 });
                 break;
-            default: null;
+            default: 
+            console.log("no API has been given.");
 
         }
 
@@ -142,13 +143,13 @@ class List extends Component {
     render() {
         return (this.props.filteredPeople.map((person) => { 
             return(
-            <Link key={person.id} className="linkTo" to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+            <Link key={person.id} className="linkTo" to={{ pathname: `/contact/${this.props.params.person}/details/${person.id}`, state: { person } }} >
 
                 <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
                     <div className="row">
                         <div className="col-3">
                             {person.thumbnail !== null ?
-                                <img src={person.thumbnail} className="contactImg" alt="Responsive image" />
+                                <img src={person.thumbnail} className="contactImg" alt="thmbnail" />
                                 :
                                 <i className="fas fa-user-tie noPic" />}
                         </div>

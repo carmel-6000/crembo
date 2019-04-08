@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
 import './childDetails.css';
 
 class ChildDetails extends Component {
@@ -9,7 +8,7 @@ class ChildDetails extends Component {
             userInfo: null,
             userMode: null,
         }
-        props.activityDetails.onStart('פרטי איש קשר')
+        props.activityDetails.onStart('פרטי איש קשרד')
 
     }
 
@@ -49,7 +48,7 @@ class ChildDetails extends Component {
                             {this.state.userInfo.gender === "male" ? <i className="fas fa-mars fa-1x mr-1" style={{ color: "#007bff78" }} ></i> :
                                 this.state.userInfo.gender === "female" ? <i className="fas fa-venus fa-1x mr-1" style={{ color: "#f59cc5bf" }}></i> :
                                     <i className="fas fa-genderless fa-1x mr-1" style={{ color: "grey" }} ></i>}
-                            <div><img className="thumbnailIMG" src={this.state.userInfo.thumbnail} /></div>
+                            <div><img className="thumbnailIMG" alt="thumbnail" src={this.state.userInfo.thumbnail} /></div>
                         </div>
                         <div className="text-right">
                             {this.state.userInfo.addressForth &&

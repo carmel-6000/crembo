@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './crembo.css';
-import { Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 import "./mapDirections.css";
 
@@ -57,7 +57,7 @@ class MapDirections extends Component {
     card = this.state.children.map((value, i) => (
       <div className="childrenCard p-2" key={i}>
         <div className="row ">
-          {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
+          {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} alt="thumbnail" /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
           <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
           <div className="newPadding col-1 text-right">
             {value.request && <div>
@@ -78,8 +78,8 @@ class MapDirections extends Component {
               </button>
               <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
                 <Link className="dropdown-item text-right" to={{ pathname: "/contact/children/details/" + value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
-                <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
-                <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
+                <a className="dropdown-item text-right" >הסר מהסעה זו ביום זה</a>
+                <a className="dropdown-item text-right">העבר להסעה אחרת</a>
 
               </div>
             </div>
@@ -95,8 +95,8 @@ class MapDirections extends Component {
   initMap = () => {
     google = window.google;
 
-    let directionsDisplay = new google.maps.DirectionsRenderer;
-    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer();
+    let directionsService = new google.maps.DirectionsService();
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 18,
       disableDefaultUI: true,
@@ -122,7 +122,7 @@ class MapDirections extends Component {
       travelMode: 'DRIVING'
 
     }, (response, status) => {
-      if (status == 'OK') {
+      if (status === 'OK') {
         directionsDisplay.setDirections(response);
       } else {
         console.log('Directions request failed due to ' + status);

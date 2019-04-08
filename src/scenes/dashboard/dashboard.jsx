@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '../../Grid/Grid';
-import { Router, Route, Link } from "react-router-dom";
-import { Redirect } from 'react-router';
-import Login from '../../Auth/Login';
+import { Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
-import logoImage from '../../img/carmel.png';
 import './dashboard.css';
 import PrivateRoute from '../common/privateRoute'
 
@@ -25,10 +22,6 @@ import PrivateRoute from '../common/privateRoute'
 // }
 
 class Dashboard extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     render() {
 
@@ -163,25 +156,25 @@ class SideBar extends Component {
 
                     <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>Projects</span>
-                        <a className="d-flex align-items-center text-muted" href="#">
+                        <a className="d-flex align-items-center text-muted">
                             <span data-feather="plus-circle"></span>
                         </a>
                     </h6>
                     <ul className="nav flex-column mb-2">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" >
                                 <span data-feather="file-text"></span>
                                 <i className="fas fa-flask" />  Labrador
                         </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link">
                                 <span data-feather="file-text"></span>
                                 <i className="fas fa-question" /> Kedai Li
                         </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <a className="nav-link" >
                                 <span data-feather="file-text"></span>
                                 <i className="fas fa-utensils" />   Roiki
                     </a>

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Router, Route, Link , Switch} from "react-router-dom";
+import React from 'react';
+import { Route } from "react-router-dom";
 import { Redirect } from 'react-router';
 import Auth from '../../Auth/Auth';
 
