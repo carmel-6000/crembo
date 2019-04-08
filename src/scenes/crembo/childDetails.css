@@ -1,11 +1,11 @@
 .infoBox{
-    color: #00aebe;
+    color:  #0B90AC;
     -webkit-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
     -moz-box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.55);
     box-shadow: 0px 5px 22px -1px rgba(0,0,0,0.3);
     border-radius: 3vh;
-    width: 90vw;
     padding: 1vw;
+    background-color: white;
 }
 
 .infoTXT{
@@ -13,10 +13,13 @@
 }
 .childName{
     font-size: 5.5vw;
-    margin-top: 3vh;
+    width: 50vw;
+    margin: auto;
+    border-top: 0.3vh white solid;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
 }
 .subTitle{
-    border-top: 0.5vh white solid;
     background-color: #00aebe;
-    color: white
+    color: white;
 }
