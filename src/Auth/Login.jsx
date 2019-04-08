@@ -33,7 +33,7 @@ class Login extends Component {
                 return;
             }
             if (isAuthenticated === true) {
-                this.props.navHeader() ;
+                {this.props.navHeader()} ;
                 this.setState({ redirTo: 'home' });
             }
 

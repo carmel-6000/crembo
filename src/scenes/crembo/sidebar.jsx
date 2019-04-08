@@ -43,7 +43,7 @@ class Sidebar extends Component {
                     <p className="mr-3"> הסעות הסניף</p>
                     </Link>
                     <p>
-                        <a onClick={this.props.logout}>
+                        <a onClick={this.props.logout} href="#">
                         <i className="fas fa-sign-in-alt mr-3" /> התנתק </a>
                     </p>
                     </span>}
