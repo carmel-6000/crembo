@@ -96,7 +96,6 @@ class Crembo extends Component {
             )
         const extraState = {...this.state, onStart: this.onStart};
 
-        console.log("theeee props", this.props)
         return (
 
             <div className="crembo-font">
@@ -106,7 +105,7 @@ class Crembo extends Component {
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
                                 <Redirect to={{ pathname: "/rides" }} />
-                            ) : <NewActivity setStateOfHasActivity={this.setStateOfHasActivity} />
+                            ) : <NewActivity setStateOfHasActivity={this.setStateOfHasActivity} onStart={this.onStart} />
                         }} />
                         <ActivityRoute state={{...extraState}} exact path="/rides" component={Rides} />
                         <ActivityRoute state={{...extraState}} exact path="/rides/ride-details/:id" component={RideDetails} />

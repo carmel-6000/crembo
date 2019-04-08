@@ -15,3 +15,8 @@
     font-size: 5.5vw;
     margin-top: 3vh;
 }
+.subTitle{
+    border-top: 0.5vh white solid;
+    background-color: #00aebe;
+    color: white
+}
