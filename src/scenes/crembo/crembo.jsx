@@ -100,7 +100,6 @@ class Crembo extends Component {
         return (
 
             <div className="crembo-font">
-                <div>
                     <NavBar title={this.state.title} />
                     <Switch>
                         <Route exact path="/" render={() => {
@@ -117,7 +116,6 @@ class Crembo extends Component {
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/map" component={MapDirections} />
                         <PrivateRoute state={{onStart: this.onStart}} component={notFound} />
                     </Switch>
-                </div>
             </div>
         );
     }

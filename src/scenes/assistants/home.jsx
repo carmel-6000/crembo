@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
-import { Link } from "react-router-dom";
+import { Router, Route, Link, NavLink } from "react-router-dom";
 
 class AssistantSide extends Component {
     constructor(props){
@@ -22,7 +22,7 @@ class AssistantSide extends Component {
               <option value="forward">הלוך</option>
               <option value="back">חזור</option>
           </select>
-          <Link to={{pathname: "/assistant/3419/ride-details", state:this.state.watched }}><button>כניסה למערכת</button></Link>
+          <Link to={{pathname: "/assistant/3419/ride-details", state:{watched: this.state.watched} }}><button>כניסה למערכת</button></Link>
       </form>)
   }
 

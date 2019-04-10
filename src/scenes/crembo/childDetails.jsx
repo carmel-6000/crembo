@@ -8,11 +8,11 @@ class ChildDetails extends Component {
             userInfo: null,
             userMode: null,
         }
-        props.activityDetails.onStart('פרטי איש קשרד')
+        props.activityDetails.onStart("פרטי איש קשר")
 
     }
 
-    componentDidMount = () => {
+    componentDidMount = () => { 
         // filters the rides by their direction
         this.setState({ userInfo: this.props.location.state.person });
         switch (this.props.match.params.person) {
