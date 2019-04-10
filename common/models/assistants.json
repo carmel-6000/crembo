@@ -54,12 +54,13 @@
         },
         "relations": {
             "rides": {
-                "type": "belongsTo",
+                "type": "hasMany",
                 "model": "Rides",
                 "foreignKey": "assistantId",
-                "through": "assistantsRides",
+                "through": "AssistantsRides",
                 "keyThrough": "assistantId"
-            },
+              },
+
             "requests": {
                 "type": "hasMany",
                 "model": "Requests",

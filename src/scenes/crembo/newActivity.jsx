@@ -13,9 +13,10 @@ class NewActivity extends Component {
             activityDay: "",
             activityTime: "",
             isLive: true,
-            managerId: localStorage.getItem('userId')
+            managerId: localStorage.getItem('userId'),
         }
-        props.activityDetails.onStart('יצירת פעילות')
+        console.log(props)
+        props.onStart('יצירת פעילות')
 
     }
 
@@ -44,14 +45,12 @@ class NewActivity extends Component {
     addActivity = () => {
         let modelApi = 'api/activities';
         if (this.state.activityDate && this.state.activityTime && this.state.activityDay) {
-
             Auth.authPost(modelApi, {
                 method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 body: JSON.stringify(this.state)
             }).then(response => { return response.json() }).then(activity => {
                 console.log("the row that has been added", activity)
                 if (activity.error) {
-                    this.setState({ isloading: false })
                     alert("קיימת כבר פעילות ביום זה!");
                     return;
                 }
@@ -74,6 +73,7 @@ class NewActivity extends Component {
     }
 
     render() {
+        console.log("state load ", this.state.isloading)
         return (
             <div className="middler">
                 <div className="  mx-auto align-middle">
@@ -101,7 +101,7 @@ class NewActivity extends Component {
                     </div>
 
                     <br />
-                    <div className="addbottom">
+                    <div className="addbottom" >
                         <Link to={{ pathname: "/rides", state: this.state }} >
                             <button onClick={this.addActivity} disabled={this.state.activityDate && this.state.activityTime ? false : true} className=" btn btn-info btn-lg"  >{this.state.isloading ? "אנא המתן" : "הוסף"}</button>
                         </Link>
