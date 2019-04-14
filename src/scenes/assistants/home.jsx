@@ -22,7 +22,7 @@ class AssistantSide extends Component {
               <option value="forward">הלוך</option>
               <option value="back">חזור</option>
           </select>
-          <Link to={{pathname: "/assistant/3419/ride-details", state:{watched: this.state.watched} }}><button>כניסה למערכת</button></Link>
+          <Link to={{pathname: "/assistant/3682/ride-details", state:{watched: this.state.watched} }}><button>כניסה למערכת</button></Link>
       </form>)
   }
 

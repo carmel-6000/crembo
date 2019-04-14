@@ -26,6 +26,8 @@ componentWillMount = () => {
     }
     this.props.activityDetails.onStart(title);
 }
+
+
     componentDidMount = () => { 
         // filters the rides by their direction
         this.setState({ userInfo: this.props.location.state.person });

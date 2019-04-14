@@ -14,7 +14,7 @@ class AssistantRide extends Component {
 
     componentDidMount() {
         console.log("in assistant rides");
-        Auth.authFetch('/api/rides/3419?filter={"include": ["drivers",{"children": "requests"}, "activities"]}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/rides/3682?filter={"include": ["drivers",{"children": "requests"}, "activities"]}').then(response => { return response.json() }).then(res => {
             console.log("resiuiui", res);
             this.setState({ ride: res })
         }).catch((err) => {
@@ -37,7 +37,7 @@ class AssistantRide extends Component {
                       <h1>{ride.plannedTime}</h1>
                       {this.state.watched? 
                       <Link to={{ pathname: "/assistant"}}> <button> התחל נסיעה</button> </Link> :
-                      <Link to={{ pathname: "/assistant/3419/ride-details/children", state:{ride:this.state.ride } }}> <button> צפייה בפרטי ההסעה</button> </Link>
+                      <Link to={{ pathname: "/assistant/3682/ride-details/children", state:{ride:this.state.ride } }}> <button> צפייה בפרטי ההסעה</button> </Link>
                      }
                     
                   </div>:''}

@@ -46,7 +46,7 @@
                 "editable": "true",
                 "isHidden": "false"
             },
-            "contactPhone": {
+            "phone": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"
@@ -216,14 +216,14 @@
                 "nullable": "Y"
             }
         },
-        "contactPhone": {
+        "phone": {
             "type": "String",
             "required": false,
             "length": 10,
             "precision": null,
             "scale": null,
             "mysql": {
-                "columnName": "contact_phone",
+                "columnName": "phone",
                 "dataType": "varchar",
                 "dataLength": 10,
                 "dataPrecision": null,
