@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import { Link } from "react-router-dom";
-import Auth from '../Auth/Auth';
+import { Auth } from '../Auth/Auth';
 import * as moment from 'moment';
 import Modal from 'react-responsive-modal';
 import { confirmAlert } from 'react-confirm-alert'; // Import

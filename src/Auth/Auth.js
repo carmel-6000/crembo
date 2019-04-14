@@ -1,3 +1,4 @@
+const UserInfo = [];
 
 const Auth = {
   
@@ -69,6 +70,7 @@ const Auth = {
           localStorage.setItem('accessToken', res.id);
           localStorage.setItem('userId', res.userId);
           localStorage.setItem('branchId', res.user.branch);
+          UserInfo.push(res.user);
 
           return cb(true)
         }
@@ -84,4 +86,8 @@ const Auth = {
 
 }
 
-export default Auth;
+// export default Auth
+// export UserInfo
+
+
+export { Auth, UserInfo }

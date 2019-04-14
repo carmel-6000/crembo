@@ -58,7 +58,7 @@
                 "model": "Rides",
                 "foreignKey": "assistantId",
                 "through": "AssistantsRides",
-                "keyThrough": "assistantId"
+                "keyThrough": "rideId"
               },
 
             "requests": {
@@ -181,6 +181,7 @@
         },
         "phone": {
             "type": "String",
+            "id": true,
             "required": false,
             "length": 10,
             "precision": null,
@@ -225,13 +226,7 @@
             }
         }
     },
-    "acls": [
-        {
-          "principalType": "$everyone",
-          "principalId": "$everyone",
-          "permission": "ALLOW",
-          "accessType": "READ"
-        }
-      ],
-      "methods": {}
+    "acls": [],
+      "methods": {},
+      "scope": {}
 }

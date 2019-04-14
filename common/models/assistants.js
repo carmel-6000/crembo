@@ -6,67 +6,57 @@ const ds = new loopback.DataSource(dataSourceConfig['msql']);
 
 module.exports = function (Assistants) {
 
-
-    Assistants.login = function (ph, dir, cb) {
-        let Rides = Assistants.app.models.Rides;
-        let res = [];
-        Assistatnts.find({
-            where: { phone: "0501234678" }
-        }), function (err, assistant) {
-            if (err) {
-                console.log(err)
+    function isLive(assistant) {
+        for (let i = 0; i < assistant.rides.length; i++) {
+            console.log(assistant.rides);
+            if (assistant.rides[i].activities.isLive === 1) {
+                return true;
             }
-            Assistants.rides({
-                where: {id: assistant.id}
-            },function(err, rides) {
-                console.log(rides)
-            });
+            assistant.rides.splice(i, 1);
         }
+    }
 
 
-        // Rides.find({
-        //     where: { and: [{ direction: 'back' }, { activity: { neq: null } }] },
-        //     include:
-        //     {
-        //         relation: 'assistants',
-        //         scope: {
-        //             where: { id: 3 }
-        //         }
-        //     }
+    Assistants.login = function (ph, cb) {
+        let result = [];
+       Assistants.findOne({
+            where: { phone: ph },
+            include: [
+                {
+                    relation: 'rides',
+                    scope: {
+                        include: {
+                            relation: 'activities',
+                            scope: {
+                                where: { isLive: 1 }
+                            }
+                        }
+                    },
+                }
+            ]
+        }, function (err, model) {
+            if (err) {
+                return cb(err);
+            }
 
+            if (model.rides === []) {
+                var err = 'Rides for assistant does not exist';
+                return cb(err);
+            } 
+            else {
+                result.push(JSON.parse(JSON.stringify(model)));
+                cb(null, result.filter(isLive));
+            }
+        });
 
-
-            //     include: [
-            //     {
-            //       relation: 'assistants', 
-            //       scope: { 
-            //           where: {id: 3} 
-            //         }
-            //     },
-            //     {
-            //       relation: 'activities', 
-            //       scope: { 
-            //         where: {isLive: true}
-            //       }
-            //     },
-            //   ]
-        // }, function (err, res) {
-        //     res.push(res);
-        //     console.log(res)
-        //     if (err) {
-        //         console.log(err)
-        //     }
-        // });
-
-        cb(null, res);
     }
 
     Assistants.remoteMethod('login', {
         accepts: [
-            { arg: 'phone', type: 'string' },
-            { arg: 'direction', type: 'string' },
+            { arg: 'phone', type: 'string', required: true }
         ],
-        returns: { arg: 'res', type: 'object', root: true }
+        returns: { arg: 'res', type: 'object', root: true },
+        http: {path: '/:phone/login'}
     });
 
 

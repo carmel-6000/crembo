@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
-import Auth from './Auth';
+import { Auth } from './Auth';
 import { Redirect } from 'react-router';
 import logovan from './../img/logovan.png';
 import vangoh from "./../img/vangoh.jpg";
