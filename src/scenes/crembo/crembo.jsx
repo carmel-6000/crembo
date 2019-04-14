@@ -12,6 +12,7 @@ import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
 import PrivateRoute from '../common/privateRoute';
+import Drag from './drag';
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -113,6 +114,8 @@ class Crembo extends Component {
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute state={{onStart: this.onStart}} exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/map" component={MapDirections} />
+                        <PrivateRoute state={{onStart: this.onStart}} exact path="/drag" component={Drag} />
+
                         <PrivateRoute state={{onStart: this.onStart}} component={notFound} />
                     </Switch>
             </div>
