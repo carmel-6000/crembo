@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
-import Auth from '../../Auth/Auth';
+import {Auth} from '../../Auth/Auth';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
 import Rides from './rides'

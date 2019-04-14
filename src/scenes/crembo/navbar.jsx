@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import Sidebar from './sidebar';
 import './crembo.css';
 
