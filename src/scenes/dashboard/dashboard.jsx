@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '../../Grid/Grid';
 import { Link } from "react-router-dom";
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import './dashboard.css';
 import PrivateRoute from '../common/privateRoute'
 

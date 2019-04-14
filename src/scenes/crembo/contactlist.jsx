@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import "./contactlist.css";
 import { Link } from "react-router-dom";
 import loading_dots from '../../img/loading_dots.svg';
