@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import Datetime from 'react-datetime';
 import './crembo.css';
 import './newActivity.css';
 import { Link } from "react-router-dom";
 import Auth from '../../Auth/Auth';
 import TimeField from 'react-simple-timefield';
+import DateTimeEditor from '../../Grid/editors/DateTimeEditor'
 
 class NewActivity extends Component {
     constructor(props) {
@@ -14,11 +16,14 @@ class NewActivity extends Component {
             activityTime: "",
             isLive: true,
             managerId: localStorage.getItem('userId'),
+            branch: localStorage.getItem('branchId')
+            
         }
         console.log(props)
-        props.onStart('יצירת פעילות')
+        props.activityDetails.onStart('יצירת פעילות')
 
     }
+   
 
 
     setActivity = (e) => {
@@ -28,12 +33,12 @@ class NewActivity extends Component {
             var date = new Date(x);
             var options = { weekday: 'long' };
             options.timeZone = 'UTC';
+            date.getDate()
             let finalDay = date.toLocaleDateString('he-IS', options);
             this.setState({ activityDay: finalDay });
-            // let activityTime=this.state.hour+":"+this.state.minute;
-            // this.setState({ activityTime: activityTime });
         }
         else {
+         
             this.setState({ activityTime: x });
         }
     }
@@ -57,10 +62,10 @@ class NewActivity extends Component {
 
                 Auth.authPost('/api/rides/structure', {
                     method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ activity: activity.id })
+                    body: JSON.stringify({info:{ activity: activity.id , branch:this.state.branch }})
                 }).then(response => { return response.json() }).then(newrides => {
                     console.log("the rides that has been added", newrides)
-                    this.props.setStateOfHasActivity(activity)
+                    this.props.activityDetails.setStateOfHasActivity(activity)
                     if (newrides.error) {
                         return (
                             <div>יש בעיה עם הסעות הסניף</div>
@@ -70,17 +75,23 @@ class NewActivity extends Component {
                 })
             });
         }
+       
     }
 
+    onDateChange(date) {
+        console.log(date)
+    }
+    
     render() {
-        console.log("state load ", this.state.isloading)
+        console.log("state load ", this.state)
         return (
             <div className="middler">
                 <div className="  mx-auto align-middle">
                     <div className="row " id="activityText">תאריך הפעילות</div>
 
                     <div className="row activityCard">
-                        <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
+                    <input type="date" value={this.state.activityDate} name="date" min="2019-01-02" id="date1" onChange={this.setActivity}></input>
+                    {/* <DateTimeEditor column={{onCellChange:this.onDateChange, autoOpen: false, key:'date'}} value={this.state.activityDate} onChange={this.setActivity}/> */}
                         <i className="calendar_alt far fa-calendar-alt"></i>
                     </div>
 
@@ -102,7 +113,7 @@ class NewActivity extends Component {
 
                     <br />
                     <div className="addbottom" >
-                        <Link to={{ pathname: "/rides", state: this.state }} >
+                        <Link to={{pathname : "/rides"}} state={this.state}>
                             <button onClick={this.addActivity} disabled={this.state.activityDate && this.state.activityTime ? false : true} className=" btn btn-info btn-lg"  >{this.state.isloading ? "אנא המתן" : "הוסף"}</button>
                         </Link>
                     </div>

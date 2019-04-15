@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import Auth from '../../Auth/Auth';
 import "./contactlist.css";
 import { Link } from "react-router-dom";
+import { RSA_PKCS1_OAEP_PADDING } from 'constants';
+import loading_dots from '../../img/loading_dots.svg';
+
 
 class ContactList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: null
+            filteredPeople: null,
+            branch: localStorage.getItem('branchId')
         }
         props.activityDetails.onStart('אנשי קשר')
 
@@ -25,7 +29,7 @@ class ContactList extends Component {
 
         }
         
-        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -67,6 +71,8 @@ class ContactList extends Component {
 
     render() {
         return (
+            <div>
+            {this.state.people ?
             <div className="filter-list">
                 <form>
                     <fieldset className="form-group">
@@ -78,6 +84,8 @@ class ContactList extends Component {
                     {this.filteredIsNotNull()}
                 </div>
 
+            </div>:
+           <img  src={loading_dots} alt="loading.io/spinner/"></img>}
             </div>
         );
     }

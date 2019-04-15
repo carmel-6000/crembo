@@ -73,7 +73,7 @@ class Rides extends Component {
     //renders the rides cards
     mapOfRidesArray = (direction) => {
         let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: `/rides/ride-details/${item.id}`, state: { item: item, activityInfo: {...this.props.activityDetails, onStart: null }} }} >
+            <Link key={i} to={{ pathname: `/rides/ride-details/${item.id}` }} >
                 <div className="rideCard p-2" >
                     <div className="row" >
                         <div className="col">
@@ -97,13 +97,14 @@ class Rides extends Component {
         return card;
     }
     render() {
+        console.log("state" , this.props)
         return (
             <div>
                
                 <div className="row top">
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
-                    <div className="col basicDataOnActivity"><p>סניף עמק רפאים</p></div>
+                    <div className="col basicDataOnActivity"><p>{this.props.activityDetails.branchName}</p></div>
                 </div>
                 <div className="main-container">
                     <ul className="nav rideNav topnav nav-pills mb-3 nav-fill" id="pills-tab" role="tablist">
@@ -120,7 +121,7 @@ class Rides extends Component {
                             {this.state.rides ? this.mapOfRidesArray(this.state.ridesForthJson) : <img  src={loading_dots} alt="loading.io/spinner/"></img>}
                         </div>
                         <div className="tab-pane fade" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab">
-                            {this.mapOfRidesArray(this.state.ridesBackJson)}
+                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesBackJson): <img  src={loading_dots} alt="loading.io/spinner/"></img>}
                         </div>
                     </div>
 
