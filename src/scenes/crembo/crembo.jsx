@@ -36,7 +36,7 @@ class Crembo extends Component {
 
     componentWillMount() {
         //gets the manager's live activity details by his id from local storage
-        let managerId = localStorage.getItem('userId');
+         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
 

@@ -7,13 +7,14 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 let google = undefined;
 let map = undefined;
-
+let directionsDisplay = undefined;
+let directionsService = undefined;
 
 
 const getItemStyle = (draggableStyle, isDragging) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: 'none',
-  padding: 3,
+  padding: 1,
   margin: `0 0 8px 0`,
 
   // change background colour if dragging
@@ -24,7 +25,7 @@ const getItemStyle = (draggableStyle, isDragging) => ({
 });
 
 const getListStyle = (isDraggingOver) => ({
-  padding: 3,
+  // padding: 3,
 
 });
 const reorder = (list, startIndex, endIndex) => {
@@ -72,46 +73,34 @@ class MapDirections extends Component {
 
   }
 
-  
-  map1 = () => {
+
+  mapScript = () => {
     window.initMap = this.initMap.bind(this);
     const script = document.createElement('script')
     script.async = true;
     script.defer = true;
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ2EImKFwNu1PKEFcK4OhMq5eEnxnsF-g&callback=initMap";
     document.head.appendChild(script);
-  }
+    this.setState({ destination: this.state.branchAddress, init: true });
 
+  }
   mapOfAddress = () => {
     let arr = [];
     this.state.children.map((value, index) => arr.push(value.addressForth));
-    this.setState({ destination: this.state.branchAddress });
-    if (this.state.assistants[0]) {
-      this.state.assistants.map((value, index) => arr.unshift(value.addressForth));
-      this.setState({ origin: arr.shift() });
-      this.setState({ places: arr });
-      console.log("assistants", this.state.assistants.addressForth)
-    }
-    else {
-      this.setState({ origin: arr[0] });
-      this.setState({ places: arr });
-    }
 
-    if(!this.state.init){
-
-      this.map1();
-      this.setState({init:true})
-    }
-    else{
-      this.initMap();
-    }
-
+    this.setState({ origin: arr[0], places: arr }, () => {
+      this.doScript();
+    });
   }
-  componentDidUpdate(prevProps, prevState, snapshot){
-    if (prevState.children !== this.state.children){
+  doScript = () => {
+    return this.state.init ? this.calculateAndDisplayRoute() : this.mapScript();
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.children !== this.state.children) {
       this.mapOfAddress();
     }
   }
+
   mapOfchildren = () => {
 
     let card = null;
@@ -178,8 +167,8 @@ class MapDirections extends Component {
   initMap = () => {
     google = window.google;
 
-    let directionsDisplay = new google.maps.DirectionsRenderer();
-    let directionsService = new google.maps.DirectionsService();
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsService = new google.maps.DirectionsService();
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 18,
       disableDefaultUI: true,
@@ -187,7 +176,7 @@ class MapDirections extends Component {
     directionsDisplay.setMap(map);
 
 
-    this.calculateAndDisplayRoute(directionsService, directionsDisplay);
+    this.calculateAndDisplayRoute();
 
 
   }
@@ -196,11 +185,12 @@ class MapDirections extends Component {
 
 
 
-  calculateAndDisplayRoute = (directionsService, directionsDisplay) => {
-
+  calculateAndDisplayRoute = () => {
+    console.log("origin calculateAndDisplayRoute", this.state.origin)
     directionsService.route({
 
       origin: this.state.origin,
+
       destination: this.state.destination,
       waypoints: this.state.places.map((address) => { return { location: address, stopover: true } }),
       provideRouteAlternatives: false,
@@ -235,9 +225,7 @@ class MapDirections extends Component {
 
   render() {
     console.log("props:", this.props);
-    console.log("state.children:", this.state.children);
     console.log("state:", this.state);
-    console.log("state.assistants:", this.state.assistants[0]);
 
     return (
       <div>
@@ -249,7 +237,7 @@ class MapDirections extends Component {
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
+                  
                   {...provided.droppableProps}
                 >
 
@@ -283,3 +271,22 @@ export default MapDirections;
 //this.setState({ origin: arr[arr.length-1] });
 // this.setState({ destination: arr[0] });
 // this.setState({ places: arr});
+
+//inCase we want includ assistans on map:
+// mapOfAddress = () => {
+//   let arr = [];
+//   this.state.children.map((value, index) => arr.push(value.addressForth));
+
+//   if (this.state.assistants[0] !== undefined) {
+//     this.state.assistants.map((value, index) => arr.unshift(value.addressForth));
+//     this.setState({ origin: arr.shift(), places: arr }, () =>{
+//       this.doScript();
+//     });
+
+//     console.log("assistants", this.state.assistants.addressForth)
+//   }
+//   else {
+//     this.setState({ origin: arr[0], places: arr } , () =>{
+//       this.doScript();
+//     });
+//   }

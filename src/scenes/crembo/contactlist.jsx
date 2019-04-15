@@ -59,7 +59,6 @@ class ContactList extends Component {
     }
 
     filteredIsNotNull = () => {
-        console.log("state", this.state.filteredPeople);
         if (this.state.filteredPeople) {
             return <List
                 chooseMode={this.state.chooseMode}
@@ -150,9 +149,9 @@ class List extends Component {
     render() {
         return (
             this.props.filteredPeople.map((person) => {
-            console.log('id', person.id)
+
             return (
-                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
+                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
                     <div className="row align-items-center">
                         <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-8": "col-10"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
                             <div className="row align-items-center">

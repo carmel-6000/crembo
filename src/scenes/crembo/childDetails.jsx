@@ -88,7 +88,7 @@ componentWillMount = () => {
                                     <div className="mt-3" >התראה לפני הגעה</div>
                                     <div className="infoBox row mt-1">{this.state.userInfo.alertTime}</div>
                                 </div>}
-                            {this.state.userInfo.requests.length !==0 &&
+                            {this.state.userInfo.requests[0]&&
                                 <div>
                                     <div className="mt-3" >הערות נוספות</div>
                                     <div className="infoBox row mt-1">
