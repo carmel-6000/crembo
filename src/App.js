@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Router, Route, Switch } from "react-router-dom";
 import Login from './Auth/Login';
-import Auth from './Auth/Auth';
+import { Auth } from './Auth/Auth';
 import Crembo from './scenes/crembo/crembo';
 import Dashboard from './scenes/dashboard/dashboard';
 import history from './history';

@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import { Link } from "react-router-dom";
-import Auth from '../Auth/Auth';
+import { Auth } from '../Auth/Auth';
 import * as moment from 'moment';
 import Modal from 'react-responsive-modal';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 // import Select from 'react-select';
-import { Editors } from "react-data-grid-addons";
+//import { Editors } from "react-data-grid-addons";
 
 
 const { Row } = ReactDataGrid;
@@ -95,7 +95,7 @@ class RowRenderer extends React.Component {
 
           //console.log ("val for field ("+hlRow.field+"):",this.row.props.row[hlRow.field]);
           //console.log("DIFF IN HOURS",moment().diff(moment(this.row.props.row[hlRow.field]),'hours'));
-          if (hlRow.rule == 'morethenhours' && hlRow.hours) {
+          if (hlRow.rule === 'morethenhours' && hlRow.hours) {
 
             //console.log("hlRow.rule is 'morethenhours'");
             let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
@@ -105,7 +105,7 @@ class RowRenderer extends React.Component {
 
 
           }
-          if (hlRow.rule == 'lasthours' && hlRow.hours) {
+          if (hlRow.rule === 'lasthours' && hlRow.hours) {
 
 
             let diff = moment().diff(moment(this.row.props.row[hlRow.field]), 'hours');
@@ -145,7 +145,7 @@ class BooleanFormatter extends React.Component {
 
   render() {
     //console.log("this.props.value?",this.props.value);
-    const val = this.props.value == 1 ? "yes" : "no";
+    const val = this.props.value === 1 ? "yes" : "no";
     return (
       <div className="formatter-boolean">
         {val}
@@ -181,7 +181,7 @@ class ExternalLinkFormatter extends React.Component {
     let val = this.props.dependentValues.val;
     let href = this.props.value;
 
-    if (href == "" || href == undefined) {
+    if (href === "" || href === undefined) {
       return (<div className="formatter-boolean">-</div>);
     } else {
       console.log("HREF", href);
@@ -228,7 +228,7 @@ class ListFormatter extends React.Component {
     // if the row doesn't have an Id, or that this.listed is empty  > return "-"
     let id = this.props.dependentValues.id;
     console.log("listed", this.props.value)
-    if (id == "" || id == undefined || this.listed === []) {
+    if (id === "" || id === undefined || this.listed === []) {
       return (<div>-</div>);
     } else {
       return (
@@ -328,7 +328,7 @@ class DateTimeFormatter extends React.Component {
     //const timeAgo = new TimeAgo('en-US');
     //let tAgo=timeAgo.format(Date.now() - ((new Date()).getTime()-dateObj.getTime()) );
     this.rawDate = rawDate;
-    this.fDate = rawDate == '' || rawDate == null ? "-" : moment(rawDate).format('DD/MM/YY HH:mm');
+    this.fDate = rawDate == '' || rawDate === null ? "-" : moment(rawDate).format('DD/MM/YY HH:mm');
   }
 
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from "react-router-dom";
 import { Redirect } from 'react-router';
-import Auth from '../../Auth/Auth';
+import {Auth} from '../../Auth/Auth';
 import NewActivity from './newActivity';
 import ContactList from './contactlist';
 import Rides from './rides'
@@ -12,6 +12,7 @@ import MapDirections from './mapDirections';
 import './crembo.css';
 import NavBar from './navbar';
 import PrivateRoute from '../common/privateRoute';
+import Drag from './drag';
 
 const ActivityRoute = ({ component: Comp, state, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -106,7 +107,6 @@ class Crembo extends Component {
         return (
 
             <div className="crembo-font">
-                <div>
                     <NavBar title={this.state.title} />
                     <Switch>
                         <Route exact path="/" render={() => {
@@ -122,9 +122,10 @@ class Crembo extends Component {
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />
                         <PrivateRoute state={{onStart: this.onStart}} exact path="/contact/:person(children|assistants|drivers)" component={ContactList} />
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/map" component={MapDirections} />
+                        <PrivateRoute state={{onStart: this.onStart}} exact path="/drag" component={Drag} />
+
                         <PrivateRoute state={{onStart: this.onStart}} component={notFound} />
                     </Switch>
-                </div>
             </div>
         );
     }

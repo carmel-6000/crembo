@@ -3,7 +3,7 @@ import Datetime from 'react-datetime';
 import './crembo.css';
 import './newActivity.css';
 import { Link } from "react-router-dom";
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import TimeField from 'react-simple-timefield';
 import DateTimeEditor from '../../Grid/editors/DateTimeEditor'
 

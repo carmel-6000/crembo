@@ -319,5 +319,12 @@
                 "nullable": "Y"
             }
         }
+    },
+    "scope": {
+        "include": ["branches", "activities"]
+    },
+    "scopes": {
+        "struc": {"where": {"status": "structure"} },
+        "real": {"where": {"status": {"neq": "structure"} }}
     }
 }

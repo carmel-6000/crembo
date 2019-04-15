@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import "./contactlist.css";
 import { Link } from "react-router-dom";
-import { RSA_PKCS1_OAEP_PADDING } from 'constants';
 import loading_dots from '../../img/loading_dots.svg';
-
 
 class ContactList extends Component {
     constructor(props) {
@@ -17,13 +15,16 @@ class ContactList extends Component {
         props.activityDetails.onStart('אנשי קשר')
 
     }
-    componentDidMount() {
 
-        
+    whenStartOrUpdate = () => {
+        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
+            this.setState({ filteredPeople: res, people: res });
+
+        });
 
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match.params.id) {
             this.setState({ chooseMode: true })
 
@@ -37,6 +38,15 @@ class ContactList extends Component {
         this.setState({ filteredPeople: this.state.people });
 
     }
+
+    componentDidUpdate(prevProp, prevState){
+        if(this.props.match.params !== prevProp.match.params) {
+          this.whenStartOrUpdate();
+    
+            };
+    
+        }
+       
 
 
     filteredList = (event) => {
@@ -59,10 +69,10 @@ class ContactList extends Component {
         console.log("state", this.state.filteredPeople);
         if (this.state.filteredPeople) {
             return <List
-             chooseMode={this.state.chooseMode} 
-             filteredPeople={this.state.filteredPeople} 
-             params={this.props.match.params} 
-             history={this.props.history} 
+                chooseMode={this.state.chooseMode}
+                filteredPeople={this.state.filteredPeople}
+                params={this.props.match.params}
+                history={this.props.history}
             />
         }
     }
@@ -81,7 +91,7 @@ class ContactList extends Component {
                 </form>
 
                 <div className="list-group">
-                    {this.filteredIsNotNull()}
+                    {this.state.filteredPeople? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/"/> }
                 </div>
 
             </div>:
@@ -104,7 +114,7 @@ class List extends Component {
 
 
     contactChoosen(contactId) {
-        
+
         let api = "";
         switch (this.props.params.person) {
             case "drivers":
@@ -149,32 +159,33 @@ class List extends Component {
 
 
     render() {
-        return (this.props.filteredPeople.map((person) => { 
-            return(
-            <Link key={person.id} className="linkTo" to={{ pathname: `/contact/${this.props.params.person}/details/${person.id}`, state: { person } }} >
-
+        return (
+            this.props.filteredPeople.map((person) => {
+            console.log('id', person.id)
+            return (
                 <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
-                    <div className="row">
-                        <div className="col-3">
-                            {person.thumbnail !== null ?
-                                <img src={person.thumbnail} className="contactImg" alt="thmbnail" />
-                                :
-                                <i className="fas fa-user-tie noPic" />}
-                        </div>
-
-                        <div className="col text-right">
-                            {person.firstName} {person.lastName}
-                        </div>
-
-                        <div onClick={e => e.preventDefault()}>
-                            <a href={"tel:" + person.phone}>
-                                <div className="col-2">
-                                    <i className="fas fa-phone" />
+                    <div className="row align-items-center">
+                        <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-8": "col-10"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+                            <div className="row align-items-center">
+                                <div className="col-3">
+                                    {person.thumbnail !== null ?
+                                        <img src={person.thumbnail} className="contactImg" alt="thumbnail" />
+                                        :
+                                        <i className="fas fa-user-tie noPic" />}
                                 </div>
-                            </a>
-                        </div>
-                        <div onClick={e => e.preventDefault()}>
 
+                                <div className="col text-right">
+                                    {person.firstName} {person.lastName}
+                                </div>
+                            </div>
+                        </Link>
+                        <a href={"tel:" + person.phone}>
+                            <div className="col-2">
+                                <i className="fas fa-phone" />
+                            </div>
+                        </a>
+
+                        <div onClick={e => e.preventDefault()}>
                             {this.props.chooseMode &&
                                 <div onClick={() => this.contactChoosen(person.id)} className="col-2">
                                     <i className="fas fa-user-plus" />
@@ -184,12 +195,12 @@ class List extends Component {
 
                     </div>
                 </div>
-            </Link>
 
 
 
 
-        )}));
+            )
+        }));
     }
 }
 

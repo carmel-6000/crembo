@@ -31,6 +31,7 @@
     "mysql": "^2.15.0",
     "popper.js": "^1.14.3",
     "react": "^16.4.0",
+    "react-beautiful-dnd": "^11.0.0-beta.3",
     "react-bootstrap": "^0.32.1",
     "react-confirm-alert": "^2.0.5",
     "react-contextmenu": "^2.9.3",
@@ -44,6 +45,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-simple-timefield": "^2.0.1",
+    "react-tag-input": "^6.4.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^2.0.0"
   },

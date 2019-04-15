@@ -46,7 +46,7 @@
                 "editable": "true",
                 "isHidden": "false"
             },
-            "Phone": {
+            "phone": {
                 "type": "text",
                 "editable": "true",
                 "isHidden": "false"

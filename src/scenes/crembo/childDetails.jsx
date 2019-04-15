@@ -8,7 +8,6 @@ class ChildDetails extends Component {
             userInfo: null,
             userMode: null,
         }
-
     }
 componentWillMount = () => {
     let title = "פרטי איש קשר";
@@ -26,9 +25,8 @@ componentWillMount = () => {
         title = "פרטי איש קשר"
     }
     this.props.activityDetails.onStart(title);
-
 }
-    componentDidMount = () => {
+    componentDidMount = () => { 
         // filters the rides by their direction
         this.setState({ userInfo: this.props.location.state.person });
         switch (this.props.match.params.person) {

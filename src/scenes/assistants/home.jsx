@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import { Link } from "react-router-dom";
 
 class AssistantSide extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './rideDetails.css';
-import Auth from '../../Auth/Auth';
+import { Auth } from '../../Auth/Auth';
 import { Link } from "react-router-dom";
 import loading_dots from '../../img/loading_dots.svg';
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './rides.css';
-import Auth from '../../Auth/Auth';
-import logoImage from '../../img/carmel.png';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Auth } from '../../Auth/Auth';
+import { Link } from "react-router-dom";
 
 
 class RideDetails extends Component {
