@@ -17,7 +17,7 @@ class ContactList extends Component {
     }
 
     whenStartOrUpdate = () => {
-        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
