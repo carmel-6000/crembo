@@ -30,16 +30,23 @@ class Crembo extends Component {
             activityDay: null,
             haschecked: null,
             activityId: null,
-            title: null
+            title: null,
+            setStateOfHasActivity: this.setStateOfHasActivity
         }
     }
 
     componentWillMount() {
         //gets the manager's live activity details by his id from local storage
-         let managerId = localStorage.getItem('userId');
+        let branchId = localStorage.getItem('branchId')
+        if(branchId){
+            Auth.authFetch(`/api/branches/${branchId}`).then(response => { return response.json() }).then(res => {
+                this.setState({branchName : res.city})
+            })
+        }
+        let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-
+                console.log("רקד" , res)
                 if (res.length === 0) {
                     this.setState({ haschecked: true });
                 }
@@ -71,7 +78,7 @@ class Crembo extends Component {
         }
     }
 
-    setStateOfHasActivity = (activity) => {
+    setStateOfHasActivity = (activity ={}) => {
         this.setState({
             hasActivity: true,
             activityDate: activity.activityDate,
@@ -80,7 +87,7 @@ class Crembo extends Component {
         })
     }
 
-    onStart = (title ='') =>{
+    onStart = (title = '') =>{
         this.setState({title});
     }
 
@@ -105,10 +112,11 @@ class Crembo extends Component {
                         <Route exact path="/" render={() => {
                             return this.state.hasActivity ? (
                                 <Redirect to={{ pathname: "/rides" }} />
-                            ) : <NewActivity setStateOfHasActivity={this.setStateOfHasActivity} onStart={this.onStart} />
+                            ) : <PrivateRoute  state={{...extraState}} setStateOfHasActivity={this.setStateOfHasActivity} component={NewActivity} />
+
                         }} />
                         <ActivityRoute state={{...extraState}} exact path="/rides" component={Rides} />
-                        <ActivityRoute state={{...extraState}} exact path="/rides/ride-details/:id" component={RideDetails} />
+                        <ActivityRoute state={{...extraState}}  exact path="/rides/ride-details/:id" component={RideDetails} />
                         <PrivateRoute state={{onStart: this.onStart}} exact path="/contact/:person(assistants|children|drivers)/details/:id" component={ChildDetails} />
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/child-details/:id" component={ChildDetails} />
                         <ActivityRoute  state={{...extraState}} exact path="/rides/ride-details/:id/add/:person(assistants|drivers)" component={ContactList} />

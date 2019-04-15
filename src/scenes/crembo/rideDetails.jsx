@@ -10,7 +10,7 @@ class RideDetails extends Component {
         this.state = {
             item: null
         }
-        props.activityDetails.onStart('פרטי הסעה')
+        props.activityDetails.onStart('פרטי הסעה');
     }
 
     componentDidMount() {

@@ -9,14 +9,15 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: null
+            filteredPeople: null,
+            branch: localStorage.getItem('branchId')
         }
         props.activityDetails.onStart('אנשי קשר')
 
     }
 
     whenStartOrUpdate = () => {
-        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -28,6 +29,12 @@ class ContactList extends Component {
             this.setState({ chooseMode: true })
 
         }
+        
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+            this.setState({ filteredPeople: res, people: res });
+
+        });
+
         this.setState({ filteredPeople: this.state.people });
 
     }
@@ -73,6 +80,8 @@ class ContactList extends Component {
 
     render() {
         return (
+            <div>
+            {this.state.people ?
             <div className="filter-list">
                 <form>
                     <fieldset className="form-group">
@@ -84,6 +93,8 @@ class ContactList extends Component {
                     {this.state.filteredPeople? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/"/> }
                 </div>
 
+            </div>:
+           <img  src={loading_dots} alt="loading.io/spinner/"></img>}
             </div>
         );
     }

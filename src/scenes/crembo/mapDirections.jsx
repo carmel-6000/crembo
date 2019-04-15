@@ -47,19 +47,20 @@ class MapDirections extends Component {
 
     }
     props.activityDetails.onStart('מסלול ונוסעים')
-    this.onDragEnd = this.onDragEnd.bind(this);
+    
 
   }
+  
   componentWillMount() {
 
     if (this.props.location.state) {
-      this.setState({ children: this.props.location.state.children, assistants: this.props.location.state.assistants, branchAddress: this.props.location.state.branches.address }, () => {
+      this.setState({ children: this.props.location.state.children, branchAddress: this.props.location.state.branches.address }, () => {
         this.mapOfAddress();
       });
       console.log("yes")
     } else {
-      Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, {"assistants": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
-        this.setState({ children: res.children, assistants: res.assistants, branchAddress: res.branches.address }, () => {
+      Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
+        this.setState({ children: res.children,  branchAddress: res.branches.address }, () => {
           this.mapOfAddress();
           console.log(res)
         })
@@ -68,11 +69,6 @@ class MapDirections extends Component {
     }
 
   }
-
-  componentDidMount() {
-
-  }
-
 
   mapScript = () => {
     window.initMap = this.initMap.bind(this);
@@ -87,14 +83,16 @@ class MapDirections extends Component {
   mapOfAddress = () => {
     let arr = [];
     this.state.children.map((value, index) => arr.push(value.addressForth));
-
     this.setState({ origin: arr[0], places: arr }, () => {
       this.doScript();
     });
   }
+
+
   doScript = () => {
     return this.state.init ? this.calculateAndDisplayRoute() : this.mapScript();
   }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevState.children !== this.state.children) {
       this.mapOfAddress();
@@ -190,7 +188,6 @@ class MapDirections extends Component {
     directionsService.route({
 
       origin: this.state.origin,
-
       destination: this.state.destination,
       waypoints: this.state.places.map((address) => { return { location: address, stopover: true } }),
       provideRouteAlternatives: false,
@@ -205,7 +202,7 @@ class MapDirections extends Component {
     });
   }
 
-  onDragEnd(result) {
+  onDragEnd  = (result) => {
     // dropped outside the list
     if (!result.destination) {
       return;
