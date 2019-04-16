@@ -4,6 +4,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var app = module.exports = loopback();
 
+
 module.exports = function (Rides) {
 
 
@@ -20,13 +21,12 @@ module.exports = function (Rides) {
 
   })
 
-  Rides.structure = function (activity, cb) {
+  Rides.structure = async function (info, cb) {
       let ChildrenRides = Rides.app.models.ChildrenRides;
 
     let myRides = [];
-    Rides.find({ where: { status: 'structure' } }, function (err, res) {
-
-      res.map(item => {
+    await Rides.find({ where: { status: 'structure' , branch : info.branch } }, async function (err, res) {
+       await res.map(async (item, index) =>  {
         let ride = JSON.parse(JSON.stringify(item))
 
         //here we want to save the stracture children so later we'll create a row for them in children_rides
@@ -36,23 +36,26 @@ module.exports = function (Rides) {
         delete ride.children;
         delete ride.id;
         ride.status = "editing";
-        ride.activity = activity;
+        ride.activity = info.activity;
 
         //here we create the new rides (the duplicated rides)
-        Rides.create(ride, function (err, newRide) {
+       await Rides.create(ride, async function (err, newRide) {
           if (err) return console.error(err);
-          // console.log('Rides created: ', newRide);
-          myRides.push(newRide);
-
+          console.log('Rides created: ', newRide);
+          await myRides.push(newRide);
+          // if(index === res.length - 1) {
+          //     console.log('here')
+          //    cb(null, myRides);
+          // }
           // console.log(childrenArray)
           // now we iterate through the children and for every child we create a new row
           childrenArray.map(child => {
-            console.log("child number", child)
-            let data = { "rideId": newRide.id, "childId": child, activity: activity }
+            // console.log("child number", child)
+            let data = { "rideId": newRide.id, "childId": child, activity: info.activity }
 
             ChildrenRides.create(data, function (err, instance) {
               if (err) return console.error(err);
-              console.log('children-ride created: ', instance);
+              // console.log('children-ride created: ', instance);
             });
           })
         });
@@ -60,13 +63,17 @@ module.exports = function (Rides) {
 
 
     });
-
-    cb(null, myRides);
+     console.log('here')
+      cb(null, myRides);
+   
   }
 
   Rides.remoteMethod('structure', {
-    accepts: { arg: 'activity', type: 'number' },
-    returns: { arg: 'res', type: 'array', root: true }
+    http:{
+      verb:"post"
+    },
+    accepts: { arg: 'info', type: 'object' },
+    returns: { arg: 'res', type: 'array' }
   });
 
 };

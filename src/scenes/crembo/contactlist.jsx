@@ -9,14 +9,15 @@ class ContactList extends Component {
         super(props);
         this.state = {
             people: null,
-            filteredPeople: null
+            filteredPeople: null,
+            branch: localStorage.getItem('branchId')
         }
         props.activityDetails.onStart('אנשי קשר')
 
     }
 
     whenStartOrUpdate = () => {
-        Auth.authFetch('/api/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -28,6 +29,12 @@ class ContactList extends Component {
             this.setState({ chooseMode: true })
 
         }
+        
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+            this.setState({ filteredPeople: res, people: res });
+
+        });
+
         this.setState({ filteredPeople: this.state.people });
 
     }
@@ -59,7 +66,6 @@ class ContactList extends Component {
     }
 
     filteredIsNotNull = () => {
-        console.log("state", this.state.filteredPeople);
         if (this.state.filteredPeople) {
             return <List
                 chooseMode={this.state.chooseMode}
@@ -74,6 +80,8 @@ class ContactList extends Component {
 
     render() {
         return (
+            <div>
+            {this.state.people ?
             <div className="filter-list">
                 <form>
                     <fieldset className="form-group">
@@ -85,6 +93,8 @@ class ContactList extends Component {
                     {this.state.filteredPeople? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/"/> }
                 </div>
 
+            </div>:
+           <img  src={loading_dots} alt="loading.io/spinner/"></img>}
             </div>
         );
     }
@@ -150,9 +160,9 @@ class List extends Component {
     render() {
         return (
             this.props.filteredPeople.map((person) => {
-            console.log('id', person.id)
+
             return (
-                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
+                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
                     <div className="row align-items-center">
                         <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-8": "col-10"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
                             <div className="row align-items-center">
