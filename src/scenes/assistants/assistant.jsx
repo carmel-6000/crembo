@@ -7,6 +7,7 @@ import ChildrenList from './currentChildren';
 import ChildDetails from '../crembo/childDetails';
 import PrivateRoute from '../common/privateRoute';
 import NavBar from '../crembo/navbar';
+import Rides from './rides'
 
 
 class Assistant extends Component {
@@ -28,6 +29,7 @@ class Assistant extends Component {
             <NavBar  title={this.state.title}/>
             <Switch>
                 <PrivateRoute state={{onStart: this.onStart}} exact path="/assistant" component={AssistantSide} />
+                <PrivateRoute state={{onStart: this.onStart}} exact path="/assistant/rides" component={Rides} />
                 <PrivateRoute state={{onStart: this.onStart}}  exact path="/assistant/:rideId/ride-details" component={AssistantRide} />
                 <PrivateRoute state={{onStart: this.onStart}} exact path="/assistant/:rideId/ride-details/:person" component={ChildrenList} />
                 <PrivateRoute state={{onStart: this.onStart}}  exact path="/assistant/:person/details/:id" component={ChildDetails} />

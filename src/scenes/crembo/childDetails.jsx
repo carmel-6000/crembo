@@ -26,9 +26,12 @@ componentWillMount = () => {
     }
     this.props.activityDetails.onStart(title);
 }
+
+
     componentDidMount = () => { 
         // filters the rides by their direction
         this.setState({ userInfo: this.props.location.state.person });
+        console.log("this.props.location.state.person",this.props.location.state.person)
         switch (this.props.match.params.person) {
             case "children":
 
@@ -88,7 +91,7 @@ componentWillMount = () => {
                                     <div className="mt-3" >התראה לפני הגעה</div>
                                     <div className="infoBox row mt-1">{this.state.userInfo.alertTime}</div>
                                 </div>}
-                            {this.state.userInfo.requests.length !==0 &&
+                            {this.state.userInfo.requests&&
                                 <div>
                                     <div className="mt-3" >הערות נוספות</div>
                                     <div className="infoBox row mt-1">
