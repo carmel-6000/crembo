@@ -57,7 +57,12 @@
     background-color: white;
 }
 .disabledMode{
-  
     background-color: #d3d7da;
     opacity: 0.5;
+    margin-top: auto;
+}
+.classOfTheDivOfDisabled{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
