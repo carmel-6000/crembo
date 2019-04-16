@@ -22,7 +22,7 @@ class AssistantSide extends Component {
               </input>
                מספר פלאפון
               </label>
-          <Link to={{pathname: "/assistant/rides", state:{watched: this.state.watched, phone: this.state.phone} }}>
+          <Link to={{pathname: "/assistant/rides", state:{phone: this.state.phone} }}>
           <button disabled={!this.state.phone}>כניסה למערכת</button>
           </Link>
       </form>)
