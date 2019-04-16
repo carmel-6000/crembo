@@ -17,7 +17,7 @@ class ContactList extends Component {
     }
 
     whenStartOrUpdate = () => {
-        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -29,8 +29,8 @@ class ContactList extends Component {
             this.setState({ chooseMode: true })
 
         }
-        
-        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}' ).then(response => { return response.json() }).then(res => {
+
+        Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
             this.setState({ filteredPeople: res, people: res });
 
         });
@@ -39,14 +39,14 @@ class ContactList extends Component {
 
     }
 
-    componentDidUpdate(prevProp, prevState){
-        if(this.props.match.params !== prevProp.match.params) {
-          this.whenStartOrUpdate();
-    
-            };
-    
-        }
-       
+    componentDidUpdate(prevProp, prevState) {
+        if (this.props.match.params !== prevProp.match.params) {
+            this.whenStartOrUpdate();
+
+        };
+
+    }
+
 
 
     filteredList = (event) => {
@@ -81,20 +81,20 @@ class ContactList extends Component {
     render() {
         return (
             <div>
-            {this.state.people ?
-            <div className="filter-list">
-                <form>
-                    <fieldset className="form-group">
-                        <input type="text" className=" mt-3 form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
-                    </fieldset>
-                </form>
+                {this.state.people ?
+                    <div className="filter-list">
+                        <form>
+                            <fieldset className="form-group">
+                                <input type="text" className=" mt-3 form-control form-control-lg" placeholder="Search" onChange={this.filteredList} />
+                            </fieldset>
+                        </form>
 
-                <div className="list-group">
-                    {this.state.filteredPeople? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/"/> }
-                </div>
+                        <div className="list-group">
+                            {this.state.filteredPeople ? this.filteredIsNotNull() : <img src={loading_dots} alt="loading.io/spinner/" />}
+                        </div>
 
-            </div>:
-           <img  src={loading_dots} alt="loading.io/spinner/"></img>}
+                    </div> :
+                    <img src={loading_dots} alt="loading.io/spinner/"></img>}
             </div>
         );
     }
@@ -132,8 +132,8 @@ class List extends Component {
                     this.updatedride(api);
                 });
                 break;
-            default: 
-            console.log("no API has been given.");
+            default:
+                console.log("no API has been given.");
 
         }
 
@@ -161,45 +161,74 @@ class List extends Component {
         return (
             this.props.filteredPeople.map((person) => {
 
-            return (
-                <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
-                    <div className="row align-items-center">
-                        <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-8": "col-10"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
-                            <div className="row align-items-center">
-                                <div className="col-3">
-                                    {person.thumbnail !== null ?
-                                        <img src={person.thumbnail} className="contactImg" alt="thumbnail" />
-                                        :
-                                        <i className="fas fa-user-tie noPic" />}
-                                </div>
+                return (
+                    <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
+                        <div className="row justify-content-center align-items-center  ">
+                            <Link key={person.id} className={`linkTo noPadding ${this.props.chooseMode ? " col-7" : " col-9"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+                                <div className="row noPadding align-items-center ">
+                                    <div className="col-3">
+                                        {person.thumbnail !== null ?
+                                            <img src={person.thumbnail} className="contactImg" alt="thumbnail" />
+                                            :
+                                            <i className="fas fa-user-tie noPic" />}
+                                    </div>
 
-                                <div className="col text-right">
-                                    {person.firstName} {person.lastName}
+                                    <div className="col-9 noPadding pr-1 text-right grey name1">
+                                        {person.firstName} {person.lastName}
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                        <a href={"tel:" + person.phone}>
-                            <div className="col-2">
-                                <i className="fas fa-phone" />
-                            </div>
-                        </a>
+                            </Link>
+                            <a href={"tel:" + person.phone}>
+                                <div className="col-2">
+                                    <i className="fas fa-phone phoneImg" />
+                                </div>
+                            </a>
 
-                        <div onClick={e => e.preventDefault()}>
-                            {this.props.chooseMode &&
-                                <div onClick={() => this.contactChoosen(person.id)} className="col-2">
-                                    <i className="fas fa-user-plus" />
-                                </div>
-                            }
+                                {this.props.chooseMode && <div className="col-3 align-self-end addButton" onClick={e => e.preventDefault()}>
+                                    <button onClick={() => this.contactChoosen(person.id)} className="btn btn-info btn-lg join bold">צרף</button>
+
+                                </div>}
+
                         </div>
-
                     </div>
-                </div>
 
 
+// <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
+
+// <div class="container">
+
+//     <div class="row">
+//     <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-7" : "col-9"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
+//     <div class="col-xs-2">
+//     {person.thumbnail !== null ?
+//         <img src={person.thumbnail} className="contactImg" alt="thumbnail" />:
+//         <i className="fas fa-user-tie noPic" />}
+// </div>
+// <div class="col-xs-7 text-right grey name1">
+//     {person.firstName} {person.lastName}
+// </div>
+
+// </Link>
+// <a href={"tel:" + person.phone}>
+//             <div class="col-xs-1">
+//                 <i className="fas fa-phone phoneImg" />
+//             </div>
+//         </a>
+
+//         <div onClick={e => e.preventDefault()}>
+//             {this.props.chooseMode && <div class="col-xs-2" >
+//                 <button onClick={() => this.contactChoosen(person.id)} className="btn btn-info btn-lg join bold"  >צרף</button>
+//             </div>}
+
+//         </div>
+   
+//     </div>
+// </div>
+// </div>
 
 
-            )
-        }));
+                )
+            }));
     }
 }
 
