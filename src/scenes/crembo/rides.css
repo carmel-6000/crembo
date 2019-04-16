@@ -56,3 +56,8 @@
 .rideNav{
     background-color: white;
 }
+.disabledMode{
+  
+    background-color: #d3d7da;
+    opacity: 0.5;
+}
