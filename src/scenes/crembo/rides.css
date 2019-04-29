@@ -62,7 +62,8 @@
     margin-top: auto;
 }
 .classOfTheDivOfDisabled{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    display: block;
+    /* border-top: 0.3vh #b9b9b9 solid;
+    padding-top: 1.5vh;
+    margin-top: 2.5vh; */
 }
