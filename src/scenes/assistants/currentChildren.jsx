@@ -10,13 +10,15 @@ class ChildrenList extends Component {
         this.state = {
             rides: this.props.location.state.ride,
             children: this.props.location.state.ride.children,
-            watched: true
+            watched: true,
+            request: []
         }
     }
 
+
     componentDidMount() {
         console.log("in current");
-        Auth.authFetch('/api/rides/3419/children?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
+        Auth.authFetch('/api/rides/3682/children?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
             console.log("res children", res);
             this.setState({ children: res })
         }).catch((err) => {
@@ -24,11 +26,26 @@ class ChildrenList extends Component {
         }
         );
     }
+    
 
+    changeColor = (id) => {
+        this.state.request.pop(id)
+        console.log("request", this.state.request)
+    }
+
+    checkingArr = () => {
+        if(this.state.request.length) {
+            return true
+        }
+        else if(this.state.request.length==0) {
+            return false
+        }
+    }
 
     myChildren = (children) => { return (children.map((person) => {
         console.log("person", person)
         return (
+            <div>
         <Link className="linkTo" to={{ pathname: `/assistant/children/details/${person.id}`, state: { person } }} >
 
             <a className="list-group-item list-group-item-action personCard" data-category={person} key={person}>
@@ -45,13 +62,14 @@ class ChildrenList extends Component {
                     </div>
 
                     {(person.requests && person.requests.length) && <div>
-                        {console.log("requests is exist")}
-              <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {this.state.request.push(person.id)}
+              <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick= {() => this.changeColor(person.id)} >
                 <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "/>
               </button>
               <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
                 <ul type="square" className="mb-0">
                { console.log("requests", person.requests)}
+               {  console.log("req", this.state.request)}
                   {
                       person.requests.map((val) => 
                   <li className="text-right" key={person.requests.id}>{val.requests} </li>)
@@ -71,6 +89,8 @@ class ChildrenList extends Component {
                 </div>
             </a>
         </Link>
+        </div>
+      
     
      )}))}
     
@@ -86,7 +106,8 @@ class ChildrenList extends Component {
               <div className="filter-list">
         <div className="list-group">     
             {this.state.children?this.myChildren(this.state.children):''}
-           <Link to={{pathname: '/assistant/start', state:{watched:this.state.watched}}}><button>עברתי על פרטי ההסעה</button></Link> 
+            {console.log("req", this.state.request)}
+           <Link to={{pathname: '/assistant/start', state:{watched:this.state.watched}}}><button disabled = {this.checkingArr()}>עברתי על פרטי ההסעה</button></Link> 
         </div>
 
     </div>
