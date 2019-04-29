@@ -101,7 +101,7 @@ class RideDetails extends Component {
                             <div className="row unpadding">
                                 <div className="col basicDataOnActivity">{this.props.activityDetails.activityDay}</div>
                                 <div className="col basicDataOnActivity">{this.props.activityDetails.activityDate}</div>
-                                <div className="col basicDataOnActivity">סניף עמק רפאים</div>
+                                <div className="col basicDataOnActivity">{this.props.activityDetails.branchName}</div>
                             </div>
                             <div className="timeout">שעת יציאה<input className="timein" type="time" value={this.state.item.plannedTime} name="planned_time" id="planned_time" onChange={this.changeItemDetails}></input></div>
                             {this.state.item.drivers && <div className="driveri">הנהג: {this.state.item.drivers.firstName} {this.state.item.drivers.lastName}</div>}

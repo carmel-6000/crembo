@@ -56,3 +56,14 @@
 .rideNav{
     background-color: white;
 }
+.disabledMode{
+    background-color: #d3d7da;
+    opacity: 0.5;
+    margin-top: auto;
+}
+.classOfTheDivOfDisabled{
+    display: block;
+    /* border-top: 0.3vh #b9b9b9 solid;
+    padding-top: 1.5vh;
+    margin-top: 2.5vh; */
+}

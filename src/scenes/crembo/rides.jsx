@@ -20,7 +20,7 @@ class Rides extends Component {
 
     componentDidMount = () => {
         // filters the rides by their direction
-        console.log("the props page rides" , this.props.location)
+        console.log("the props page rides", this.props.location)
         Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
             let ridesBackJson = [];
@@ -54,10 +54,10 @@ class Rides extends Component {
             console.log('Fetch Error :-S', err);
         });
         var date = new Date(this.props.activityDetails.activityDate);
-            var options = { weekday: 'long' };
-            options.timeZone = 'UTC';
-            let finalDay = date.toLocaleDateString('he-IS', options);
-            this.setState({ activityDay: finalDay })
+        var options = { weekday: 'long' };
+        options.timeZone = 'UTC';
+        let finalDay = date.toLocaleDateString('he-IS', options);
+        this.setState({ activityDay: finalDay })
     }
 
     // counts how many children has joined to a spasific ride (by its id)
@@ -70,37 +70,55 @@ class Rides extends Component {
         }
         return hasJoinesToThisRide.length + "/"
     }
-    //renders the rides cards
-    mapOfRidesArray = (direction) => {
-        let card = direction.map((item, i) => (
-            <Link key={i} to={{ pathname: `/rides/ride-details/${item.id}` }} >
-                <div className="rideCard p-2" >
-                    <div className="row" >
-                        <div className="col">
-                            <p className="text-right" key={item.title} style={{ fontSize: "4.5vw" }}> {item.title} </p>
-                            <p className=" float-right d-inline-block" key={item.plannedTime} style={{ fontSize: "3.5vw" }}>  שעת יציאה: {item.plannedTime} </p>
-                            <p className=" numOfChildren float-right d-inline-block " key={item.id} ><i className="fas fa-user-friends fa-1x" style={{ color: "grey" }}></i> {item.status === "driving" && this.hasJoinedToThisRideFunc(item.id)}{item.children.length} נוסעים </p>
-                        </div>
-                        <div className="col-3">
-                            <div style={{ fontSize: "3.5vw" }} key={item.status}>{item.status === "editing" ? <div><i className="fas fa-edit fa-3x" style={{ color: "grey" }} /><br /> בעריכה</div> :
-                                item.status === "ready" ? <div><i className="fas fa-check fa-3x" style={{ color: "rgb(110, 195, 129)" }} /><br /> מוכן</div> :
-                                    item.status === "driving" ? <div><i className="fas fa-car-alt fa-3x" style={{ color: "#ffc107" }} /><br /> בנסיעה</div> :
-                                        item.status === "finished" ? <div><i className="fab fa-font-awesome-flag fa-3x" style={{ color: "#66c3e9" }} /><br /> הגיע ליעד</div> :
-                                            null
-                            } </div>
-                        </div>
-                    </div>
-                </div>
-            </Link>
 
-        ))
-        return card;
+
+    preventDefaultOfLink = (event) => {
+        event.preventDefault()
+    }
+    //renders the rides cards
+    mapOfRidesArray = (direction, boolean) => {
+        let result = null;
+        if (boolean === true) {
+            result = direction.filter(x => x.status !== "disabled")
+        } else if (boolean === false) {
+            result = direction.filter(x => x.status === "disabled")
+        }
+        if (result) {
+            let card = result.map((item, i) => (
+                <div>
+                    {/* {boolean === false && item.status !=="ready" && */}
+                    <Link onClick={item.status === "disabled" && this.preventDefaultOfLink} key={i} to={{ pathname: `/rides/ride-details/${item.id}` }} >
+                        <div className={`rideCard p-2 ${item.status === "disabled" && "disabledMode"}`}>
+                            <div className="row" >
+                                <div className="col">
+                                    <p className="text-right" key={item.title} style={{ fontSize: "4.5vw" }}> {item.title} </p>
+                                    <p className=" float-right d-inline-block" key={item.plannedTime} style={{ fontSize: "3.5vw" }}>  שעת יציאה: {item.plannedTime} </p>
+                                    <p className=" numOfChildren float-right d-inline-block " key={item.id} ><i className="fas fa-user-friends fa-1x" style={{ color: "grey" }}></i> {item.status === "driving" && this.hasJoinedToThisRideFunc(item.id)}{item.children.length} נוסעים </p>
+                                </div>
+                                <div className="col-3">
+                                    <div style={{ fontSize: "3.5vw" }} key={item.status}>{
+                                        item.status === "editing" ? <div><i className="fas fa-edit fa-3x" style={{ color: "grey" }} /><br /> בתכנון</div> :
+                                            item.status === "ready" ? <div><i className="fas fa-check fa-3x" style={{ color: "rgb(110, 195, 129)" }} /><br /> מוכן</div> :
+                                                item.status === "driving" ? <div><i className="fas fa-car-alt fa-3x" style={{ color: "#ffc107" }} /><br /> בנסיעה</div> :
+                                                    item.status === "finished" ? <div><i className="fab fa-font-awesome-flag fa-3x" style={{ color: "#66c3e9" }} /><br /> הורד חניכים</div> :
+                                                        item.status === "disabled" ? <div><i className="far fa-calendar-check fa-3x" style={{ color: "grey" }} /><br /> הסתיימה</div> :
+                                                            null
+                                    } </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+                    {/* } */}
+                </div>
+            ))
+            return card;
+        }
     }
     render() {
-        console.log("state" , this.props)
+        console.log("state", this.props)
         return (
             <div>
-               
+
                 <div className="row top">
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDay}</p></div>
                     <div className="col basicDataOnActivity"><p>{this.props.activityDetails.activityDate}</p></div>
@@ -115,13 +133,23 @@ class Rides extends Component {
                             <a className="nav-link bnf-font" id="pills-back-tab" data-toggle="pill" href="#pills-back" role="tab" aria-controls="pills-back" aria-selected="false">נסיעות חזור</a>
                         </li>
                     </ul>
-                    <div className="tab-content content-of-selected-tab" id="pills-tabContent">
+                    <div className="tab-content content-of-selected-tab col" id="pills-tabContent">
 
-                        <div className="tab-pane fade show active" id="pills-forth" role="tabpanel" aria-labelledby="pills-forth-tab">
-                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesForthJson) : <img  src={loading_dots} alt="loading.io/spinner/"></img>}
+                        <div className="tab-pane fade show active row" id="pills-forth" role="tabpanel" aria-labelledby="pills-forth-tab">
+                            <div>
+                                {this.state.rides ? this.mapOfRidesArray(this.state.ridesForthJson, true) : <img src={loading_dots} alt="loading.io/spinner/"></img>}
+                                <div className="classOfTheDivOfDisabled row">
+                                    {this.state.rides &&
+                                         <span><hr/>{this.mapOfRidesArray(this.state.ridesForthJson, false)}</span>}
+                                </div>
+                            </div>
                         </div>
-                        <div className="tab-pane fade" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab">
-                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesBackJson): <img  src={loading_dots} alt="loading.io/spinner/"></img>}
+                        <div className="tab-pane fade row" id="pills-back" role="tabpanel" aria-labelledby="pills-back-tab">
+                            {this.state.rides ? this.mapOfRidesArray(this.state.ridesBackJson, true) : <img src={loading_dots} alt="loading.io/spinner/"></img>}
+                            <div className="classOfTheDivOfDisabled row">
+                                {this.state.rides && 
+                                    <span><hr/>{this.mapOfRidesArray(this.state.ridesBackJson, false)}</span>}
+                            </div>
                         </div>
                     </div>
 
