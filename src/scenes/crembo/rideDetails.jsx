@@ -60,60 +60,27 @@ class RideDetails extends Component {
     mapOfstaff = (val) => {
         let card = null;
         switch (val) {
-            case "children":
-
-                card = this.state.item.children.map((value, i) => (
-                    <div className="childrenCard p-2" key={i}>
-                        <div className="row ">
-                            {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
-                            <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
-                            <div className="newPadding col-1 text-right">
-                                {value.request && <div>
-                                    <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
-                                    </button>
-                                    <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
-                                        <ul type="square" className="mb-0">
-                                            {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
-                                        </ul>
-                                    </div>
-                                </div>}
-                            </div>
-                            <div className="newPadding col-1 text-right">
-                                <div className="dropdown">
-                                    <button className="dropdownsButtons" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i className=" font-responsive fas fa-ellipsis-v "></i>
-                                    </button>
-                                    <div className="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                                        <Link className="dropdown-item text-right" to={{ pathname: "/contact/children/details/" + value.id, state: { person: value, contactApi: "children" } }}>מידע נוסף</Link>
-                                        <a className="dropdown-item text-right" href="#">הסר מהסעה זו ביום זה</a>
-                                        <a className="dropdown-item text-right" href="#">העבר להסעה אחרת</a>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>))
-
-                break;
-
             case "drivers":
                 let driver = this.state.item.drivers;
                 card =
-                    <div className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
-                        <div className="cardTittle">נהג</div>
-                        <div className="name">{driver.firstName} {driver.lastName} <i class="fas fa-phone" /> </div>
-                    </div>
-
+                    <a href={"tel:" + driver.phone}>
+                        <div className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
+                            <div className="cardTittle">נהג</div>
+                            <div className="name">{driver.firstName} {driver.lastName} <i className="fas fa-phone" /> </div>
+                        </div>
+                    </a>
 
                 break;
             case "assistants":
 
                 card = this.state.item.assistants.map((value, i) => (
-                    <div className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
-                        <div className="cardTittle">מלווה</div>
-                        <div className="name">{value.firstName} {value.lastName} <i class="fas fa-phone" /> </div>
-                    </div>))
+                    <a key={i} href={"tel:" + value.phone}>
+                        <div  className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
+                            <div className="cardTittle">מלווה</div>
+                            <div className="name">{value.firstName} {value.lastName} <i className="fas fa-phone" /> </div>
+                        </div>
+                    </a>
+                ))
 
                 break;
             default:
@@ -124,7 +91,7 @@ class RideDetails extends Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log("this.state", this.state)
         return (
             <div>
                 {this.state.item &&
@@ -152,16 +119,12 @@ class RideDetails extends Component {
                             </Link>}
 
                             {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
-                            
-                            {this.state.item.children &&<Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map',  state: { children: this.state.item.children, assistants:this.state.item.assistants, branches:this.state.item.branches}  }} >
-                            <div className="d-inline-block bold shadow p-2 mb-2 bg-white rounded text-center staffCard">מסלול ונוסעים</div>
+
+                            {this.state.item.children && <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map', state: { children: this.state.item.children, assistants: this.state.item.assistants, branches: this.state.item.branches } }} >
+                                <div className="d-inline-block bold shadow p-2 mb-2 bg-white rounded text-center staffCard">מסלול ונוסעים</div>
                             </Link>}
                         </div>
 
-
-
-
-                        {/* {this.state.item.children && <div className="container">{this.mapOfstaff("children")}</div>} */}
 
 
 

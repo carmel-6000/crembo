@@ -27,6 +27,11 @@
                 "width": 80,
                 "editable": "true"
 
+            },
+            "pathOrder": {
+                "width": 80,
+                "editable": "true",
+                "type": "Number"
             }
         }
     },
@@ -127,7 +132,7 @@
         },
         "activity": {
             "id": true,
-            "type": "number",
+            "type": "Number",
             "length": null,
             "precision": 11,
             "scale": 0,
@@ -139,6 +144,21 @@
                 "dataScale": 0,
                 "nullable": "N"
             }
+        },
+        "pathOrder": {
+            "type": "Number",
+            "length": null,
+            "precision": 11,
+            "scale": 0,
+            "mysql": {
+                "columnName": "path_order",
+                "dataType": "int",
+                "dataLength": null,
+                "dataPrecision": 11,
+                "dataScale": 0,
+                "nullable": "Y"
+            }
         }
+
     }
 }

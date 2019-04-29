@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './crembo.css';
 import { Link } from "react-router-dom";
 import { Auth } from '../../Auth/Auth';
-import "./mapDirections.css";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import "./mapDirections.css";
+import './crembo.css';
 
 let google = undefined;
 let map = undefined;
@@ -39,14 +40,13 @@ class MapDirections extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      init: false
-
+      init: false,
+      whereFinger: 20,
+      children: []
     }
-    props.activityDetails.onStart('מסלול ונוסעים')
-    
-
+    props.activityDetails.onStart('מסלול ונוסעים');
   }
-  
+
   componentWillMount() {
 
     if (this.props.location.state) {
@@ -56,7 +56,7 @@ class MapDirections extends Component {
       console.log("yes")
     } else {
       Auth.authFetch(`/api/rides/${this.props.match.params.id}?filter={"include": [{"children": "requests"}, {"drivers": "requests"}, "branches"]}`).then(response => { return response.clone().json() }).then(res => {
-        this.setState({ children: res.children,  branchAddress: res.branches.address }, () => {
+        this.setState({ children: res.children, branchAddress: res.branches.address }, () => {
           this.mapOfAddress();
           console.log(res)
         })
@@ -66,27 +66,20 @@ class MapDirections extends Component {
 
   }
 
-  mapScript = () => {
-    window.initMap = this.initMap.bind(this);
-    const script = document.createElement('script')
-    script.async = true;
-    script.defer = true;
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ2EImKFwNu1PKEFcK4OhMq5eEnxnsF-g&callback=initMap";
-    document.head.appendChild(script);
-    this.setState({ destination: this.state.branchAddress, init: true });
-
-  }
-  mapOfAddress = () => {
-    let arr = [];
-    this.state.children.map((value, index) => arr.push(value.addressForth));
-    this.setState({ origin: arr[0], places: arr }, () => {
-      this.doScript();
+  componentDidMount() {
+    let divListner = document.getElementById("mayyanahh");
+    let self = this;
+    self.scrollingdiv = false;
+    divListner.addEventListener("touchmove", () => {
+      self.scrollingdiv = true;
     });
-  }
-
-
-  doScript = () => {
-    return this.state.init ? this.calculateAndDisplayRoute() : this.mapScript();
+    divListner.addEventListener("ontouchend	", () => {
+      self.scrollingdiv = false;
+    });
+    window.addEventListener("touchmove", (e) => {
+      if (self.scrollingdiv)
+        self.setState({ whereFinger: e.touches[0].clientY })
+    });
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -95,8 +88,8 @@ class MapDirections extends Component {
     }
   }
 
-  mapOfchildren = () => {
 
+  mapOfchildren = () => {
     let card = null;
     card = this.state.children.map((value, i) => (
 
@@ -118,19 +111,26 @@ class MapDirections extends Component {
             >
               <div className="childrenCard p-2" key={i}>
                 <div className="row ">
-                  {value.thumbnail ? <div className="newPadding col-2"><img className="thumbnailIMG" src={value.thumbnail} alt="thumbnail" /></div> : <div className="newPadding col-2"><i className="fas fa-user" /></div>}
+                  {value.thumbnail ?
+                    <div className="newPadding col-2">
+                      <img className="thumbnailIMG" src={value.thumbnail} alt="thumbnail" />
+                    </div> :
+                    <div className="newPadding col-2">
+                      <i className="fas fa-user" />
+                    </div>}
                   <div className="newPadding font-responsive col text-right">{value.firstName} {value.lastName}</div>
                   <div className="newPadding col-1 text-right">
-                    {value.request && <div>
-                      <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
-                      </button>
-                      <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
-                        <ul type="square" className="mb-0">
-                          {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
-                        </ul>
-                      </div>
-                    </div>}
+                    {value.request &&
+                      <div>
+                        <button className="dropdownsButtons" type="button" id="dropdownInfoButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i style={{ color: "#c12735" }} class="font-responsive fas fa-exclamation "></i>
+                        </button>
+                        <div className="dropdown-menu requestsDropdown rounded" aria-labelledby="dropdownInfoButton">
+                          <ul type="square" className="mb-0">
+                            {value.requests.map((val) => <li className="text-right" key={i}>{val.request} </li>)}
+                          </ul>
+                        </div>
+                      </div>}
                   </div>
                   <div className="newPadding col-1 text-right">
                     <div className="dropdown">
@@ -156,6 +156,45 @@ class MapDirections extends Component {
   }
 
 
+  onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const children = reorder(
+      this.state.children,
+      result.source.index,
+      result.destination.index
+    );
+
+    this.setState({
+      children
+    });
+  }
+
+  mapScript = () => {
+    window.initMap = this.initMap.bind(this);
+    const script = document.createElement('script')
+    script.async = true;
+    script.defer = true;
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCZ2EImKFwNu1PKEFcK4OhMq5eEnxnsF-g&callback=initMap";
+    document.head.appendChild(script);
+    this.setState({ destination: this.state.branchAddress, init: true });
+
+  }
+  mapOfAddress = () => {
+    let arr = [];
+    this.state.children.map((value, index) => arr.push(value.addressForth));
+    this.setState({ origin: arr[0], places: arr }, () => {
+      this.doScript();
+    });
+  }
+
+
+  doScript = () => {
+    return this.state.init ? this.calculateAndDisplayRoute() : this.mapScript();
+  }
 
 
   initMap = () => {
@@ -174,9 +213,6 @@ class MapDirections extends Component {
 
 
   }
-
-
-
 
 
   calculateAndDisplayRoute = () => {
@@ -198,54 +234,60 @@ class MapDirections extends Component {
     });
   }
 
-  onDragEnd  = (result) => {
-    // dropped outside the list
-    if (!result.destination) {
-      return;
-    }
 
-    const children = reorder(
-      this.state.children,
-      result.source.index,
-      result.destination.index
-    );
 
-    this.setState({
-      children
-    });
+  post = () => {
+    this.state.children.map((value, index) => (
+      Auth.authPost(`/api/ChildrenRides/update?where={"childId": ${value.id}, "rideId": ${this.props.match.params.id}}`, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "pathOrder": index })
+      }).then(response => { return response.json() }).then(updatedRow => {
+        if (updatedRow.error) {
+          return (
+            console.log("error"));
+        }
+      })
+    ))
+    console.log("the other comp props: ", this.props.history.goBack());
+
   }
 
 
   render() {
     console.log("props:", this.props);
     console.log("state:", this.state);
-
+    const heightDiv = { height: (this.state.whereFinger + 20) + "px" };
     return (
       <div>
+        <button onClick={() => this.post()}>עדכן וחזור</button>
         <div id="map" className="mapDiv"></div>
-        {this.state.children && <div>
 
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  
-                  {...provided.droppableProps}
-                >
+        <div id="mayyanahh" style={heightDiv}>
+          <div>=====</div>
+          {this.state.children && <div>
 
-                  {this.mapOfchildren()}
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
 
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+                    {...provided.droppableProps}
+                  >
+
+                    {this.mapOfchildren()}
+
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
 
 
 
-        </div>}
-
+          </div>}
+        </div>
       </div>
     );
   }
@@ -283,3 +325,7 @@ export default MapDirections;
 //       this.doScript();
 //     });
 //   }
+// ALTER TABLE children_rides ADD COLUMN order INT(11) unsigned DEFAULT NULL;
+// ALTER TABLE children_rides
+// ADD COLUMN path_order INT DEFAULT NULL;
+
