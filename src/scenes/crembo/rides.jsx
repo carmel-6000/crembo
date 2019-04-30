@@ -23,6 +23,7 @@ class Rides extends Component {
         console.log("the props page rides", this.props.location)
         Auth.authFetch(`/api/activities/${this.props.activityDetails.activityId}/rides?filter={"include": [{"children": "requests"}, "drivers", "assistants"]}`).then(response => { return response.clone().json() }).then(res => {
             this.setState({ rides: res })
+            console.log("res",res)
             let ridesBackJson = [];
             let ridesForthJson = [];
             for (let i = 0; i < res.length; i++) {
@@ -85,9 +86,9 @@ class Rides extends Component {
         }
         if (result) {
             let card = result.map((item, i) => (
-                <div>
+                <div key={i}>
                     {/* {boolean === false && item.status !=="ready" && */}
-                    <Link onClick={item.status === "disabled" && this.preventDefaultOfLink} key={i} to={{ pathname: `/rides/ride-details/${item.id}` }} >
+                    <Link onClick={item.status === "disabled" && this.preventDefaultOfLink}  to={{ pathname: `/rides/ride-details/${item.id}` }} >
                         <div className={`rideCard p-2 ${item.status === "disabled" && "disabledMode"}`}>
                             <div className="row" >
                                 <div className="col">

@@ -10,10 +10,9 @@ class ContactList extends Component {
         this.state = {
             people: null,
             filteredPeople: null,
-            branch: localStorage.getItem('branchId')
+            branch: localStorage.getItem('branchId'),
         }
-        props.activityDetails.onStart('אנשי קשר')
-
+        props.activityDetails.onStart("אנשי קשר")
     }
 
     whenStartOrUpdate = () => {
@@ -21,13 +20,14 @@ class ContactList extends Component {
             this.setState({ filteredPeople: res, people: res });
 
         });
-
+        
     }
 
     componentDidMount() {
+        this.title();
+
         if (this.props.match.params.id) {
             this.setState({ chooseMode: true })
-
         }
 
         Auth.authFetch('/api/Branches/' + this.state.branch + '/' + this.props.match.params.person + '?filter={"include":"requests"}').then(response => { return response.json() }).then(res => {
@@ -39,12 +39,48 @@ class ContactList extends Component {
 
     }
 
+
+
     componentDidUpdate(prevProp, prevState) {
         if (this.props.match.params !== prevProp.match.params) {
             this.whenStartOrUpdate();
-
+            
         };
+        if  (this.props.match.params.person!== (prevProp.match.params.person)){
+            this.title();
+        }
 
+    }
+
+    title = () => {
+        let title;
+        switch (this.props.match.params.person) {
+            case "drivers":
+                if (this.props.match.params.id) {
+                    title = "בחירת נהג להסעה";
+                }
+                else {
+                    title = "אנשי קשר: נהגים";
+                }
+                break;
+
+            case "assistants":
+                if (this.props.match.params.id) {
+                    title = "בחירת מלווה להסעה";
+                }
+                else {
+                    title = "אנשי קשר: מלווים";
+                }
+                break;
+
+            case "children":
+                    title = "אנשי קשר: חניכים";
+                break;
+            default:
+                console.log("no title");
+
+        }
+        this.props.activityDetails.onStart(title)
     }
 
 
@@ -79,6 +115,7 @@ class ContactList extends Component {
 
 
     render() {
+        console.log("first state", this.props.match.params.person)
         return (
             <div>
                 {this.state.people ?
@@ -184,48 +221,13 @@ class List extends Component {
                                 </div>
                             </a>
 
-                                {this.props.chooseMode && <div className="col-3 align-self-end addButton" onClick={e => e.preventDefault()}>
-                                    <button onClick={() => this.contactChoosen(person.id)} className="btn btn-info btn-lg join bold">צרף</button>
+                            {this.props.chooseMode && <div className="col-3 align-self-end addButton" onClick={e => e.preventDefault()}>
+                                <button onClick={() => this.contactChoosen(person.id)} className="btn btn-info btn-lg join bold">צרף</button>
 
-                                </div>}
+                            </div>}
 
                         </div>
                     </div>
-
-
-// <div className="list-group-item list-group-item-action personCard" data-category={person} key={person.id}>
-
-// <div class="container">
-
-//     <div class="row">
-//     <Link key={person.id} className={`linkTo ${this.props.chooseMode ? "col-7" : "col-9"}`} to={{ pathname: '/contact/' + `${this.props.params.person}` + '/details/' + `${person.id}`, state: { person } }} >
-//     <div class="col-xs-2">
-//     {person.thumbnail !== null ?
-//         <img src={person.thumbnail} className="contactImg" alt="thumbnail" />:
-//         <i className="fas fa-user-tie noPic" />}
-// </div>
-// <div class="col-xs-7 text-right grey name1">
-//     {person.firstName} {person.lastName}
-// </div>
-
-// </Link>
-// <a href={"tel:" + person.phone}>
-//             <div class="col-xs-1">
-//                 <i className="fas fa-phone phoneImg" />
-//             </div>
-//         </a>
-
-//         <div onClick={e => e.preventDefault()}>
-//             {this.props.chooseMode && <div class="col-xs-2" >
-//                 <button onClick={() => this.contactChoosen(person.id)} className="btn btn-info btn-lg join bold"  >צרף</button>
-//             </div>}
-
-//         </div>
-   
-//     </div>
-// </div>
-// </div>
-
 
                 )
             }));

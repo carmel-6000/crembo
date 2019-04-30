@@ -67,3 +67,19 @@
     padding-top: 1.5vh;
     margin-top: 2.5vh; */
 }
+.left{
+    float: left;
+}
+.callA{
+    color:rgb(110, 132, 145);
+    
+}
+.onlyW{
+    display: inline;
+
+}
+
+.callA:hover{
+    text-decoration: none; 
+    color:rgb(110, 132, 145)
+}

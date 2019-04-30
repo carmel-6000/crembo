@@ -77,14 +77,14 @@ class ChildDetails extends Component {
                                 {this.state.userInfo.contactName &&
                                     <div>
                                         <div className="mt-3" >איש קשר</div>
-                                        <a href={"tel:" + this.state.userInfo.phone}>
+                                        <a className="callB" href={"tel:" + this.state.userInfo.phone}>
                                             <div className="infoBox row mt-1"><span className="col-10 text-right p-0">{this.state.userInfo.contactName}</span> <i className="fas fa-phone fa-1x col"></i> </div>
                                         </a>
                                     </div>}
                                 {this.state.userInfo.phone && !this.state.userInfo.contactName &&
                                     <div>
                                         <div className="mt-3">טלפון</div>
-                                        <a href={"tel:" + this.state.userInfo.phone}>
+                                        <a className="callB" href={"tel:" + this.state.userInfo.phone}>
                                             <div className="infoBox row mt-1" ><span className="col-10  text-right p-0">{this.state.userInfo.phone}</span> <i className="fas fa-phone fa-1x col"></i> </div>
                                         </a>
 
@@ -92,7 +92,7 @@ class ChildDetails extends Component {
                                 {this.state.userInfo.alertTime &&
                                     <div>
                                         <div className="mt-3" >התראה לפני הגעה</div>
-                                        <div className="infoBox row mt-1">{this.state.userInfo.alertTime}</div>
+                                        <div className="infoBox row mt-1">{this.state.userInfo.alertTime} דקות</div>
                                     </div>}
                                 {this.state.userInfo.requests && this.state.userInfo.requests[0] &&
                                     <div>

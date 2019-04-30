@@ -46,7 +46,6 @@ class Crembo extends Component {
         let managerId = localStorage.getItem('userId');
         if (managerId) {
             Auth.authFetch(`/api/activities?filter={"where": {"managerId": ${managerId} , "isLive": true}}`).then(response => { return response.json() }).then(res => {
-                console.log("רקד" , res)
                 if (res.length === 0) {
                     this.setState({ haschecked: true });
                 }

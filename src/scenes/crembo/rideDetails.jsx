@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './rides.css';
 import { Auth } from '../../Auth/Auth';
 import { Link } from "react-router-dom";
+import './rides.css';
 
 
 class RideDetails extends Component {
@@ -63,12 +63,11 @@ class RideDetails extends Component {
             case "drivers":
                 let driver = this.state.item.drivers;
                 card =
-                    <a href={"tel:" + driver.phone}>
+                    
                         <div className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
-                            <div className="cardTittle">נהג</div>
-                            <div className="name">{driver.firstName} {driver.lastName} <i className="fas fa-phone" /> </div>
+                            <div className="cardTittle">נהג<i  onClick={(e) => e.preventDefault()} className="fas fa-trash-alt left ml-3 mt-3"/></div>
+                            <a className="callA" href={"tel:" + driver.phone}><div className="name onlyW">{driver.firstName} {driver.lastName} <i className="fas fa-phone" /> </div></a>
                         </div>
-                    </a>
 
                 break;
             case "assistants":
@@ -104,9 +103,10 @@ class RideDetails extends Component {
                                 <div className="col basicDataOnActivity">{this.props.activityDetails.branchName}</div>
                             </div>
                             <div className="timeout">שעת יציאה<input className="timein" type="time" value={this.state.item.plannedTime} name="planned_time" id="planned_time" onChange={this.changeItemDetails}></input></div>
+                            
                             {this.state.item.drivers && <div className="driveri">הנהג: {this.state.item.drivers.firstName} {this.state.item.drivers.lastName}</div>}
                         </div>
-
+                    
 
 
 
@@ -120,7 +120,7 @@ class RideDetails extends Component {
 
                             {this.state.item.assistants && <div>{this.chooseAssis(this.state.item.assistants.length)}</div>}
 
-                            {this.state.item.children && <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map', state: { children: this.state.item.children, assistants: this.state.item.assistants, branches: this.state.item.branches } }} >
+                            {this.state.item.children && <Link to={{ pathname: '/rides/ride-details/' + this.props.match.params.id + '/map', state: { children: this.state.item.children, assistants: this.state.item.assistants, branches: this.state.item.branches, direction: this.state.item.direction } }} >
                                 <div className="d-inline-block bold shadow p-2 mb-2 bg-white rounded text-center staffCard">מסלול ונוסעים</div>
                             </Link>}
                         </div>
@@ -138,3 +138,4 @@ class RideDetails extends Component {
 
 
 export default RideDetails;
+// onClick={e => e.preventDefault()}
