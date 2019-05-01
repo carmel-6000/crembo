@@ -63,31 +63,42 @@ class RideDetails extends Component {
             case "drivers":
                 let driver = this.state.item.drivers;
                 card =
-                    
                         <div className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
-                            <div className="cardTittle">נהג<i  onClick={(e) => e.preventDefault()} className="fas fa-trash-alt left ml-3 mt-3"/></div>
+                            <div className="cardTittle">נהג<div onClick={ this.deleteDriver} className=" left ml-3 mt-3"><i class="fas fa-trash-alt"></i></div></div>
                             <a className="callA" href={"tel:" + driver.phone}><div className="name onlyW">{driver.firstName} {driver.lastName} <i className="fas fa-phone" /> </div></a>
                         </div>
 
                 break;
             case "assistants":
-
                 card = this.state.item.assistants.map((value, i) => (
-                    <a key={i} href={"tel:" + value.phone}>
-                        <div  className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
-                            <div className="cardTittle">מלווה</div>
-                            <div className="name">{value.firstName} {value.lastName} <i className="fas fa-phone" /> </div>
+                        <div key={i} className="d-inline-block shadow p-2 mb-2  bg-white rounded pr-5 text-right driverCard">
+                            <div className="cardTittle">מלווה<div onClick={ () =>this.deleteAssistant(i)} className=" left ml-3 mt-3"><i class="fas fa-trash-alt"></i></div></div>
+                            <a className="callA" key={i} href={"tel:" + value.phone}><div className="name">{value.firstName} {value.lastName} <i className="fas fa-phone" /></div></a>
                         </div>
-                    </a>
                 ))
 
                 break;
             default:
-                return console.log("error in mapOfstaff()")
+                return console.log("error in mapOfstaff()");
+
 
         }
         return card;
     }
+    
+    deleteDriver = () => {
+         let item=this.state.item;
+         item.drivers=null;
+        this.setState({item:item })
+    }
+    deleteAssistant = (index) => {
+    //     let item=this.state.item;
+    //     item.assistant=null;
+    //    this.setState({item:item })
+    let item=this.state.item;
+    item.assistants.splice(index,1);
+    this.setState({item:item })
+   }
 
     render() {
         console.log("this.state", this.state)
